@@ -31,6 +31,9 @@ interface VerifyResult {
 }
 
 const API = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+if (typeof window !== 'undefined') {
+  console.log('Chat page API initialized as:', API);
+}
 
 const MODULE_NAMES: Record<string, string> = {
   M1: 'Mathematics', M2: 'Physics', M3: 'Electrical Fundamentals',

@@ -2,6 +2,10 @@ import { supabase } from './supabaseClient';
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 
+if (typeof window !== 'undefined') {
+  console.log('API_BASE initialized as:', API_BASE);
+}
+
 export interface ChatResponse {
   answer: string;
   source: { source: string; page: string }[];
@@ -29,15 +33,23 @@ async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
     headers['Authorization'] = `Bearer ${token}`;
   }
 
-  const res = await fetch(`${API_BASE}${path}`, {
-    headers,
-    ...options,
-  });
-  if (!res.ok) {
-    const err = await res.json().catch(() => ({ detail: 'Unknown error' }));
-    throw new Error(err.detail || `HTTP ${res.status}`);
+  try {
+    const res = await fetch(`${API_BASE}${path}`, {
+      headers,
+      ...options,
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({ detail: 'Unknown error' }));
+      throw new Error(err.detail || `HTTP ${res.status}`);
+    }
+    return res.json();
+  } catch (error: any) {
+    console.error('Request failed:', error);
+    if (error.message.includes('Failed to fetch') || error.name === 'TypeError') {
+      throw new Error(`Connection failed to ${API_BASE}. Make sure the backend is running and public.`);
+    }
+    throw error;
   }
-  return res.json();
 }
 
 export async function askQuestion(
