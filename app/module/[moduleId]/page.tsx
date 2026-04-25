@@ -472,6 +472,12 @@ function ModuleContent() {
   const [showSuccess, setShowSuccess] = useState(false);
   const [feedbackError, setFeedbackError] = useState('');
 
+  // ── Unlock Modal ──────────────────────────────────────────────────────────────
+  const [isPayModalOpen, setIsPayModalOpen] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState<{ amount: string, duration: string } | null>(null);
+  const [showPromoInput, setShowPromoInput] = useState(false);
+  const [promoCode, setPromoCode] = useState('');
+
   const submitFeedback = async () => {
     if (!feedbackMessage.trim()) return;
     setIsSubmitting(true);
@@ -855,7 +861,7 @@ function ModuleContent() {
       </Accordion>
 
       {/* Progress Tracker */}
-      <div style={{ background: '#fff', borderRadius: '14px', padding: '1rem', marginBottom: '1rem', border: '1px solid #e2e6f0' }}>
+      <div style={{ background: '#fff', borderRadius: '14px', padding: '1rem', marginBottom: '1rem', border: '1px solid #e2e6f0', borderTop: '2px solid #e8b94f' }}>
         <h3 style={{ fontSize: '0.82rem', fontWeight: 700, color: '#172a6e', margin: '0 0 0.875rem 0', fontFamily: 'Georgia, serif', textAlign: 'center' }}>Module Progress Tracker</h3>
         
         <button 
@@ -875,7 +881,15 @@ function ModuleContent() {
             { p: '₹199', l: '1 Month', sub: 'Most popular', hot: true },
             { p: '₹499', l: '3 Months', sub: 'Best for exam prep', hot: false },
           ].map(opt => (
-            <button key={opt.p} style={{ padding: '0.625rem 0.875rem', background: opt.hot ? '#e8b94f' : 'rgba(255,255,255,0.1)', border: opt.hot ? 'none' : '1px solid rgba(255,255,255,0.2)', borderRadius: '9px', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center', backdropFilter: 'blur(4px)' }}>
+            <button 
+              key={opt.p} 
+              onClick={() => {
+                setSelectedPlan({ amount: opt.p, duration: opt.l });
+                setIsPayModalOpen(true);
+                setShowPromoInput(false);
+              }}
+              style={{ padding: '0.625rem 0.875rem', background: opt.hot ? '#e8b94f' : 'rgba(255,255,255,0.1)', border: opt.hot ? 'none' : '1px solid rgba(255,255,255,0.2)', borderRadius: '9px', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center', backdropFilter: 'blur(4px)', width: '100%' }}
+            >
               <div style={{ textAlign: 'left' }}>
                 <div style={{ fontSize: '0.82rem', fontWeight: 700, color: opt.hot ? '#1a1f3a' : '#fff' }}>{opt.l}</div>
                 <div style={{ fontSize: '0.65rem', color: opt.hot ? '#4a3500' : 'rgba(255,255,255,0.6)' }}>{opt.sub}</div>
@@ -1286,6 +1300,74 @@ function ModuleContent() {
           </div>
         );
       })()}
+
+      {isPayModalOpen && (
+        <div 
+          onClick={() => setIsPayModalOpen(false)}
+          style={{ position: 'fixed', inset: 0, background: 'rgba(10, 20, 50, 0.85)', backdropFilter: 'blur(10px)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem' }}
+        >
+          <div 
+            onClick={e => e.stopPropagation()}
+            style={{ background: '#0a1432', border: '1px solid #e8b94f', borderRadius: '24px', width: '100%', maxWidth: '420px', padding: '2.5rem 2rem', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)', position: 'relative', textAlign: 'center' }}
+          >
+            <button 
+              onClick={() => setIsPayModalOpen(false)}
+              style={{ position: 'absolute', top: '1.25rem', right: '1.25rem', background: 'rgba(255,255,255,0.05)', border: 'none', borderRadius: '50%', width: '32px', height: '32px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#9ca3af', fontSize: '1.25rem' }}
+            >
+              ×
+            </button>
+
+            <div style={{ width: '64px', height: '64px', background: 'rgba(232, 185, 79, 0.1)', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '2rem', margin: '0 auto 1.5rem' }}>
+              🔓
+            </div>
+
+            <h2 style={{ fontSize: '1.75rem', color: '#fff', marginBottom: '0.75rem', fontWeight: 800, fontFamily: 'Georgia, serif' }}>
+              Unlock {moduleId}
+            </h2>
+            <p style={{ color: 'rgba(255, 255, 255, 0.7)', fontSize: '1rem', lineHeight: 1.6, marginBottom: '2rem' }}>
+              Enter a promo code or pay to unlock full access to this module.
+            </p>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.875rem' }}>
+              {!showPromoInput ? (
+                <button 
+                  onClick={() => setShowPromoInput(true)}
+                  style={{ width: '100%', padding: '1rem', background: 'rgba(255, 255, 255, 0.05)', border: '1px solid rgba(255, 255, 255, 0.1)', borderRadius: '12px', color: '#e8b94f', fontSize: '1rem', fontWeight: 700, cursor: 'pointer', transition: 'all 0.2s' }}
+                >
+                  I have a promo code
+                </button>
+              ) : (
+                <div style={{ display: 'flex', gap: '0.5rem' }}>
+                  <input 
+                    type="text" 
+                    placeholder="Enter code..." 
+                    value={promoCode}
+                    onChange={e => setPromoCode(e.target.value)}
+                    style={{ flex: 1, padding: '1rem', background: 'rgba(255, 255, 255, 0.05)', border: '1px solid #e8b94f', borderRadius: '12px', color: '#fff', fontSize: '1rem', outline: 'none' }}
+                  />
+                  <button 
+                    style={{ padding: '0 1.25rem', background: '#e8b94f', color: '#1a1f3a', border: 'none', borderRadius: '12px', fontSize: '0.9rem', fontWeight: 800, cursor: 'pointer' }}
+                    onClick={() => alert(`Code ${promoCode} is invalid or expired.`)}
+                  >
+                    Apply
+                  </button>
+                </div>
+              )}
+
+              <button 
+                onClick={() => alert('Payment coming soon')}
+                style={{ width: '100%', padding: '1rem', background: '#e8b94f', color: '#1a1f3a', border: 'none', borderRadius: '12px', fontSize: '1rem', fontWeight: 800, cursor: 'pointer', boxShadow: '0 4px 12px rgba(232, 185, 79, 0.3)' }}
+              >
+                Pay {selectedPlan?.amount}
+              </button>
+            </div>
+
+            <p style={{ fontSize: '0.75rem', color: 'rgba(255, 255, 255, 0.4)', marginTop: '1.5rem' }}>
+              Secure payment via Razorpay · Instant Activation
+            </p>
+          </div>
+        </div>
+      )}
 
     </div>
   );

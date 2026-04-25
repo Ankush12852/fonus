@@ -365,7 +365,7 @@ export default function HomePage() {
                     marginBottom: '24px',
                     textTransform: 'uppercase'
                   }}
-                  className="text-left"
+                  className="text-left hero-tagline"
                 >
                   INDIA'S FIRST AI-POWERED AME EXAM PREP PLATFORM
                 </div>
@@ -633,7 +633,7 @@ export default function HomePage() {
 
         {/* SECTION 1 — THE PROBLEM (REDESIGNED V2 - PREVIOUS LAYOUT WITH NEW TEXT) */}
         <section style={{ width: '100%', background: '#ffffff', padding: '120px 80px' }}>
-          <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', gap: '40px' }}>
+          <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', gap: '40px' }} className="problem-grid">
             {/* LEFT STICKY COLUMN */}
             <div style={{ width: '50%', position: 'relative' }}>
               <div style={{ position: 'sticky', top: 120, alignSelf: 'flex-start' }}>
@@ -934,7 +934,7 @@ export default function HomePage() {
               Generic AI answers from memory. Fonus answers only from verified DGCA-approved sources /Manual — with the chapter and page to prove it.
             </motion.p>
 
-            <div style={{ width: '100%', maxWidth: 900, margin: '0 auto' }}>
+            <div style={{ width: '100%', maxWidth: 900, margin: '0 auto' }} className="comparison-table-wrapper">
               {/* Table Header */}
               <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr 1.2fr', background: 'rgba(255,255,255,0.04)', borderBottom: '1px solid rgba(255,255,255,0.1)', padding: '16px 24px', borderRadius: '12px 12px 0 0' }}>
                 <div style={{ fontFamily: dmSans.style.fontFamily, color: 'rgba(255,255,255,0.55)', fontSize: 14, fontWeight: 700 }}>Feature</div>
@@ -1054,7 +1054,7 @@ export default function HomePage() {
               Built for the way DGCA exams actually work.
             </motion.p>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '60% 40%', gap: 20 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '60% 40%', gap: 20 }} className="tools-grid">
               {/* Card 1 - larger top left */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -1158,7 +1158,7 @@ export default function HomePage() {
             <div style={{ position: 'relative' }}>
               <div style={{ position: 'absolute', left: '5%', right: '5%', top: 32, borderTop: '2px dashed #e8b94f', zIndex: 0 }} />
 
-              <div style={{ display: 'flex', gap: 0, justifyContent: 'space-between' }}>
+              <div style={{ display: 'flex', gap: 0, justifyContent: 'space-between' }} className="steps-grid">
                 {[
                   {
                     num: 1,
@@ -1792,7 +1792,7 @@ export default function HomePage() {
             }
           `}</style>
 
-          <div style={{ maxWidth: 1080, margin: '0 auto' }}>
+          <div style={{ maxWidth: 1080, margin: '0 auto' }} className="stream-grid">
             {/* Section header */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -2067,7 +2067,7 @@ export default function HomePage() {
         </section>
 
         {/* SECTION A — FAQ */}
-        <section style={{ width: '100%', background: '#f8f9fc', padding: '120px 80px' }}>
+        <section style={{ width: '100%', background: '#f8f9fc', padding: '120px 80px' }} className="faq-wrapper">
           <div style={{ maxWidth: '800px', margin: '0 auto' }}>
             <div style={{ textAlign: 'center', marginBottom: 64 }}>
               <motion.div
@@ -2161,7 +2161,7 @@ export default function HomePage() {
         </section>
 
         {/* SECTION 7 — PRE-FOOTER CTA BAND */}
-        <section style={{ width: '100%', background: '#e8b94f', padding: '80px 80px', textAlign: 'center' }}>
+        <section style={{ width: '100%', background: '#e8b94f', padding: '80px 80px', textAlign: 'center' }} className="prefooter-band">
           <div style={{ maxWidth: 1000, margin: '0 auto' }}>
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
@@ -2221,7 +2221,7 @@ export default function HomePage() {
           .footer-link:hover { color: #e8b94f; }
         `}</style>
 
-        <div style={{ maxWidth: 1200, margin: '0 auto', display: 'grid', gridTemplateColumns: '35% 1fr 1fr 1fr', columnGap: 60, rowGap: 40 }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto', display: 'grid', gridTemplateColumns: '35% 1fr 1fr 1fr', columnGap: 60, rowGap: 40 }} className="footer-grid">
           {/* COLUMN 1 — Brand */}
           <div>
             <Image
@@ -2301,7 +2301,7 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div style={{ maxWidth: 1200, margin: '60px auto 0 auto', paddingTop: 24, borderTop: '1px solid rgba(255,255,255,0.06)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 20 }}>
+        <div style={{ maxWidth: 1200, margin: '60px auto 0 auto', paddingTop: 24, borderTop: '1px solid rgba(255,255,255,0.06)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 20 }} className="footer-bottom">
           <div style={{ fontFamily: dmSans.style.fontFamily, fontSize: 13, color: 'rgba(255,255,255,0.25)' }}>
             © 2026 Fonus. All rights reserved.
           </div>

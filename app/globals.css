@@ -161,3 +161,128 @@ h1, h2, h3, h4 {
   0% { transform: translateX(-100%); }
   100% { transform: translateX(200%); }
 }
+
+@media (max-width: 768px) {
+
+  /* GLOBAL */
+  html, body {
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
+  }
+
+  /* Fix all sections with large desktop padding */
+  section {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+
+  /* HERO — tagline letter spacing fix */
+  .hero-tagline {
+    letter-spacing: 0.04em !important;
+    font-size: 11px !important;
+  }
+
+  /* THREE STEPS SECTION — collapse 3 columns to 1 */
+  .steps-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 32px !important;
+  }
+
+  .steps-grid > * {
+    width: 100% !important;
+    text-align: center !important;
+  }
+
+  /* PROBLEM SECTION — collapse 2 columns to 1 */
+  .problem-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 24px !important;
+  }
+
+  .problem-grid > * {
+    width: 100% !important;
+  }
+
+  /* FEATURES / COMPARISON TABLE — make scrollable */
+  .comparison-table-wrapper {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  .comparison-table-wrapper table {
+    min-width: 480px !important;
+  }
+
+  /* FOUR TOOLS SECTION — collapse to 1 column */
+  .tools-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 16px !important;
+  }
+
+  .tools-grid > * {
+    width: 100% !important;
+  }
+
+  /* PRICING SECTION — cards full width */
+  .pricing-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 24px !important;
+  }
+
+  .pricing-grid > * {
+    width: 100% !important;
+    max-width: 360px !important;
+  }
+
+  /* STREAM SELECTION — 1 column */
+  .stream-grid {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  /* FOOTER — stack all columns */
+  .footer-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 32px !important;
+  }
+
+  .footer-grid > * {
+    width: 100% !important;
+  }
+
+  /* FOOTER bottom bar */
+  .footer-bottom {
+    flex-direction: column !important;
+    text-align: center !important;
+    gap: 8px !important;
+  }
+
+  /* HEADINGS — prevent overflow */
+  h1, h2, h3, h4 {
+    word-break: break-word !important;
+    hyphens: auto !important;
+  }
+
+  /* PRE-FOOTER CTA BAND */
+  .prefooter-band {
+    padding: 60px 20px !important;
+  }
+
+  .prefooter-band h2 {
+    font-size: 28px !important;
+    line-height: 1.2 !important;
+  }
+
+  /* FAQ */
+  .faq-wrapper {
+    padding: 60px 20px !important;
+  }
+}
