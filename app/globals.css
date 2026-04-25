@@ -285,4 +285,43 @@ h1, h2, h3, h4 {
   .faq-wrapper {
     padding: 60px 20px !important;
   }
+
+  /* HERO TAGLINE — hide on mobile, it overlaps navbar */
+  .hero-tagline {
+    display: none !important;
+  }
+
+  /* HERO PARAGRAPH — fix monospace font and letter spacing */
+  .hero-paragraph {
+    font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif !important;
+    letter-spacing: normal !important;
+    font-size: 16px !important;
+    line-height: 1.6 !important;
+  }
+
+  /* HERO MOCKUP chat text — fix monospace */
+  .hero-mockup-text {
+    font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif !important;
+    letter-spacing: normal !important;
+  }
+
+  /* STATS TICKER BAR — stack vertically on mobile */
+  .stats-ticker {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 12px 20px !important;
+    padding: 20px 16px !important;
+  }
+
+  .stats-ticker > * {
+    flex: 0 0 calc(50% - 10px) !important;
+    text-align: center !important;
+  }
+
+  /* HERO H1 — reduce size on mobile */
+  .hero-h1 {
+    font-size: clamp(36px, 10vw, 56px) !important;
+    line-height: 1.05 !important;
+  }
 }

@@ -380,7 +380,7 @@ export default function HomePage() {
                     color: '#fff', 
                     letterSpacing: '-0.03em' 
                   }}
-                  className="text-left"
+                  className="text-left hero-h1"
                 >
                   <div className="block">
                     <motion.span initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, ease: "easeOut", delay: 0.08 }} style={{ display: 'inline-block' }}>Stop&nbsp;</motion.span>
@@ -408,7 +408,7 @@ export default function HomePage() {
                     fontWeight: 400,
                     letterSpacing: '0.01em'
                   }}
-                  className="text-left"
+                  className="text-left hero-paragraph"
                 >
                   The only AI platform built for CAR 66 AME exam preparation. Verified answers from official DGCA sources. Real PYQs. Unlimited practice.
                 </motion.p>
@@ -436,7 +436,7 @@ export default function HomePage() {
                   </button>
                 </div>
 
-                <div className="flex flex-wrap justify-start gap-[20px] mt-2" style={{ fontSize: '13px', color: 'rgba(255,255,255,0.45)', width: '100%' }}>
+                <div className="flex flex-wrap justify-start gap-[20px] mt-2 stats-ticker" style={{ fontSize: '13px', color: 'rgba(255,255,255,0.45)', width: '100%' }}>
                   <span className="flex items-center gap-1">✓ Verified DGCA Sources</span>
                   <span className="flex items-center gap-1">✓ Every Module You Need</span>
                   <span className="flex items-center gap-1">✓ Free to Start</span>
