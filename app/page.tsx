@@ -444,7 +444,7 @@ export default function HomePage() {
               </div>
 
               {/* Right Mockup */}
-              <div className="flex justify-center flex-col items-center w-full">
+              <div className="flex justify-center flex-col items-center w-full hero-mockup">
                 <LinearHeroMockup />
               </div>
             </div>
@@ -473,7 +473,7 @@ export default function HomePage() {
               padding: '0 16px',
               boxSizing: 'border-box',
             }}
-            className="fonus-stats-row"
+            className="fonus-stats-row hero-tags-bar"
           >
             <style>{`
               .fonus-stats-row .stats-item:hover .stats-label { color: #e8b94f !important; }

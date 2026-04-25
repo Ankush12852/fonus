@@ -247,22 +247,31 @@ h1, h2, h3, h4 {
     gap: 12px !important;
   }
 
-  /* FOOTER — stack all columns */
+  /* FIX 5 — FOOTER: 2-column grid layout for mobile */
   .footer-grid {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 32px !important;
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 32px 20px !important;
+    padding: 40px 20px !important;
   }
 
-  .footer-grid > * {
-    width: 100% !important;
+  /* Footer brand column takes full width on top */
+  .footer-grid > *:first-child {
+    grid-column: 1 / -1 !important;
   }
 
-  /* FOOTER bottom bar */
+  /* Footer bottom bar: stack vertically, centered */
   .footer-bottom {
     flex-direction: column !important;
+    align-items: center !important;
     text-align: center !important;
     gap: 8px !important;
+    padding: 20px !important;
+  }
+
+  /* Footer overall padding reduction */
+  footer {
+    padding: 0 !important;
   }
 
   /* HEADINGS — prevent overflow */
@@ -305,23 +314,58 @@ h1, h2, h3, h4 {
     letter-spacing: normal !important;
   }
 
-  /* STATS TICKER BAR — stack vertically on mobile */
+  /* FIX 3 — Hero trust badges (Verified DGCA Sources etc): 
+     stack as clean column, one per line, centered */
   .stats-ticker {
     display: flex !important;
-    flex-wrap: wrap !important;
-    justify-content: center !important;
-    gap: 12px 20px !important;
-    padding: 20px 16px !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 10px !important;
+    padding: 16px 0 !important;
   }
 
   .stats-ticker > * {
-    flex: 0 0 calc(50% - 10px) !important;
-    text-align: center !important;
+    flex: unset !important;
+    width: 100% !important;
+    text-align: left !important;
+    font-size: 13px !important;
   }
 
-  /* HERO H1 — reduce size on mobile */
+  /* FIX 1 — Hero h1: add top margin so it never overlaps navbar */
   .hero-h1 {
     font-size: clamp(36px, 10vw, 56px) !important;
     line-height: 1.05 !important;
+    margin-top: 60px !important;
+  }
+
+  /* FIX 2 — Hero mockup: fixed height so animation has space to render */
+  .hero-mockup {
+    min-height: 420px !important;
+    width: 100% !important;
+    margin-top: 24px !important;
+  }
+
+  /* FIX 4 — Hero feature tags bar (AME's Only, All CAR 66 Modules etc):
+     force single row, smaller font, no wrapping */
+  .hero-tags-bar {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    gap: 8px !important;
+    padding: 16px 20px !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+  }
+
+  .hero-tags-bar::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .hero-tags-bar > * {
+    flex-shrink: 0 !important;
+    font-size: 10px !important;
+    white-space: nowrap !important;
+    padding: 6px 10px !important;
   }
 }
