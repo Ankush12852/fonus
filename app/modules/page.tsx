@@ -93,7 +93,9 @@ function ModulesContent() {
           Your Modules
         </h1>
         <p style={{ color: '#6b7280', marginBottom: '2rem', fontSize: '0.95rem' }}>
-          Select a module to start studying. Free users get 100 questions/week per module.
+          Select a module to start studying. Free tier: up to{' '}
+          <strong>18 hours of AI chat per week</strong> and{' '}
+          <strong>9 practice sets per week</strong> (per module, resets Monday) — same limits shown in Plans & Access.
         </p>
 
         <div

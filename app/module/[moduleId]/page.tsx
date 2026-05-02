@@ -5,6 +5,7 @@ import { useParams, useSearchParams, useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { askQuestion } from '@/lib/api';
 import NavBar from '@/app/components/NavBar';
+import { supabase } from '@/lib/supabaseClient';
 
 interface Message {
   id: string;
@@ -140,8 +141,75 @@ const SUGGESTIONS: Record<string, string[]> = {
   M5: ['What is a data bus in aircraft?', 'Explain binary number system', 'What is EFIS and its components?'],
 };
 
-const cleanSrc = (s: string) => s.replace(/\.pdf$/i, '').replace(/AME_/g, '').replace(/_/g, ' ').substring(0, 34);
+const cleanSrc = (s: string) =>
+  String(s ?? '')
+    .replace(/\.pdf$/i, '')
+    .replace(/AME_/g, '')
+    .replace(/_/g, ' ')
+    .substring(0, 34);
 const isGarbled = (s: string) => /[ÆÅŶƌĐǁϭϬ]/.test(s) || s.length < 15;
+
+/** Matches literal placeholders from bad PDF extraction ("None") but not phrases like "None of the above". */
+const OPTION_PLACEHOLDER = /^(none|null|n\/?a|--?|[.])\s*$/i;
+
+function isSubstantiveOption(v: unknown): boolean {
+  if (v === null || v === undefined) return false;
+  const t = String(v).trim();
+  if (t.length < 2) return false;
+  return !OPTION_PLACEHOLDER.test(t);
+}
+
+function substantiveOptionCount(opts: Record<string, unknown> | undefined): number {
+  if (!opts || typeof opts !== 'object' || Array.isArray(opts)) return 0;
+  return Object.values(opts).filter(isSubstantiveOption).length;
+}
+
+function canonicalAnswerKey(opts: Record<string, string>, raw: unknown): string | null {
+  if (!raw || typeof raw !== 'string') return null;
+  const ca = raw.trim().toLowerCase();
+  if (!ca) return null;
+  const candidates = [ca, ca.charAt(0)].filter(Boolean);
+  for (const k of candidates) {
+    const val = opts[k];
+    if (val !== undefined && isSubstantiveOption(val)) return k;
+  }
+  return null;
+}
+
+function isUsablePracticeQuestion(q: PracticeQ): boolean {
+  const opts = q.options;
+  if (!q.question?.trim()) return false;
+  if (isGarbled(q.question)) return false;
+  if (!opts || typeof opts !== 'object' || Array.isArray(opts)) return false;
+  if (substantiveOptionCount(opts as Record<string, unknown>) < 3) return false;
+  const key = canonicalAnswerKey(opts as Record<string, string>, q.correct_answer);
+  return key !== null;
+}
+
+function normQuestionStem(s: string): string {
+  return s.trim().replace(/\s+/g, ' ').toLowerCase();
+}
+
+/** Fisher–Yates shuffle (avoids biased sort(() => Math.random()-0.5)). */
+function shuffleInPlace<T>(arr: T[]): T[] {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+function dedupePracticeQuestions(rows: PracticeQ[]): PracticeQ[] {
+  const seen = new Set<string>();
+  const out: PracticeQ[] = [];
+  for (const q of rows) {
+    const k = normQuestionStem(q.question);
+    if (!k || seen.has(k)) continue;
+    seen.add(k);
+    out.push(q);
+  }
+  return out;
+}
 
 const THINKING_MESSAGES = [
   "Searching verified Source...",
@@ -162,7 +230,6 @@ function ThinkingIndicator() {
 
   return (
     <div style={{ display: 'flex', justifyContent: 'flex-start', gap: '0.625rem' }}>
-      <div style={{ width: '28px', height: '28px', borderRadius: '50%', background: '#213b93', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: '12px', marginTop: '2px' }}>✈️</div>
       <div style={{ maxWidth: '80%' }}>
         <div style={{ padding: '0.8rem 1rem', background: '#fff', borderRadius: '14px 14px 14px 3px', border: '1px solid #e8ecf5', boxShadow: '0 1px 4px rgba(0,0,0,0.06)', display: 'flex', alignItems: 'center', gap: '10px', minHeight: '44px' }}>
           <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#1a1f3a', animation: 'pulsingDot 0.8s infinite alternate', flexShrink: 0 }} />
@@ -208,9 +275,11 @@ interface ChatPanelProps {
   messagesEndRef: React.RefObject<HTMLDivElement | null>;
   suggestions: string[];
   onClearChat: () => void;
+  typingMessageId: string | null;
+  displayedContent: Record<string, string>;
 }
 
-function ChatPanel({ messages, loading, chatInput, setChatInput, sendMessage, moduleName, messagesEndRef, suggestions, onClearChat }: ChatPanelProps) {
+function ChatPanel({ messages, loading, chatInput, setChatInput, sendMessage, moduleName, messagesEndRef, suggestions, onClearChat, typingMessageId, displayedContent }: ChatPanelProps) {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%', position: 'relative' }}>
       {messages.length > 0 && (
@@ -247,19 +316,25 @@ function ChatPanel({ messages, loading, chatInput, setChatInput, sendMessage, mo
             !s.source.toLowerCase().includes('aviation knowledge')
           );
 
-          const cleanText = msg.role === 'assistant' 
-            ? msg.content
+          const isTyping = msg.id === typingMessageId;
+          const body = typeof msg.content === 'string' ? msg.content : '';
+          const rawContent = msg.role === 'assistant'
+            ? body
                 .replace(/Source:\s*Aviation knowledge[^\n]*/gi, '')
                 .replace(/⚠\s*Source:\s*AI Knowledge Base[^\n]*/gi, '')
                 .trim()
-            : msg.content;
+            : body;
+          const cleanText = isTyping
+            ? (displayedContent[msg.id] || '')
+            : (msg.role === 'assistant' && displayedContent[msg.id] !== undefined && !isTyping
+              ? rawContent
+              : rawContent);
 
           return (
           <div key={msg.id} style={{ display: 'flex', justifyContent: msg.role === 'user' ? 'flex-end' : 'flex-start', gap: '0.625rem' }}>
-            {msg.role === 'assistant' && <div style={{ width: '28px', height: '28px', borderRadius: '50%', background: '#213b93', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: '12px', marginTop: '2px' }}>✈️</div>}
             <div style={{ maxWidth: '80%' }}>
               <div style={{ padding: '0.8rem 1rem', fontSize: '0.875rem', lineHeight: 1.65, whiteSpace: 'pre-wrap', borderRadius: msg.role === 'user' ? '14px 14px 3px 14px' : '14px 14px 14px 3px', background: msg.role === 'user' ? '#213b93' : '#fff', color: msg.role === 'user' ? '#fff' : '#1a1f3a', boxShadow: '0 1px 4px rgba(0,0,0,0.06)', border: msg.role === 'assistant' ? '1px solid #e8ecf5' : 'none' }}>{cleanText}</div>
-              {realSources.length > 0 && (
+              {realSources.length > 0 && !msg.sources?.some((s: {source?: string}) => s.source?.includes('AI Knowledge Base')) && (
                 <div style={{ marginTop: '0.375rem', display: 'flex', flexWrap: 'wrap', gap: '0.3rem' }}>
                   {realSources.slice(0, 3).map((s, i) => <span key={i} style={{ fontSize: '0.68rem', color: '#6b7280', background: '#f0f2f8', padding: '2px 7px', borderRadius: '4px', border: '1px solid #e2e6f0' }}>📄 {cleanSrc(s.source)}{s.page ? ` p.${s.page}` : ''}</span>)}
                 </div>
@@ -392,6 +467,35 @@ function ModuleContent() {
           }
         }
       } catch (e) {}
+
+      // Check module access
+      try {
+        const { data: accessData } = await supabase
+          .from('module_access')
+          .select('access_type, access_expires_at')
+          .eq('user_id', uid)
+          .eq('module', moduleId)
+          .single();
+
+        if (accessData) {
+          const now = new Date();
+          const expiry = new Date(accessData.access_expires_at);
+          const isActive = expiry > now;
+          setModuleAccess({
+            has_access: isActive,
+            access_type: accessData.access_type,
+            expires_at: accessData.access_expires_at
+          });
+
+          // Check if expiring within 24 hours
+          const hoursLeft = (expiry.getTime() - now.getTime()) / (1000 * 60 * 60);
+          if (hoursLeft > 0 && hoursLeft <= 24) {
+            setShowExpiryNotice(true);
+          }
+        }
+      } catch (e) {
+        // no access record found — free user
+      }
     };
     fetchProgress();
   }, [moduleId]);
@@ -438,6 +542,66 @@ function ModuleContent() {
     }
   };
 
+  const handlePromoCheck = async () => {
+    if (!promoCode.trim()) return;
+    setPromoChecking(true);
+    setPromoResult(null);
+    try {
+      const uid = localStorage.getItem('user_id');
+      const res = await fetch(`${API}/promo/check`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          code: promoCode.trim(), 
+          user_id: uid || null
+        })
+      });
+      const data = await res.json();
+      setPromoResult(data);
+    } catch (e) {
+      setPromoResult({ valid: false, message: 'Connection error. Please try again.' });
+    } finally {
+      setPromoChecking(false);
+    }
+  };
+
+  const handlePromoRedeem = async () => {
+    const uid = localStorage.getItem('user_id');
+    if (!uid) {
+      setPromoResult({ valid: false, message: 'Please log in to use a promo code.' });
+      return;
+    }
+    setPromoRedeeming(true);
+    try {
+      const res = await fetch(`${API}/promo/redeem`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          code: promoCode.trim(), 
+          module: moduleId, 
+          user_id: uid 
+        })
+      });
+      const data = await res.json();
+      if (data.success) {
+        setPromoSuccess(true);
+        setTimeout(() => {
+          setIsBillingOpen(false);
+          setPromoSuccess(false);
+          setPromoCode('');
+          setPromoResult(null);
+          window.location.reload();
+        }, 2500);
+      } else {
+        setPromoResult({ valid: false, message: data.detail || 'Redemption failed.' });
+      }
+    } catch (e) {
+      setPromoResult({ valid: false, message: 'Connection error. Please try again.' });
+    } finally {
+      setPromoRedeeming(false);
+    }
+  };
+
   const handleOpenReport = () => {
     if (!progressStats.target_questions || progressStats.target_questions === 0) {
       setShowGoalSetup(true);
@@ -476,7 +640,34 @@ function ModuleContent() {
   const [isPayModalOpen, setIsPayModalOpen] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState<{ amount: string, duration: string } | null>(null);
   const [showPromoInput, setShowPromoInput] = useState(false);
+  const [isBillingOpen, setIsBillingOpen] = useState(false);
+  const [usageData, setUsageData] = useState<{chat_hours_used: number, practice_sets_used: number} | null>(null);
+  const [usageLoading, setUsageLoading] = useState(false);
   const [promoCode, setPromoCode] = useState('');
+  const [promoChecking, setPromoChecking] = useState(false);
+  const [promoResult, setPromoResult] = useState<any>(null);
+  const [promoRedeeming, setPromoRedeeming] = useState(false);
+  const [promoSuccess, setPromoSuccess] = useState(false);
+
+  useEffect(() => {
+    if (!isBillingOpen) return;
+    const uid = localStorage.getItem('user_id');
+    if (!uid) return;
+    setUsageLoading(true);
+    fetch(`${API}/usage/${uid}`)
+      .then(r => r.json())
+      .then(data => setUsageData(data))
+      .catch(() => setUsageData(null))
+      .finally(() => setUsageLoading(false));
+  }, [isBillingOpen]);
+
+  // ── Module Access ──────────────────────────────────────────────────────────────
+  const [moduleAccess, setModuleAccess] = useState<{
+    has_access: boolean;
+    access_type: string;
+    expires_at: string | null;
+  } | null>(null);
+  const [showExpiryNotice, setShowExpiryNotice] = useState(false);
 
   const submitFeedback = async () => {
     if (!feedbackMessage.trim()) return;
@@ -523,10 +714,58 @@ function ModuleContent() {
   const [loading, setLoading] = useState(false);
   const [preferredLlm, setPreferredLlm] = useState('groq');
   const [chatInput, setChatInput] = useState('');
+  const [userName, setUserName] = useState('');
+  const [typingMessageId, setTypingMessageId] = useState<string | null>(null);
+  const [displayedContent, setDisplayedContent] = useState<Record<string, string>>({});
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const aiTopicRef = useRef<HTMLInputElement>(null);
   const isSendingRef = useRef(false);
-  useEffect(() => { messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' }); }, [messages]);
+  const isFirstLoad = useRef(true);
+
+  useEffect(() => {
+    if (!messagesEndRef.current) return;
+    if (isFirstLoad.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: 'instant' });
+      isFirstLoad.current = false;
+    } else {
+      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [messages]);
+
+  // Load user name from Supabase profile
+  useEffect(() => {
+    const loadUserName = async () => {
+      const uid = localStorage.getItem('user_id');
+      if (!uid) return;
+      try {
+        const { data } = await supabase.from('profiles').select('full_name').eq('id', uid).single();
+        if (data?.full_name) {
+          const first = data.full_name.trim().split(' ')[0];
+          setUserName(first);
+        }
+      } catch {}
+    };
+    loadUserName();
+  }, []);
+
+  // Typewriter effect for new assistant messages
+  useEffect(() => {
+    if (!typingMessageId) return;
+    const msg = messages.find(m => m.id === typingMessageId);
+    if (!msg) return;
+    const fullText = msg.content;
+    let i = 0;
+    setDisplayedContent(prev => ({ ...prev, [typingMessageId]: '' }));
+    const interval = setInterval(() => {
+      i += 3;
+      setDisplayedContent(prev => ({ ...prev, [typingMessageId]: fullText.slice(0, i) }));
+      if (i >= fullText.length) {
+        clearInterval(interval);
+        setTypingMessageId(null);
+      }
+    }, 12);
+    return () => clearInterval(interval);
+  }, [typingMessageId]);
 
   useEffect(() => {
     try {
@@ -612,12 +851,88 @@ function ModuleContent() {
     setLoading(true);
     
     try {
-      const history = messages.slice(-6).map(m => ({ role: m.role, content: m.content }));
-      const res = await askQuestion(q, moduleId, undefined, preferredLlm, history);
+      const history = messages
+        .filter((m: any) => m.role === 'user' || m.role === 'assistant')
+        .slice(-8)
+        .map((m: any) => ({
+          role: m.role,
+          content: typeof m.content === 'string'
+            ? m.content.slice(0, 300)
+            : ((m.content as any)?.text || '').slice(0, 300)
+        }));
+      const resData = await fetch(`${API}/chat`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'ngrok-skip-browser-warning': 'true' },
+        body: JSON.stringify({
+          question: q,
+          module: moduleId,
+          user_id: localStorage.getItem('fonus_user_id') || localStorage.getItem('user_id'),
+          stream: stream,
+          history: history,
+          preferred_llm: preferredLlm
+        })
+      });
+      const res = await resData.json().catch(() => ({}));
+      const assistantId = (Date.now() + 1).toString();
+
+      const formatErr = (body: Record<string, unknown>): string => {
+        const d = body.detail;
+        if (typeof d === 'string') return d;
+        if (Array.isArray(d)) {
+          return d.map((x: { msg?: string }) => x?.msg || String(x)).join('; ');
+        }
+        return typeof body.message === 'string' ? body.message : 'Request failed';
+      };
+
+      if (!resData.ok) {
+        const errText = formatErr(res as Record<string, unknown>);
+        setMessages(p => [
+          ...p,
+          {
+            id: assistantId,
+            role: 'assistant',
+            content:
+              resData.status === 503
+                ? `${errText}\n\nTip: Groq free tier has a daily token cap per org. Add GEMINI_API_KEY or wait for reset.`
+                : errText,
+            sources: [],
+            llm_used: 'error',
+          },
+        ]);
+        return;
+      }
+
+      // Smart off-topic redirect: if answer is about a different domain, append guide nudge
+      let finalAnswer = typeof res.answer === 'string' ? res.answer : formatErr(res as Record<string, unknown>);
+      const offTopicKeywords = [
+        'price of aviation fuel', 'fuel price today', 'atf price',
+        'weather forecast', 'stock price', 'cricket score', 'movie',
+        'politics', 'recipe', 'news today'
+      ];
+      const isOffTopic = offTopicKeywords.some(sig => q.toLowerCase().includes(sig));
+      if (isOffTopic) {
+        const nameGreet = userName ? `${userName}, ` : '';
+        finalAnswer += `\n\n${nameGreet}that topic is outside ${moduleName} scope. Your DGCA exam is coming up -- want to pick up where you left off in ${moduleName}?`;
+      }
       setMessages(p => [
         ...p,
-        { id: (Date.now() + 1).toString(), role: 'assistant', content: res.answer, sources: res.source, llm_used: res.llm_used }
+        { id: assistantId, role: 'assistant', content: finalAnswer, sources: res.source, llm_used: res.llm_used }
       ]);
+      setTypingMessageId(assistantId);
+
+      // Track chat usage — estimate 1 minute per message exchange
+      const uid = localStorage.getItem('user_id');
+      if (uid) {
+        fetch(`${API}/usage/track`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ 
+            user_id: uid, 
+            type: 'chat_minutes', 
+            amount: 1 
+          })
+        }).catch(() => {});
+      }
     } catch {
       setMessages(p => [
         ...p,
@@ -644,6 +959,14 @@ function ModuleContent() {
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const timeLeftRef = useRef(0);
   const timerActiveRef = useRef(false);
+  const [answeredQuestions, setAnsweredQuestions] = useState<{
+    question: string;
+    options: string[];
+    selected: string;
+    correct: string;
+    explanation: string;
+  }[]>([]);
+  const [mindLevel, setMindLevel] = useState<'easy' | 'medium' | 'hard'>('medium');
 
   const startTimer = (seconds: number) => {
     timeLeftRef.current = seconds; timerActiveRef.current = true; setTimerDisplay(seconds);
@@ -661,13 +984,29 @@ function ModuleContent() {
     try {
       const res = await fetch(`${API}/practice/questions/${moduleId}?count=500`, { headers: { 'ngrok-skip-browser-warning': 'true' } });
       const data = await res.json();
-      const clean = (data.questions || []).filter((q: PracticeQ) => !isGarbled(q.question) && Object.values(q.options).filter(v => v?.trim()).length >= 2);
+      const clean = dedupePracticeQuestions(
+        (data.questions || []).filter((q: PracticeQ) => isUsablePracticeQuestion(q)),
+      );
       if (!clean.length) { alert('No questions available for this module yet.'); return; }
-      const selected = [...clean].sort(() => Math.random() - 0.5).slice(0, examQ || 20);
+      const want = Math.min(examQ || 20, clean.length);
+      const selected = shuffleInPlace([...clean]).slice(0, want);
       setPracticeQuestions(selected); setPracticeIndex(0); setScore(0); setAnswered(0);
       setSelectedAnswer(null); setVerifyResult(null);
-      startTimer((examQ || 20) * 75);
       setPracticePhase('pyq');
+
+      // Track practice set usage
+      const uid = localStorage.getItem('user_id');
+      if (uid) {
+        fetch(`${API}/usage/track`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ 
+            user_id: uid, 
+            type: 'practice_set', 
+            amount: 1 
+          })
+        }).catch(() => {});
+      }
     } catch { alert('Could not load questions. Check backend.'); }
   };
 
@@ -690,10 +1029,30 @@ function ModuleContent() {
       } catch { }
     }
     setGeneratingQuestions(false);
-    if (!allQuestions.length) { alert('Could not generate questions. Try again.'); return; }
-    setPracticeQuestions(allQuestions.slice(0, targetCount));
+    const parsedFiltered = dedupePracticeQuestions(
+      allQuestions.filter((q) => isUsablePracticeQuestion(q as PracticeQ)) as PracticeQ[],
+    );
+    if (!parsedFiltered.length) { alert('Could not generate questions. Try again.'); return; }
+    const want = Math.min(targetCount, parsedFiltered.length);
+    const selected = shuffleInPlace([...parsedFiltered]).slice(0, want);
+    setPracticeQuestions(selected);
     setPracticeIndex(0); setScore(0); setAnswered(0); setSelectedAnswer(null); setVerifyResult(null);
     setPracticePhase(isMind ? 'mind_active' : 'ai_active');
+    if (isMind) startTimer(want * 75);
+
+    // Track practice set usage
+    const uid = localStorage.getItem('user_id');
+    if (uid) {
+      fetch(`${API}/usage/track`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          user_id: uid, 
+          type: 'practice_set', 
+          amount: 1 
+        })
+      }).catch(() => {});
+    }
   };
 
   const verifyAnswer = async () => {
@@ -701,10 +1060,23 @@ function ModuleContent() {
     const q = practiceQuestions[practiceIndex];
     // For AI generated, use embedded explanation if available
     if (q.explanation && q.correct_answer) {
-      setVerifyResult({ correct_answer: q.correct_answer, explanation: q.explanation, sources: [], llm_used: 'AI Generated' });
+      const result = { correct_answer: q.correct_answer, explanation: q.explanation, sources: [], llm_used: 'AI Generated' };
+      setVerifyResult(result);
       setAnswered(p => p + 1);
       if (q.correct_answer === selectedAnswer) setScore(p => p + 1);
       trackProgress(practicePhase);
+      // Save answered question for Previous navigation
+      setAnsweredQuestions(prev => {
+        const updated = [...prev];
+        updated[practiceIndex] = {
+          question: q.question,
+          options: Object.values(q.options || {}),
+          selected: selectedAnswer,
+          correct: q.correct_answer,
+          explanation: q.explanation || ''
+        };
+        return updated;
+      });
       return;
     }
     setVerifying(true);
@@ -714,6 +1086,18 @@ function ModuleContent() {
       setVerifyResult(data); setAnswered(p => p + 1);
       if (data.correct_answer === selectedAnswer) setScore(p => p + 1);
       trackProgress(practicePhase);
+      // Save answered question for Previous navigation
+      setAnsweredQuestions(prev => {
+        const updated = [...prev];
+        updated[practiceIndex] = {
+          question: q.question,
+          options: Object.values(q.options || {}),
+          selected: selectedAnswer,
+          correct: data.correct_answer,
+          explanation: data.explanation || ''
+        };
+        return updated;
+      });
     } catch { } finally { setVerifying(false); }
   };
 
@@ -722,96 +1106,499 @@ function ModuleContent() {
     else { setPracticeIndex(p => p + 1); setSelectedAnswer(null); setVerifyResult(null); }
   };
 
-  const resetPractice = () => { stopTimer(); setPracticePhase('select'); setPracticeQuestions([]); setAiTopicInput(''); };
+  const resetPractice = () => { stopTimer(); setPracticePhase('select'); setPracticeQuestions([]); setAiTopicInput(''); setAnsweredQuestions([]); };
 
   // ── Question display (shared by PYQ, AI, Mind) ────────────────────────────────
   const QuestionDisplay = () => {
     const q = practiceQuestions[practiceIndex];
     if (!q) return null;
+    const isAnswered = !!verifyResult;
+    const hasPrev = practiceIndex > 0 && !!answeredQuestions[practiceIndex - 1];
+    const total = practiceQuestions.length;
+    const optionEntries = q.options && typeof q.options === 'object' && !Array.isArray(q.options)
+      ? Object.entries(q.options).filter(([, v]) => v?.trim())
+      : [];
+
     return (
-      <div>
-        <p style={{ fontSize: '0.67rem', color: '#213b93', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '0.625rem' }}>{q.topic || 'Practice'}</p>
-        <p style={{ fontSize: '0.875rem', color: '#1a1f3a', lineHeight: 1.65, marginBottom: '1rem', fontWeight: 500 }}>{q.question}</p>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginBottom: '0.875rem' }}>
-          {['a', 'b', 'c', 'd'].map(key => {
-            if (!q.options[key]) return null;
-            const isSel = selectedAnswer === key;
-            const isCorr = verifyResult?.correct_answer === key;
-            const isWrong = verifyResult && isSel && !isCorr;
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.875rem' }}>
+
+        {/* Section header + back button */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <button
+              onClick={() => resetPractice()}
+              style={{
+                background: '#f0f3fc', border: 'none',
+                color: '#213b93', width: '28px', height: '28px',
+                borderRadius: '50%', cursor: 'pointer',
+                fontSize: '0.9rem', display: 'flex',
+                alignItems: 'center', justifyContent: 'center'
+              }}
+            >←</button>
+            <span style={{
+              fontSize: '0.65rem', fontWeight: 700,
+              color: '#213b93', letterSpacing: '0.08em',
+              textTransform: 'uppercase',
+              fontFamily: 'system-ui, sans-serif'
+            }}>
+              {practicePhase === 'pyq' ? 'DGCA PYQs'
+               : practicePhase === 'ai_active' ? 'AI Practice'
+               : 'Mind Maintenance'}
+            </span>
+          </div>
+          <span style={{ fontSize: '0.65rem', color: '#9ca3af', fontFamily: 'system-ui, sans-serif' }}>
+            Q{practiceIndex + 1}/{total}
+          </span>
+        </div>
+
+        {/* Topic tag */}
+        {q.topic && (
+          <div style={{
+            display: 'inline-block',
+            background: '#f0f3fc', color: '#213b93',
+            padding: '3px 10px', borderRadius: '20px',
+            fontSize: '0.65rem', fontWeight: 600,
+            fontFamily: 'system-ui, sans-serif',
+            alignSelf: 'flex-start'
+          }}>
+            {q.topic}
+          </div>
+        )}
+
+        {/* Question */}
+        <div style={{
+          fontSize: '0.88rem', color: '#1a1f3a',
+          lineHeight: 1.65, fontWeight: 500,
+          fontFamily: 'Georgia, serif',
+          padding: '0.875rem',
+          background: '#f8faff',
+          borderRadius: '12px',
+          border: '1px solid #eef1f8'
+        }}>
+          {q.question}
+        </div>
+
+        {/* Options */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+          {optionEntries.map(([key, opt], i) => {
+            const letter = key.toUpperCase();
+            const isSelected = selectedAnswer === key;
+            const isCorrect = verifyResult?.correct_answer === key;
+            const isWrong = isAnswered && isSelected && !isCorrect;
             return (
-              <button key={key} onClick={() => !verifyResult && setSelectedAnswer(key)} style={{ padding: '0.625rem 0.875rem', textAlign: 'left', fontSize: '0.82rem', color: '#1a1f3a', border: `1.5px solid ${isCorr ? '#22c55e' : isWrong ? '#ef4444' : isSel ? '#213b93' : '#e2e6f0'}`, borderRadius: '9px', background: isCorr ? '#f0fdf4' : isWrong ? '#fef2f2' : isSel ? '#f0f3fc' : '#fff', cursor: verifyResult ? 'default' : 'pointer', display: 'flex', gap: '0.625rem', alignItems: 'center', transition: 'all 0.15s' }}>
-                <span style={{ fontWeight: 700, color: isCorr ? '#22c55e' : isWrong ? '#ef4444' : '#213b93', minWidth: '18px', fontSize: '0.78rem' }}>{key.toUpperCase()}.</span>
-                <span style={{ flex: 1 }}>{q.options[key]}</span>
-                {isCorr && <span>✅</span>}{isWrong && <span>❌</span>}
+              <button
+                key={key}
+                onClick={() => !isAnswered && setSelectedAnswer(key)}
+                style={{
+                  padding: '0.75rem 1rem',
+                  background: isCorrect && isAnswered ? '#f0fdf4'
+                    : isWrong ? '#fef2f2'
+                    : isSelected ? '#f0f3fc'
+                    : '#fff',
+                  border: `1.5px solid ${
+                    isCorrect && isAnswered ? '#86efac'
+                    : isWrong ? '#fca5a5'
+                    : isSelected ? '#213b93'
+                    : '#eef1f8'
+                  }`,
+                  borderRadius: '10px',
+                  cursor: isAnswered ? 'default' : 'pointer',
+                  textAlign: 'left',
+                  display: 'flex', alignItems: 'flex-start', gap: '0.625rem',
+                  transition: 'all 0.15s', width: '100%'
+                }}
+              >
+                <span style={{
+                  width: '22px', height: '22px', borderRadius: '50%',
+                  background: isCorrect && isAnswered ? '#22c55e'
+                    : isWrong ? '#ef4444'
+                    : isSelected ? '#213b93'
+                    : '#f0f3fc',
+                  color: isSelected || (isAnswered && (isCorrect || isWrong)) ? '#fff' : '#6b7280',
+                  fontSize: '0.65rem', fontWeight: 700,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  flexShrink: 0, marginTop: '1px',
+                  fontFamily: 'system-ui, sans-serif'
+                }}>{letter}</span>
+                <span style={{
+                  fontSize: '0.82rem', color: '#1a1f3a',
+                  lineHeight: 1.45, fontFamily: 'system-ui, sans-serif'
+                }}>{opt}</span>
               </button>
             );
           })}
         </div>
-        {!verifyResult ? (
-          <button onClick={verifyAnswer} disabled={!selectedAnswer || verifying} style={{ width: '100%', padding: '0.7rem', background: selectedAnswer && !verifying ? '#213b93' : '#e2e6f0', color: selectedAnswer && !verifying ? '#fff' : '#9ca3af', border: 'none', borderRadius: '9px', fontSize: '0.85rem', fontWeight: 600, cursor: selectedAnswer && !verifying ? 'pointer' : 'not-allowed', fontFamily: 'Georgia, serif' }}>
-            {verifying ? '⏳ Checking sources...' : 'Check Answer →'}
-          </button>
-        ) : (
-          <div>
-            <div style={{ padding: '0.875rem', background: '#f8faff', borderRadius: '9px', border: '1px solid #e2e6f0', fontSize: '0.78rem', color: '#1a1f3a', lineHeight: 1.6, marginBottom: '0.5rem' }}>
-              <strong style={{ color: '#213b93' }}>📖 </strong>
-              {verifyResult.explanation.replace(/CORRECT:\s*[A-Da-d]\s*/i, '').replace(/EXPLANATION:\s*/i, '').replace(/SOURCE:.*/is, '').trim()}
-            </div>
-            {verifyResult.sources?.length > 0 && (
-              <div style={{ display: 'flex', gap: '0.3rem', flexWrap: 'wrap', marginBottom: '0.5rem' }}>
-                {verifyResult.sources.map((s, i) => <span key={i} style={{ fontSize: '0.65rem', color: '#6b7280', background: '#f0f2f8', padding: '2px 6px', borderRadius: '4px', border: '1px solid #e2e6f0' }}>📄 {cleanSrc(s.source)}{s.page ? ` p.${s.page}` : ''}</span>)}
-              </div>
-            )}
-            <button onClick={nextQuestion} style={{ width: '100%', padding: '0.7rem', background: '#213b93', color: '#fff', border: 'none', borderRadius: '9px', fontSize: '0.85rem', fontWeight: 600, cursor: 'pointer', fontFamily: 'Georgia, serif' }}>
-              {practiceIndex + 1 >= practiceQuestions.length ? 'See Results →' : 'Next Question →'}
-            </button>
+
+        {/* Explanation after answer */}
+        {isAnswered && verifyResult?.explanation && (
+          <div style={{
+            padding: '0.875rem',
+            background: '#f8faff',
+            borderRadius: '10px',
+            border: '1px solid #eef1f8',
+            fontSize: '0.78rem',
+            color: '#374151',
+            lineHeight: 1.6,
+            fontFamily: 'system-ui, sans-serif'
+          }}>
+            <span style={{ fontWeight: 700, color: '#213b93' }}>Explanation: </span>
+            {verifyResult.explanation.replace(/CORRECT:\s*[A-Da-d]\s*/i, '').replace(/EXPLANATION:\s*/i, '').replace(/SOURCE:.*/is, '').trim()}
           </div>
         )}
+
+        {/* Source badges */}
+        {isAnswered && verifyResult?.sources && verifyResult.sources.length > 0 && (
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.375rem' }}>
+            {verifyResult.sources.map((s: any, i: number) => (
+              <span key={i} style={{
+                background: '#f0f3fc', color: '#213b93',
+                padding: '3px 8px', borderRadius: '6px',
+                fontSize: '0.6rem', fontFamily: 'system-ui, sans-serif'
+              }}>📄 {cleanSrc(s.source)}{s.page ? ` p.${s.page}` : ''}</span>
+            ))}
+          </div>
+        )}
+
+        {/* ACTION BUTTONS */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+
+          {/* Row 1: Confirm Answer + Previous */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem' }}>
+            <button
+              onClick={() => verifyAnswer()}
+              disabled={!selectedAnswer || isAnswered}
+              style={{
+                padding: '0.75rem',
+                background: !selectedAnswer || isAnswered ? '#f4f6fb' : '#213b93',
+                color: !selectedAnswer || isAnswered ? '#c4c9d8' : '#fff',
+                border: 'none', borderRadius: '10px',
+                fontSize: '0.78rem', fontWeight: 700,
+                cursor: !selectedAnswer || isAnswered ? 'not-allowed' : 'pointer',
+                fontFamily: 'Georgia, serif'
+              }}
+            >
+              {verifying ? '⏳ Checking...' : isAnswered
+                ? (selectedAnswer === verifyResult?.correct_answer ? '✅ Correct' : '❌ Wrong')
+                : 'Confirm Answer'}
+            </button>
+
+            <button
+              onClick={() => {
+                if (hasPrev) {
+                  const prev = answeredQuestions[practiceIndex - 1];
+                  setSelectedAnswer(prev.selected);
+                  setVerifyResult({
+                    correct_answer: prev.correct,
+                    explanation: prev.explanation,
+                    sources: [],
+                    llm_used: ''
+                  });
+                  setPracticeIndex(i => i - 1);
+                }
+              }}
+              disabled={!hasPrev}
+              style={{
+                padding: '0.75rem',
+                background: hasPrev ? '#f0f3fc' : '#f4f6fb',
+                color: hasPrev ? '#213b93' : '#c4c9d8',
+                border: `1px solid ${hasPrev ? '#dde2f0' : '#f4f6fb'}`,
+                borderRadius: '10px',
+                fontSize: '0.78rem', fontWeight: 600,
+                cursor: hasPrev ? 'pointer' : 'not-allowed',
+                fontFamily: 'system-ui, sans-serif'
+              }}
+            >
+              ← Previous
+            </button>
+          </div>
+
+          {/* Row 2: Next Question — full width */}
+          <button
+            onClick={() => nextQuestion()}
+            disabled={!isAnswered}
+            style={{
+              padding: '0.75rem',
+              background: isAnswered ? 'linear-gradient(135deg, #172a6e, #213b93)' : '#f4f6fb',
+              color: isAnswered ? '#fff' : '#c4c9d8',
+              border: 'none', borderRadius: '10px',
+              fontSize: '0.82rem', fontWeight: 700,
+              cursor: isAnswered ? 'pointer' : 'not-allowed',
+              fontFamily: 'Georgia, serif',
+              letterSpacing: '0.01em'
+            }}
+          >
+            {practiceIndex + 1 >= total ? 'Finish Session →' : 'Next Question →'}
+          </button>
+        </div>
       </div>
     );
   };
 
   // ── Topic Setup Screen ────────────────────────────────────────────────────────
-  const TopicSetup = ({ isMind }: { isMind: boolean }) => (
-    <div style={{ textAlign: 'center', padding: '1rem 0' }}>
-      <div style={{ fontSize: '2rem', marginBottom: '0.75rem' }}>{isMind ? '🔀' : '🤖'}</div>
-      <h3 style={{ color: '#172a6e', fontFamily: 'Georgia, serif', marginBottom: '0.375rem', fontSize: '0.95rem' }}>
-        {isMind ? 'Mind Maintenance' : 'AI Practice Session'}
-      </h3>
-      <p style={{ fontSize: '0.75rem', color: '#6b7280', marginBottom: '1rem', lineHeight: 1.5 }}>
-        {isMind
-          ? 'Twisted scenario-based questions on your topic · Exam feel'
-          : 'Exam-style questions from official syllabus · Instant explanations'}
-      </p>
-      <div style={{ background: '#f8faff', borderRadius: '10px', padding: '0.75rem', border: '1px solid #e2e6f0', marginBottom: '1rem', textAlign: 'left' }}>
-        <p style={{ fontSize: '0.7rem', fontWeight: 700, color: '#213b93', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '0.5rem' }}>Choose topic or full module</p>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.375rem', marginBottom: '0.625rem' }}>
-          <button onClick={() => { setAiTopicInput('Full Module — All Topics'); if (aiTopicRef.current) aiTopicRef.current.value = 'Full Module — All Topics'; }} style={{ padding: '0.5rem 0.75rem', background: aiTopicInput === 'Full Module — All Topics' ? '#f0f3fc' : '#fff', border: `1.5px solid ${aiTopicInput === 'Full Module — All Topics' ? '#213b93' : '#e2e6f0'}`, borderRadius: '8px', cursor: 'pointer', fontSize: '0.8rem', textAlign: 'left', color: '#213b93', fontWeight: 600 }}>
-            📚 Full Module — All Topics
-          </button>
-          {syllabus.slice(0, 6).map(s => (
-            <button key={s} onClick={() => { setAiTopicInput(s); if (aiTopicRef.current) aiTopicRef.current.value = s; }} style={{ padding: '0.5rem 0.75rem', background: aiTopicInput === s ? '#f0f3fc' : '#fff', border: `1.5px solid ${aiTopicInput === s ? '#213b93' : '#e2e6f0'}`, borderRadius: '8px', cursor: 'pointer', fontSize: '0.78rem', textAlign: 'left', color: '#374151' }}>
-              {s}
-            </button>
-          ))}
+  const TopicSetup = ({ isMind }: { isMind: boolean }) => {
+    const topics = syllabus || [];
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+
+        {/* Back button + header */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <button
+            onClick={() => resetPractice()}
+            style={{
+              background: '#f0f3fc', border: 'none',
+              color: '#213b93', width: '28px', height: '28px',
+              borderRadius: '50%', cursor: 'pointer',
+              fontSize: '0.9rem', display: 'flex',
+              alignItems: 'center', justifyContent: 'center'
+            }}
+          >←</button>
+          <span style={{
+            fontSize: '0.72rem', fontWeight: 700,
+            color: '#213b93', letterSpacing: '0.06em',
+            textTransform: 'uppercase',
+            fontFamily: 'system-ui, sans-serif'
+          }}>
+            {isMind ? 'Mind Maintenance' : 'AI Practice'}
+          </span>
         </div>
-        <input ref={aiTopicRef} defaultValue="" placeholder="Or type a custom topic..." style={{ width: '100%', padding: '0.5rem 0.75rem', border: '1.5px solid #e2e6f0', borderRadius: '8px', fontSize: '0.82rem', outline: 'none', fontFamily: 'Georgia, serif', boxSizing: 'border-box' as const }} />
+
+        <p style={{
+          fontSize: '0.78rem', color: '#6b7280',
+          margin: 0, lineHeight: 1.5,
+          fontFamily: 'system-ui, sans-serif'
+        }}>
+          {isMind
+            ? 'Select difficulty level and topic — Fonus will create a mixed set of real PYQs and pattern-based questions.'
+            : 'Choose a topic and generate a custom AI practice set tailored to CAR 66 exam patterns.'}
+        </p>
+
+        {/* Difficulty selector — Mind only */}
+        {isMind && (
+          <div>
+            <p style={{
+              fontSize: '0.68rem', fontWeight: 700, color: '#374151',
+              marginBottom: '0.5rem', textTransform: 'uppercase',
+              letterSpacing: '0.08em', fontFamily: 'system-ui, sans-serif'
+            }}>Difficulty Level</p>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '0.5rem' }}>
+              {(['easy', 'medium', 'hard'] as const).map(level => (
+                <button
+                  key={level}
+                  onClick={() => setMindLevel(level)}
+                  style={{
+                    padding: '0.625rem',
+                    background: mindLevel === level ? '#213b93' : '#f0f3fc',
+                    color: mindLevel === level ? '#fff' : '#213b93',
+                    border: `1.5px solid ${mindLevel === level ? '#213b93' : '#dde2f0'}`,
+                    borderRadius: '8px', cursor: 'pointer',
+                    fontSize: '0.72rem', fontWeight: 700,
+                    textTransform: 'capitalize',
+                    fontFamily: 'system-ui, sans-serif',
+                    transition: 'all 0.15s'
+                  }}
+                >
+                  {level === 'easy' ? '🟢 Easy' : level === 'medium' ? '🟡 Medium' : '🔴 Hard'}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Topic selection */}
+        <div>
+          <p style={{
+            fontSize: '0.68rem', fontWeight: 700, color: '#374151',
+            marginBottom: '0.5rem', textTransform: 'uppercase',
+            letterSpacing: '0.08em', fontFamily: 'system-ui, sans-serif'
+          }}>Select Topic</p>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.375rem', marginBottom: '0.75rem' }}>
+            {topics.slice(0, 12).map((topic: string) => (
+              <button
+                key={topic}
+                onClick={() => setAiTopicInput(topic)}
+                style={{
+                  padding: '4px 12px',
+                  background: aiTopicInput === topic ? '#213b93' : '#f0f3fc',
+                  color: aiTopicInput === topic ? '#fff' : '#213b93',
+                  border: `1px solid ${aiTopicInput === topic ? '#213b93' : '#dde2f0'}`,
+                  borderRadius: '20px', cursor: 'pointer',
+                  fontSize: '0.68rem', fontWeight: 600,
+                  fontFamily: 'system-ui, sans-serif',
+                  transition: 'all 0.15s'
+                }}
+              >
+                {topic}
+              </button>
+            ))}
+          </div>
+          <input
+            type="text"
+            value={aiTopicInput}
+            onChange={e => setAiTopicInput(e.target.value)}
+            placeholder="Or type a custom topic..."
+            style={{
+              width: '100%', padding: '0.625rem 0.875rem',
+              border: '1.5px solid #dde2f0', borderRadius: '8px',
+              fontSize: '0.78rem', color: '#1a1f3a',
+              background: '#f8faff', outline: 'none',
+              fontFamily: 'system-ui, sans-serif',
+              boxSizing: 'border-box' as const
+            }}
+          />
+        </div>
+
+        {/* Generate button */}
+        <button
+          onClick={() => generateAiQuestions(
+            isMind ? `${aiTopicInput} level:${mindLevel}` : aiTopicInput,
+            isMind
+          )}
+          disabled={!aiTopicInput.trim() || generatingQuestions}
+          style={{
+            padding: '0.875rem',
+            background: aiTopicInput.trim() ? 'linear-gradient(135deg, #172a6e, #213b93)' : '#f4f6fb',
+            color: aiTopicInput.trim() ? '#fff' : '#c4c9d8',
+            border: 'none', borderRadius: '10px',
+            fontSize: '0.85rem', fontWeight: 700,
+            cursor: aiTopicInput.trim() ? 'pointer' : 'not-allowed',
+            fontFamily: 'Georgia, serif',
+            letterSpacing: '0.01em'
+          }}
+        >
+          {generatingQuestions ? 'Generating...' : `Generate ${isMind ? 'Mind Maintenance' : 'Practice'} Set →`}
+        </button>
       </div>
-      <button onClick={() => { const topic = aiTopicRef.current?.value.trim() || aiTopicInput; if (topic) generateAiQuestions(topic, isMind); }} disabled={generatingQuestions} style={{ width: '100%', padding: '0.75rem', background: !generatingQuestions ? '#213b93' : '#e2e6f0', color: !generatingQuestions ? '#fff' : '#9ca3af', border: 'none', borderRadius: '10px', fontSize: '0.88rem', fontWeight: 600, cursor: !generatingQuestions ? 'pointer' : 'not-allowed', fontFamily: 'Georgia, serif' }}>
-        {generatingQuestions ? (isMind ? 'Building your mind maintenance set...' : 'Generating your AI practice set...') : 'Generate Questions →'}
-      </button>
-    </div>
-  );
+    );
+  };
 
 
   // ── Panels ────────────────────────────────────────────────────────────────────
   const InfoPanel = () => (
     <div style={{ height: '100%', overflowY: 'auto', padding: '1rem' }}>
-      <div style={{ background: 'linear-gradient(135deg, #172a6e 0%, #213b93 60%, #2d4eb8 100%)', borderRadius: '14px', padding: '1rem', marginBottom: '1rem', color: '#fff' }}>
+      <div style={{
+        background: moduleAccess?.has_access 
+          ? 'linear-gradient(135deg, #0d1b4b 0%, #172a6e 40%, #1e2d7a 60%, #172a6e 100%)'
+          : 'linear-gradient(135deg, #172a6e, #213b93)',
+        borderRadius: '12px',
+        padding: '1rem',
+        marginBottom: '0.5rem',
+        color: '#fff',
+        position: 'relative',
+        overflow: 'hidden'
+      }}>
+        <style>{`
+          @keyframes sheenMove {
+            0% { transform: translateX(-100%) skewX(-15deg); }
+            100% { transform: translateX(300%) skewX(-15deg); }
+          }
+          .module-info-sheen {
+            animation: sheenMove 3s ease-in-out infinite;
+            animation-delay: 1s;
+          }
+        `}</style>
+
+        {moduleAccess?.has_access && (
+          <>
+            {/* Mirror sheen effect */}
+            <div 
+              className="module-info-sheen"
+              style={{
+                position: 'absolute', top: 0, left: 0,
+                width: '40%', height: '100%',
+                background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent)',
+                pointerEvents: 'none', zIndex: 1
+              }} 
+            />
+            {/* Gold wings in top-right corner */}
+            <div 
+              className="wings-badge"
+              style={{
+                position: 'absolute', top: '8px', right: '8px',
+                zIndex: 2, lineHeight: 1
+              }}
+            >
+              <svg width="52" height="28" viewBox="0 0 52 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="metalGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#bf953f" />
+                    <stop offset="25%" stopColor="#fcf6ba" />
+                    <stop offset="50%" stopColor="#b38728" />
+                    <stop offset="75%" stopColor="#fbf5b7" />
+                    <stop offset="100%" stopColor="#aa771c" />
+                  </linearGradient>
+                </defs>
+                {/* Center crown/star */}
+                <polygon 
+                  points="26,4 28,10 34,10 29,14 31,20 26,16.5 21,20 23,14 18,10 24,10" 
+                  fill="url(#metalGrad)"
+                  stroke="#c49a2a"
+                  strokeWidth="0.5"
+                />
+                {/* Left wing upper */}
+                <path d="M22,11 C18,9.5 12,7 4,9 C7,9.5 10,10.5 12,12 C9,11 6,11 2,12.5 C5,12.5 8.5,13.5 11,15 C8,14 5,14.5 2,16 C6,16 10,16 13,17.5 C11,17 9,17.5 7,19 C10,18 14,17 17,16 C19.5,15 22,13 22,11Z" 
+                  fill="url(#metalGrad)"
+                  stroke="#c49a2a"
+                  strokeWidth="0.3"
+                />
+                {/* Right wing upper */}
+                <path d="M30,11 C34,9.5 40,7 48,9 C45,9.5 42,10.5 40,12 C43,11 46,11 50,12.5 C47,12.5 43.5,13.5 41,15 C44,14 47,14.5 50,16 C46,16 42,16 39,17.5 C41,17 43,17.5 45,19 C42,18 38,17 35,16 C32.5,15 30,13 30,11Z" 
+                  fill="url(#metalGrad)"
+                  stroke="#c49a2a"
+                  strokeWidth="0.3"
+                />
+                {/* Wing feather lines left */}
+                <path d="M20,12.5 C15,11.5 9,10.5 4,11.5" stroke="#c49a2a" strokeWidth="0.5" opacity="0.7"/>
+                <path d="M18,15 C13,14 8,13.5 3,15" stroke="#c49a2a" strokeWidth="0.5" opacity="0.7"/>
+                <path d="M16,17.5 C12,17 8,16.5 5,17.5" stroke="#c49a2a" strokeWidth="0.5" opacity="0.6"/>
+                {/* Wing feather lines right */}
+                <path d="M32,12.5 C37,11.5 43,10.5 48,11.5" stroke="#c49a2a" strokeWidth="0.5" opacity="0.7"/>
+                <path d="M34,15 C39,14 44,13.5 49,15" stroke="#c49a2a" strokeWidth="0.5" opacity="0.7"/>
+                <path d="M36,17.5 C40,17 44,16.5 47,17.5" stroke="#c49a2a" strokeWidth="0.5" opacity="0.6"/>
+              </svg>
+            </div>
+            {/* Thin gold top border */}
+            <div style={{
+              position: 'absolute', top: 0, left: 0, right: 0,
+              height: '2px',
+              background: 'linear-gradient(90deg, transparent, #e8b94f, transparent)',
+              borderRadius: '12px 12px 0 0',
+              zIndex: 2
+            }} />
+          </>
+        )}
+
         <div style={{ fontSize: '2rem', fontWeight: 700, lineHeight: 1 }}>{moduleId}</div>
         <div style={{ fontSize: '0.85rem', opacity: 0.9, marginTop: '4px', fontWeight: 500 }}>{moduleName}</div>
         <div style={{ fontSize: '0.7rem', opacity: 0.6, marginTop: '2px' }}>CAR 66 Issue III Rev 2 · {stream}</div>
       </div>
+
+      {showExpiryNotice && (
+        <div style={{
+          margin: '0.5rem 0',
+          padding: '0.75rem',
+          background: '#fffbeb',
+          border: '1px solid #fcd34d',
+          borderRadius: '10px',
+          fontSize: '0.72rem',
+          color: '#92400e',
+          fontFamily: 'system-ui, sans-serif'
+        }}>
+          <div style={{ fontWeight: 700, marginBottom: '3px' }}>⚠️ Access expires in &lt;24 hrs</div>
+          <div style={{ opacity: 0.8, marginBottom: '8px' }}>Renew to keep your progress streak going.</div>
+          <button
+            onClick={() => setIsBillingOpen(true)}
+            style={{
+              width: '100%', padding: '0.5rem',
+              background: '#213b93', color: '#fff',
+              border: 'none', borderRadius: '6px',
+              fontSize: '0.72rem', fontWeight: 700,
+              cursor: 'pointer', fontFamily: 'Georgia, serif'
+            }}
+          >
+            Renew Access →
+          </button>
+        </div>
+      )}
 
       {examQ > 0 && (
         <Accordion title="CAR 66 Exam Info" defaultOpen>
@@ -872,33 +1659,51 @@ function ModuleContent() {
         </button>
       </div>
 
-      {/* Pricing — attractive design */}
-      <div style={{ background: 'linear-gradient(135deg, #172a6e, #213b93)', borderRadius: '14px', padding: '1rem', marginBottom: '0.5rem', color: '#fff' }}>
-        <div style={{ fontSize: '0.68rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.08em', opacity: 0.7, marginBottom: '0.5rem' }}>Rent {moduleId}</div>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-          {[
-            { p: '₹49', l: '1 Week', sub: 'Try before you commit', hot: false },
-            { p: '₹199', l: '1 Month', sub: 'Most popular', hot: true },
-            { p: '₹499', l: '3 Months', sub: 'Best for exam prep', hot: false },
-          ].map(opt => (
-            <button 
-              key={opt.p} 
-              onClick={() => {
-                setSelectedPlan({ amount: opt.p, duration: opt.l });
-                setIsPayModalOpen(true);
-                setShowPromoInput(false);
-              }}
-              style={{ padding: '0.625rem 0.875rem', background: opt.hot ? '#e8b94f' : 'rgba(255,255,255,0.1)', border: opt.hot ? 'none' : '1px solid rgba(255,255,255,0.2)', borderRadius: '9px', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center', backdropFilter: 'blur(4px)', width: '100%' }}
-            >
-              <div style={{ textAlign: 'left' }}>
-                <div style={{ fontSize: '0.82rem', fontWeight: 700, color: opt.hot ? '#1a1f3a' : '#fff' }}>{opt.l}</div>
-                <div style={{ fontSize: '0.65rem', color: opt.hot ? '#4a3500' : 'rgba(255,255,255,0.6)' }}>{opt.sub}</div>
+      {/* Usage & Billing Button */}
+      <div style={{ marginBottom: '0.5rem' }}>
+        <style>{`
+          @keyframes borderFlow {
+            0% { border-color: rgba(33,59,147,0.4); box-shadow: 0 0 0 0 rgba(33,59,147,0); }
+            50% { border-color: rgba(59,130,246,0.7); box-shadow: 0 2px 12px rgba(59,130,246,0.15); }
+            100% { border-color: rgba(33,59,147,0.4); box-shadow: 0 0 0 0 rgba(33,59,147,0); }
+          }
+          .billing-btn {
+            animation: borderFlow 3s ease-in-out infinite;
+            transition: all 0.2s ease;
+          }
+          .billing-btn:hover {
+            background: #f0f3fc !important;
+            transform: none;
+          }
+        `}</style>
+        <button
+          className="billing-btn"
+          onClick={() => setIsBillingOpen(true)}
+          style={{
+            width: '100%',
+            padding: '0.75rem 0.875rem',
+            background: '#f8faff',
+            border: '1.5px solid #c7d2f5',
+            borderRadius: '10px',
+            color: '#172a6e',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            fontFamily: 'Georgia, serif',
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <span style={{ fontSize: '0.95rem' }}>⚡</span>
+            <div style={{ textAlign: 'left' }}>
+              <div style={{ fontSize: '0.78rem', fontWeight: 700, color: '#172a6e' }}>Usage & Billing</div>
+              <div style={{ fontSize: '0.62rem', color: moduleAccess?.has_access ? '#4ade80' : '#9ca3af', marginTop: '1px' }}>
+                {moduleAccess?.has_access ? '✓ Full Access Active' : 'Track · Promo · Upgrade'}
               </div>
-              <span style={{ fontSize: '1rem', fontWeight: 800, color: opt.hot ? '#1a1f3a' : '#e8b94f' }}>{opt.p}</span>
-            </button>
-          ))}
-        </div>
-        <p style={{ fontSize: '0.68rem', opacity: 0.5, marginTop: '0.625rem', textAlign: 'center' }}>Free: 100 questions/week · 6 practice sets</p>
+            </div>
+          </div>
+          <span style={{ fontSize: '0.75rem', color: '#c7d2f5' }}>→</span>
+        </button>
       </div>
 
       {/* Feedback Button */}
@@ -921,7 +1726,7 @@ function ModuleContent() {
           <p style={{ fontSize: '0.68rem', color: '#9ca3af' }}>PYQ · AI Session · Mind Maintenance</p>
         </div>
         <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-          {practicePhase === 'pyq' && <PracticeTimer timeLeft={timerDisplay} />}
+          {practicePhase === 'mind_active' && <PracticeTimer timeLeft={timerDisplay} />}
           {practicePhase !== 'select' && <button onClick={resetPractice} style={{ background: 'none', border: '1px solid #e2e6f0', borderRadius: '6px', padding: '3px 10px', fontSize: '0.7rem', color: '#6b7280', cursor: 'pointer' }}>Reset</button>}
         </div>
       </div>
@@ -969,15 +1774,118 @@ function ModuleContent() {
         {['pyq', 'ai_active', 'mind_active'].includes(practicePhase) && !generatingQuestions && <QuestionDisplay />}
 
         {practicePhase === 'complete' && (
-          <div style={{ textAlign: 'center', paddingTop: '2rem' }}>
-            <div style={{ fontSize: '3rem', marginBottom: '0.75rem' }}>{answered > 0 && score / answered >= 0.75 ? '🎉' : '📚'}</div>
-            <h3 style={{ color: '#172a6e', fontFamily: 'Georgia, serif', marginBottom: '0.5rem' }}>Session Complete!</h3>
-            <div style={{ fontSize: '2.5rem', fontWeight: 700, color: '#213b93', fontFamily: 'Georgia, serif' }}>{score}/{answered}</div>
-            <p style={{ fontSize: '0.8rem', color: '#6b7280', margin: '0.375rem 0 0.25rem' }}>{answered > 0 ? Math.round((score / answered) * 100) : 0}% · Pass: 75%</p>
-            <p style={{ fontSize: '0.85rem', fontWeight: 600, marginBottom: '1.5rem', color: answered > 0 && score / answered >= 0.75 ? '#22c55e' : '#ef4444' }}>
-              {answered > 0 && score / answered >= 0.75 ? '✅ Above pass mark!' : '❌ Keep studying'}
-            </p>
-            <button onClick={resetPractice} style={{ width: '100%', padding: '0.75rem', background: '#213b93', color: '#fff', border: 'none', borderRadius: '10px', fontSize: '0.88rem', fontWeight: 600, cursor: 'pointer', fontFamily: 'Georgia, serif' }}>Practice Again →</button>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+
+            {/* Score card */}
+            <div style={{
+              background: 'linear-gradient(135deg, #0d1b4b, #172a6e)',
+              borderRadius: '16px', padding: '1.5rem',
+              textAlign: 'center', color: '#fff',
+              border: '1px solid rgba(232,185,79,0.15)'
+            }}>
+              <div style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}>
+                {(score / Math.max(answered, 1)) * 100 >= 75 ? '🏆' : '📚'}
+              </div>
+              <div style={{
+                fontSize: '0.65rem', fontWeight: 700,
+                color: 'rgba(232,185,79,0.8)',
+                letterSpacing: '0.14em', textTransform: 'uppercase',
+                fontFamily: 'system-ui, sans-serif', marginBottom: '8px'
+              }}>Session Complete</div>
+              <div style={{
+                fontSize: '3rem', fontWeight: 800,
+                color: '#fff', lineHeight: 1,
+                letterSpacing: '-0.02em'
+              }}>
+                {score}<span style={{ fontSize: '1.5rem', opacity: 0.5 }}>/{answered}</span>
+              </div>
+              <div style={{
+                fontSize: '1.2rem', fontWeight: 700,
+                color: '#e8b94f', marginTop: '4px'
+              }}>
+                {Math.round((score / Math.max(answered, 1)) * 100)}%
+              </div>
+              <div style={{
+                fontSize: '0.72rem', marginTop: '8px',
+                color: 'rgba(255,255,255,0.5)',
+                fontFamily: 'system-ui, sans-serif'
+              }}>
+                Pass mark: 75%
+              </div>
+            </div>
+
+            {/* Pass/fail message */}
+            <div style={{
+              padding: '0.875rem',
+              background: (score / Math.max(answered, 1)) * 100 >= 75 ? '#f0fdf4' : '#fef2f2',
+              borderRadius: '12px',
+              border: `1px solid ${(score / Math.max(answered, 1)) * 100 >= 75 ? '#86efac' : '#fca5a5'}`,
+              textAlign: 'center'
+            }}>
+              <div style={{
+                fontSize: '0.85rem', fontWeight: 700,
+                color: (score / Math.max(answered, 1)) * 100 >= 75 ? '#16a34a' : '#dc2626',
+                fontFamily: 'Georgia, serif'
+              }}>
+                {(score / Math.max(answered, 1)) * 100 >= 75
+                  ? '✅ Above pass mark — well done!'
+                  : '❌ Below pass mark — review and retry'}
+              </div>
+              <div style={{
+                fontSize: '0.68rem', color: '#6b7280',
+                marginTop: '4px', fontFamily: 'system-ui, sans-serif'
+              }}>
+                {(score / Math.max(answered, 1)) * 100 >= 75
+                  ? 'You are on track for your CAR 66 exam.'
+                  : 'Focus on the topics you missed and try again.'}
+              </div>
+            </div>
+
+            {/* Question review */}
+            {answeredQuestions.filter(Boolean).length > 0 && (
+              <div>
+                <p style={{
+                  fontSize: '0.68rem', fontWeight: 700, color: '#374151',
+                  textTransform: 'uppercase', letterSpacing: '0.08em',
+                  marginBottom: '0.5rem', fontFamily: 'system-ui, sans-serif'
+                }}>Quick Review</p>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.375rem' }}>
+                  {answeredQuestions.filter(Boolean).map((q, i) => (
+                    <div key={i} style={{
+                      padding: '0.5rem 0.75rem',
+                      background: q.selected === q.correct ? '#f0fdf4' : '#fef2f2',
+                      borderRadius: '8px',
+                      border: `1px solid ${q.selected === q.correct ? '#86efac' : '#fca5a5'}`,
+                      display: 'flex', alignItems: 'center', gap: '8px'
+                    }}>
+                      <span style={{ fontSize: '0.75rem', flexShrink: 0 }}>
+                        {q.selected === q.correct ? '✅' : '❌'}
+                      </span>
+                      <span style={{
+                        fontSize: '0.68rem', color: '#374151',
+                        fontFamily: 'system-ui, sans-serif',
+                        overflow: 'hidden', textOverflow: 'ellipsis',
+                        whiteSpace: 'nowrap', flex: 1
+                      }}>Q{i+1}: {q.question}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Practice again button */}
+            <button
+              onClick={() => resetPractice()}
+              style={{
+                padding: '0.875rem',
+                background: 'linear-gradient(135deg, #172a6e, #213b93)',
+                color: '#fff', border: 'none', borderRadius: '10px',
+                fontSize: '0.85rem', fontWeight: 700,
+                cursor: 'pointer', fontFamily: 'Georgia, serif'
+              }}
+            >
+              Practice Again →
+            </button>
           </div>
         )}
       </div>
@@ -1006,7 +1914,7 @@ function ModuleContent() {
       <div className="desktop-layout" style={{ flex: 1, overflow: 'hidden' }}>
         <div style={{ width: '248px', flexShrink: 0, background: '#fff', borderRight: '1px solid #e2e6f0', overflow: 'hidden' }}><InfoPanel /></div>
         <div style={{ flex: 1, overflow: 'hidden', minWidth: 0, display: 'flex', flexDirection: 'column' }}>
-          <ChatPanel messages={messages} loading={loading} chatInput={chatInput} setChatInput={setChatInput} sendMessage={sendMessage} moduleName={moduleName} messagesEndRef={messagesEndRef} suggestions={suggestions} onClearChat={handleClearChat} />
+          <ChatPanel messages={messages} loading={loading} chatInput={chatInput} setChatInput={setChatInput} sendMessage={sendMessage} moduleName={moduleName} messagesEndRef={messagesEndRef} suggestions={suggestions} onClearChat={handleClearChat} typingMessageId={typingMessageId} displayedContent={displayedContent} />
         </div>
         <div style={{ width: '356px', flexShrink: 0, background: '#fff', borderLeft: '1px solid #e2e6f0', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}><PracticePanel /></div>
       </div>
@@ -1014,7 +1922,7 @@ function ModuleContent() {
       <div className="mobile-layout" style={{ flex: 1, flexDirection: 'column', overflow: 'hidden' }}>
         <div style={{ flex: 1, overflow: 'hidden', background: '#fff' }}>
           {mobileTab === 'info' && <InfoPanel />}
-          {mobileTab === 'chat' && <ChatPanel messages={messages} loading={loading} chatInput={chatInput} setChatInput={setChatInput} sendMessage={sendMessage} moduleName={moduleName} messagesEndRef={messagesEndRef} suggestions={suggestions} onClearChat={handleClearChat} />}
+          {mobileTab === 'chat' && <ChatPanel messages={messages} loading={loading} chatInput={chatInput} setChatInput={setChatInput} sendMessage={sendMessage} moduleName={moduleName} messagesEndRef={messagesEndRef} suggestions={suggestions} onClearChat={handleClearChat} typingMessageId={typingMessageId} displayedContent={displayedContent} />}
           {mobileTab === 'practice' && <PracticePanel />}
         </div>
         <div style={{ height: '56px', background: '#fff', borderTop: '1px solid #e2e6f0', display: 'flex', flexShrink: 0 }}>
@@ -1026,6 +1934,492 @@ function ModuleContent() {
           ))}
         </div>
       </div>
+
+      {isBillingOpen && (
+  <div
+    onClick={(e) => { if (e.target === e.currentTarget) setIsBillingOpen(false); }}
+    style={{
+      position: 'fixed', inset: 0,
+      background: 'rgba(5,10,30,0.85)',
+      backdropFilter: 'blur(12px)',
+      zIndex: 200,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: '20px',
+      fontFamily: 'Georgia, serif'
+    }}
+  >
+    <style>{`
+      @keyframes modalIn {
+        from { opacity: 0; transform: translateY(24px) scale(0.97); }
+        to { opacity: 1; transform: translateY(0) scale(1); }
+      }
+      @keyframes barFill {
+        from { width: 0%; }
+        to { width: var(--bar-width); }
+      }
+      .billing-modal { animation: modalIn 0.35s cubic-bezier(0.16,1,0.3,1) forwards; }
+      .plan-card { transition: transform 0.15s ease, box-shadow 0.15s ease; }
+      .plan-card:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(13,27,75,0.18); }
+      .plan-card-popular:hover { box-shadow: 0 12px 40px rgba(232,185,79,0.25); }
+      @media (max-width: 600px) {
+        .billing-modal-wrap {
+          position: fixed !important;
+          bottom: 0 !important;
+          left: 0 !important;
+          right: 0 !important;
+          max-width: 100% !important;
+          border-radius: 24px 24px 0 0 !important;
+          max-height: 92vh !important;
+        }
+      }
+    `}</style>
+
+    <div
+      className="billing-modal billing-modal-wrap"
+      style={{
+        background: '#0a1628',
+        borderRadius: '24px',
+        width: '100%',
+        maxWidth: '660px',
+        maxHeight: '88vh',
+        overflowY: 'auto',
+        boxShadow: '0 40px 100px rgba(0,0,0,0.5), 0 0 0 1px rgba(232,185,79,0.12)',
+        position: 'relative',
+      }}
+    >
+      {/* Gold top accent line */}
+      <div style={{
+        position: 'absolute', top: 0, left: 0, right: 0, height: '2px',
+        background: 'linear-gradient(90deg, transparent 0%, #e8b94f 30%, #f5d07a 50%, #e8b94f 70%, transparent 100%)',
+        borderRadius: '24px 24px 0 0'
+      }} />
+
+      {/* HEADER */}
+      <div style={{
+        padding: '2rem 2rem 1.5rem',
+        borderBottom: '1px solid rgba(255,255,255,0.06)',
+        display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start',
+        position: 'sticky', top: 0,
+        background: '#0a1628',
+        borderRadius: '24px 24px 0 0',
+        zIndex: 10
+      }}>
+        <div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
+            <div style={{
+              width: '6px', height: '6px', borderRadius: '50%',
+              background: '#e8b94f',
+              boxShadow: '0 0 8px #e8b94f'
+            }} />
+            <span style={{
+              fontSize: '0.62rem', fontWeight: 700,
+              color: 'rgba(232,185,79,0.7)',
+              letterSpacing: '0.18em', textTransform: 'uppercase',
+              fontFamily: 'system-ui, sans-serif'
+            }}>
+              Fonus · {moduleId} · {moduleName}
+            </span>
+          </div>
+          <h2 style={{
+            fontSize: '1.5rem', fontWeight: 700,
+            color: '#fff', margin: 0,
+            letterSpacing: '-0.02em'
+          }}>Plans & Access</h2>
+          <p style={{
+            fontSize: '0.72rem', color: 'rgba(255,255,255,0.35)',
+            margin: '4px 0 0', fontFamily: 'system-ui, sans-serif'
+          }}>CAR 66 AME Exam Preparation · Per module pricing</p>
+        </div>
+        <button
+          onClick={() => setIsBillingOpen(false)}
+          style={{
+            background: 'rgba(255,255,255,0.06)',
+            border: '1px solid rgba(255,255,255,0.08)',
+            color: 'rgba(255,255,255,0.5)',
+            width: '32px', height: '32px',
+            borderRadius: '50%', cursor: 'pointer',
+            fontSize: '1rem', display: 'flex',
+            alignItems: 'center', justifyContent: 'center',
+            flexShrink: 0, transition: 'all 0.15s'
+          }}
+        >×</button>
+      </div>
+
+      <div style={{ padding: '1.75rem 2rem 2rem' }}>
+
+        {/* PLAN CARDS — 2x2 grid */}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(2, 1fr)',
+          gap: '0.75rem',
+          marginBottom: '1.75rem'
+        }}>
+          {[
+            {
+              key: 'free', label: 'Free', price: '₹0', sub: 'Weekly credits',
+              duration: '', amount: '', current: !moduleAccess?.has_access, popular: false,
+              features: ['18 hrs AI chat / week', '9 practice sets / week', '3 per section limit', 'Basic module access'],
+              accent: 'rgba(255,255,255,0.12)'
+            },
+            {
+              key: 'week', label: '1 Week', price: '₹49', sub: '6 days unlimited',
+              duration: '1 Week', amount: '₹49', current: false, popular: false,
+              features: ['Unlimited AI chat', 'All PYQs unlocked', 'AI + Mind Maintenance', 'Progress dashboard'],
+              accent: 'rgba(255,255,255,0.08)'
+            },
+            {
+              key: 'month', label: '1 Month', price: '₹199', sub: '29 days unlimited',
+              duration: '1 Month', amount: '₹199', current: false, popular: true,
+              features: ['Unlimited ₹49 plan access for 1 month', 'Exam readiness score', 'Full progress history', 'Best for most students'],
+              accent: '#e8b94f'
+            },
+            {
+              key: '3month', label: '3 Months', price: '₹499', sub: '89 days unlimited',
+              duration: '3 Months', amount: '₹499', current: false, popular: false,
+              features: ['Unlimited ₹49 plan access for 3 months', 'Deepest exam prep', 'Complete topic coverage', 'Thorough preparation'],
+              accent: 'rgba(255,255,255,0.08)'
+            },
+          ].map(plan => (
+            <button
+              key={plan.key}
+              className={`plan-card${plan.popular ? ' plan-card-popular' : ''}`}
+              onClick={() => {
+                if (!plan.current && plan.amount) {
+                  setSelectedPlan({ amount: plan.amount, duration: plan.duration });
+                  setIsBillingOpen(false);
+                  setIsPayModalOpen(true);
+                }
+              }}
+              style={{
+                padding: '1.25rem',
+                border: plan.popular
+                  ? '1.5px solid rgba(232,185,79,0.5)'
+                  : plan.current
+                  ? '1.5px solid rgba(255,255,255,0.08)'
+                  : '1.5px solid rgba(255,255,255,0.08)',
+                borderRadius: '16px',
+                background: plan.popular
+                  ? 'linear-gradient(135deg, #172a6e 0%, #1e3a8a 100%)'
+                  : 'rgba(255,255,255,0.04)',
+                cursor: plan.current ? 'default' : 'pointer',
+                textAlign: 'left',
+                position: 'relative',
+                overflow: 'hidden',
+                width: '100%'
+              }}
+            >
+              {plan.popular && (
+                <div style={{
+                  position: 'absolute', top: 0, right: 0,
+                  background: '#e8b94f', color: '#0a1628',
+                  fontSize: '0.52rem', fontWeight: 800,
+                  padding: '4px 10px',
+                  borderRadius: '0 16px 0 8px',
+                  letterSpacing: '0.1em',
+                  fontFamily: 'system-ui, sans-serif'
+                }}>POPULAR</div>
+              )}
+              {/* Subtle shine for popular */}
+              {plan.popular && (
+                <div style={{
+                  position: 'absolute', top: 0, left: 0, right: 0,
+                  height: '1px',
+                  background: 'linear-gradient(90deg, transparent, rgba(232,185,79,0.6), transparent)'
+                }} />
+              )}
+              <div style={{ marginBottom: '1rem' }}>
+                <div style={{
+                  fontSize: '0.65rem', fontWeight: 700,
+                  color: plan.popular ? '#e8b94f' : 'rgba(255,255,255,0.7)',
+                  fontFamily: 'system-ui, sans-serif',
+                  letterSpacing: '0.08em', textTransform: 'uppercase',
+                  marginBottom: '4px'
+                }}>{plan.label}</div>
+                <div style={{
+                  fontSize: '2rem', fontWeight: 800,
+                  color: plan.popular ? '#e8b94f' : '#fff',
+                  lineHeight: 1, letterSpacing: '-0.02em'
+                }}>{plan.price}</div>
+                <div style={{
+                  fontSize: '0.72rem',
+                  color: plan.popular ? 'rgba(255,255,255,0.75)' : 'rgba(255,255,255,0.65)',
+                  fontFamily: 'system-ui, sans-serif', marginTop: '4px'
+                }}>{plan.sub}</div>
+              </div>
+              <div style={{
+                borderTop: '1px solid rgba(255,255,255,0.06)',
+                paddingTop: '0.75rem',
+                display: 'flex', flexDirection: 'column', gap: '5px'
+              }}>
+                {plan.features.map(f => (
+                  <div key={f} style={{ display: 'flex', gap: '6px', alignItems: 'flex-start' }}>
+                    <span style={{
+                      color: plan.popular ? '#e8b94f' : 'rgba(255,255,255,0.6)',
+                      fontSize: '0.6rem', marginTop: '2px', flexShrink: 0
+                    }}>✓</span>
+                    <span style={{
+                      fontSize: '0.68rem',
+                      color: 'rgba(255,255,255,0.85)',
+                      lineHeight: 1.4, fontFamily: 'system-ui, sans-serif'
+                    }}>{f}</span>
+                  </div>
+                ))}
+              </div>
+              {plan.current && (
+                <div style={{
+                  marginTop: '0.75rem', textAlign: 'center',
+                  fontSize: '0.6rem',
+                  background: 'rgba(255,255,255,0.06)',
+                  color: 'rgba(255,255,255,0.4)',
+                  padding: '4px 0', borderRadius: '6px',
+                  fontWeight: 600, fontFamily: 'system-ui, sans-serif'
+                }}>Current Plan</div>
+              )}
+              {!plan.current && (
+                <div style={{
+                  marginTop: '0.75rem', textAlign: 'center',
+                  fontSize: '0.7rem',
+                  color: plan.popular ? '#e8b94f' : 'rgba(255,255,255,0.4)',
+                  fontWeight: 600, fontFamily: 'system-ui, sans-serif',
+                  letterSpacing: '0.04em'
+                }}>Select →</div>
+              )}
+            </button>
+          ))}
+        </div>
+
+        {/* FREE USAGE TRACKER */}
+        <div style={{
+          background: 'rgba(255,255,255,0.03)',
+          borderRadius: '16px', padding: '1.25rem',
+          marginBottom: '1.25rem',
+          border: '1px solid rgba(255,255,255,0.06)'
+        }}>
+          <div style={{
+            display: 'flex', justifyContent: 'space-between',
+            alignItems: 'center', marginBottom: '1rem'
+          }}>
+            <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#fff' }}>
+              📊 Free Usage — This Week
+            </span>
+            <span style={{
+              fontSize: '0.62rem', color: 'rgba(255,255,255,0.3)',
+              fontFamily: 'system-ui, sans-serif'
+            }}>Resets every Monday</span>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
+            {[
+              {
+                label: 'Chat Hours',
+                used: usageLoading ? '...' : usageData ? String(usageData.chat_hours_used) : '0',
+                total: 18, unit: 'hrs', icon: '💬',
+                note: 'continuous or split'
+              },
+              {
+                label: 'Practice Sets',
+                used: usageLoading ? '...' : usageData ? String(usageData.practice_sets_used) : '0',
+                total: 9, unit: 'sets', icon: '📝',
+                note: '3 per section max'
+              },
+            ].map(item => {
+              const usedNum = parseFloat(item.used) || 0;
+              const pct = Math.min((usedNum / item.total) * 100, 100);
+              const barColor = pct >= 90 ? '#ef4444' : pct >= 65 ? '#f59e0b' : '#e8b94f';
+              return (
+                <div key={item.label} style={{
+                  background: 'rgba(255,255,255,0.04)',
+                  borderRadius: '12px', padding: '1rem',
+                  border: '1px solid rgba(255,255,255,0.06)'
+                }}>
+                  <div style={{
+                    display: 'flex', justifyContent: 'space-between',
+                    alignItems: 'center', marginBottom: '0.625rem'
+                  }}>
+                    <span style={{
+                      fontSize: '0.65rem', color: 'rgba(255,255,255,0.45)',
+                      fontFamily: 'system-ui, sans-serif'
+                    }}>{item.label}</span>
+                    <span style={{ fontSize: '0.85rem' }}>{item.icon}</span>
+                  </div>
+                  <div style={{
+                    display: 'flex', alignItems: 'baseline',
+                    gap: '4px', marginBottom: '8px'
+                  }}>
+                    <span style={{
+                      fontSize: '1.75rem', fontWeight: 700,
+                      color: '#fff', lineHeight: 1
+                    }}>{item.used}</span>
+                    <span style={{
+                      fontSize: '0.62rem', color: 'rgba(255,255,255,0.3)',
+                      fontFamily: 'system-ui, sans-serif'
+                    }}>/ {item.total} {item.unit}</span>
+                  </div>
+                  <div style={{
+                    height: '3px', background: 'rgba(255,255,255,0.08)',
+                    borderRadius: '2px', marginBottom: '6px'
+                  }}>
+                    <div style={{
+                      height: '100%',
+                      width: `${pct}%`,
+                      background: barColor,
+                      borderRadius: '2px',
+                      transition: 'width 0.6s cubic-bezier(0.34,1.56,0.64,1)',
+                      boxShadow: `0 0 6px ${barColor}60`
+                    }} />
+                  </div>
+                  <p style={{
+                    fontSize: '0.58rem', color: 'rgba(255,255,255,0.2)',
+                    margin: 0, fontFamily: 'system-ui, sans-serif'
+                  }}>{item.note}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* PROMO CODE */}
+        <div style={{
+          background: 'rgba(232,185,79,0.05)',
+          borderRadius: '16px', padding: '1.25rem',
+          border: '1px solid rgba(232,185,79,0.15)',
+          marginBottom: '1.25rem'
+        }}>
+          <div style={{
+            display: 'flex', alignItems: 'center',
+            gap: '8px', marginBottom: '1rem'
+          }}>
+            <span style={{ fontSize: '1rem' }}>🎟️</span>
+            <span style={{ fontSize: '0.78rem', fontWeight: 700, color: '#e8b94f' }}>
+              Promo Code
+            </span>
+            <span style={{
+              fontSize: '0.65rem', color: 'rgba(232,185,79,0.5)',
+              fontFamily: 'system-ui, sans-serif'
+            }}>— get free access instantly</span>
+          </div>
+
+          {promoSuccess ? (
+            <div style={{ textAlign: 'center', padding: '1.5rem 0' }}>
+              <div style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}>🎉</div>
+              <div style={{ color: '#4ade80', fontSize: '1rem', fontWeight: 700 }}>
+                Access Unlocked!
+              </div>
+              <div style={{
+                color: 'rgba(255,255,255,0.4)', fontSize: '0.72rem',
+                marginTop: '4px', fontFamily: 'system-ui, sans-serif'
+              }}>Refreshing your module...</div>
+            </div>
+          ) : (
+            <>
+              <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.625rem' }}>
+                <input
+                  type="text"
+                  value={promoCode}
+                  onChange={(e) => { setPromoCode(e.target.value.toUpperCase()); setPromoResult(null); }}
+                  placeholder="e.g. FONUS1MONTH"
+                  style={{
+                    flex: 1, padding: '0.75rem 1rem',
+                    background: 'rgba(255,255,255,0.06)',
+                    border: `1.5px solid ${promoResult?.valid === false ? 'rgba(239,68,68,0.5)' : promoResult?.valid === true ? 'rgba(74,222,128,0.5)' : 'rgba(232,185,79,0.2)'}`,
+                    borderRadius: '10px', color: '#fff',
+                    fontSize: '0.85rem', outline: 'none',
+                    fontFamily: 'monospace', letterSpacing: '0.06em'
+                  }}
+                />
+                <button
+                  onClick={handlePromoCheck}
+                  disabled={promoChecking || !promoCode.trim()}
+                  style={{
+                    padding: '0.75rem 1.25rem',
+                    background: promoCode.trim() ? '#e8b94f' : 'rgba(255,255,255,0.06)',
+                    color: promoCode.trim() ? '#0a1628' : 'rgba(255,255,255,0.25)',
+                    border: 'none', borderRadius: '10px',
+                    fontSize: '0.78rem', fontWeight: 700,
+                    cursor: promoCode.trim() ? 'pointer' : 'not-allowed',
+                    whiteSpace: 'nowrap',
+                    fontFamily: 'system-ui, sans-serif',
+                    transition: 'all 0.15s'
+                  }}
+                >
+                  {promoChecking ? 'Checking...' : 'Apply'}
+                </button>
+              </div>
+
+              {promoResult && (
+                <div style={{ marginTop: '0.625rem' }}>
+                  {promoResult.valid ? (
+                    <div>
+                      <div style={{
+                        display: 'flex', alignItems: 'center', gap: '6px',
+                        color: '#4ade80', fontSize: '0.75rem', fontWeight: 600,
+                        marginBottom: '0.75rem', fontFamily: 'system-ui, sans-serif'
+                      }}>
+                        <span>✅</span>{promoResult.message}
+                      </div>
+                      <button
+                        onClick={handlePromoRedeem}
+                        disabled={promoRedeeming}
+                        style={{
+                          width: '100%', padding: '0.875rem',
+                          background: 'linear-gradient(135deg, #172a6e, #213b93)',
+                          color: '#fff', border: '1px solid rgba(232,185,79,0.3)',
+                          borderRadius: '10px', fontSize: '0.9rem', fontWeight: 700,
+                          cursor: promoRedeeming ? 'not-allowed' : 'pointer',
+                          fontFamily: 'Georgia, serif',
+                          letterSpacing: '0.01em',
+                          transition: 'all 0.15s'
+                        }}
+                      >
+                        {promoRedeeming ? 'Activating...' : '🎁 Claim Free Access →'}
+                      </button>
+                    </div>
+                  ) : (
+                    <div style={{
+                      display: 'flex', alignItems: 'center', gap: '6px',
+                      color: '#f87171', fontSize: '0.75rem',
+                      fontFamily: 'system-ui, sans-serif'
+                    }}>
+                      <span>❌</span>{promoResult.message}
+                    </div>
+                  )}
+                </div>
+              )}
+            </>
+          )}
+        </div>
+
+        {/* FOOTER */}
+        <div style={{
+          textAlign: 'center',
+          paddingTop: '1rem',
+          borderTop: '1px solid rgba(255,255,255,0.05)'
+        }}>
+          <p style={{
+            fontSize: '0.62rem', color: 'rgba(255,255,255,0.2)',
+            margin: '0 0 3px', fontFamily: 'system-ui, sans-serif'
+          }}>Per module · No hidden fees · Free tier capped at <strong style={{color: 'rgba(255,255,255,0.35)'}}>9 practice sets / week</strong> and{' '}
+            <strong style={{color: 'rgba(255,255,255,0.35)'}}>18 chat hours / week</strong> (shown above)
+          </p>
+          <p style={{
+            fontSize: '0.62rem', color: 'rgba(232,185,79,0.45)',
+            margin: '0 0 3px', fontFamily: 'system-ui, sans-serif'
+          }}>
+            Tester window: redeem <strong style={{letterSpacing: '0.06em'}}>FONUS1MONTH</strong> below for ~30 days all-module access once the code exists in Supabase (see{' '}
+            <span style={{ fontFamily: 'monospace', fontSize: '0.58rem', color: 'rgba(255,255,255,0.35)' }}>backend/sql/promo_fonus1month.sql</span>
+            ).
+          </p>
+          <p style={{
+            fontSize: '0.62rem', color: 'rgba(255,255,255,0.15)',
+            margin: 0, fontFamily: 'system-ui, sans-serif'
+          }}>Contact: fonuslearning@gmail.com</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+)}
 
       {isFeedbackOpen && (
         <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', zIndex: 100, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -1328,6 +2722,51 @@ function ModuleContent() {
               Enter a promo code or pay to unlock full access to this module.
             </p>
 
+            {selectedPlan?.amount === '₹199' && (
+              <div style={{
+                background: 'rgba(232,185,79,0.08)',
+                border: '1px solid rgba(232,185,79,0.2)',
+                borderRadius: '12px',
+                padding: '0.875rem 1rem',
+                marginBottom: '0.875rem',
+                textAlign: 'left'
+              }}>
+                <div style={{
+                  fontSize: '0.72rem', fontWeight: 700,
+                  color: '#e8b94f', marginBottom: '6px',
+                  display: 'flex', alignItems: 'center', gap: '6px'
+                }}>
+                  🎁 Get 1 Month Free
+                </div>
+                <p style={{
+                  fontSize: '0.68rem', color: 'rgba(255,255,255,0.6)',
+                  margin: '0 0 8px', lineHeight: 1.6,
+                  fontFamily: 'system-ui, sans-serif'
+                }}>
+                  Follow Fonus on Instagram, comment on our latest post 
+                  and get a promo code delivered to your DM — unlock 
+                  29 days of full access completely free.
+                </p>
+                <a
+                  href="https://www.instagram.com/fonuslearning/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    display: 'inline-flex', alignItems: 'center', gap: '6px',
+                    fontSize: '0.68rem', fontWeight: 700,
+                    color: '#e8b94f', textDecoration: 'none',
+                    padding: '5px 10px',
+                    background: 'rgba(232,185,79,0.1)',
+                    borderRadius: '6px',
+                    border: '1px solid rgba(232,185,79,0.2)',
+                    transition: 'all 0.15s'
+                  }}
+                >
+                  📸 @fonuslearning →
+                </a>
+              </div>
+            )}
+
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.875rem' }}>
               {!showPromoInput ? (
                 <button 
@@ -1416,4 +2855,3 @@ function FonusLoader({ message }: { message: string }) {
     </div>
   );
 }
-

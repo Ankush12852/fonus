@@ -8,10 +8,28 @@ export default function AccountDetailsModal({ onClose, userEmail, userId }: { on
   const [loading, setLoading] = useState(true);
   const [profile, setProfile] = useState<any>(null);
   const [modules, setModules] = useState<string[]>([]);
+  const [unlockedModules, setUnlockedModules] = useState<string[]>([]);
   const [error, setError] = useState('');
   const [successMsg, setSuccessMsg] = useState('');
   const [isEditingStream, setIsEditingStream] = useState(false);
   const [newStream, setNewStream] = useState('');
+
+  useEffect(() => {
+    const uid = localStorage.getItem('user_id');
+    if (!uid) return;
+    const fetchUnlocked = async () => {
+      const now = new Date().toISOString();
+      const { data } = await supabase
+        .from('module_access')
+        .select('module')
+        .eq('user_id', uid)
+        .gt('access_expires_at', now);
+      if (data) {
+        setUnlockedModules(data.map((d: any) => d.module));
+      }
+    };
+    fetchUnlocked();
+  }, []);
 
   useEffect(() => {
     if (error) {
@@ -147,16 +165,31 @@ export default function AccountDetailsModal({ onClose, userEmail, userId }: { on
               </div>
             </div>
 
-            <div className="modules-section">
-              <label>Unlocked Modules</label>
-              {modules.length > 0 ? (
-                <div className="modules-list">
-                  {modules.map(mod => (
-                    <span key={mod} className="module-badge">{mod}</span>
+            <div>
+              <div style={{ fontSize: '0.75rem', fontWeight: 700, color: '#172a6e', marginBottom: '0.5rem' }}>
+                Unlocked Modules
+              </div>
+              {unlockedModules.length === 0 ? (
+                <p style={{ fontSize: '0.72rem', color: '#9ca3af', fontFamily: 'system-ui, sans-serif' }}>
+                  No modules unlocked yet. Use a promo code or upgrade to unlock.
+                </p>
+              ) : (
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.375rem' }}>
+                  {unlockedModules.map(mod => (
+                    <span key={mod} style={{
+                      background: 'linear-gradient(135deg, #172a6e, #213b93)',
+                      color: '#e8b94f',
+                      padding: '3px 10px',
+                      borderRadius: '20px',
+                      fontSize: '0.72rem',
+                      fontWeight: 700,
+                      fontFamily: 'system-ui, sans-serif',
+                      border: '1px solid rgba(232,185,79,0.3)'
+                    }}>
+                      {mod}
+                    </span>
                   ))}
                 </div>
-              ) : (
-                <p className="no-modules">No modules unlocked yet.</p>
               )}
             </div>
 

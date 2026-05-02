@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import { Playfair_Display, DM_Sans } from 'next/font/google';
@@ -227,7 +228,7 @@ function LinearHeroMockup() {
 
 const FAQS = [
   { q: "What is Fonus?", a: "Fonus is India's first AI-powered exam preparation platform built specifically for DGCA CAR 66 AME licensing exams. It gives you verified answers from official sources, real past exam questions, unlimited AI mock tests, and a personal progress tracker — all in one place." },
-  { q: "Is Fonus free to use?", a: "Yes — you can start using Fonus for free. Free access includes limited questions per week and basic AI answers. To unlock full access including unlimited practice and progress tracking, you can rent any module starting at just ₹49 for a week." },
+  { q: "Is Fonus free to use?", a: "Yes — you can start for free on each module. The free tier includes up to 18 hours of AI chat per week and 9 practice sets per week (shown in Plans & Access), with usage resetting every Monday. For unlimited chat and PYQs on that module, you can rent access from ₹49/week. Early testers may unlock one month via a promo code in the module billing drawer." },
   { q: "Which AME license streams does Fonus support?", a: "Fonus currently supports B1.1 (Turbine Aeroplane), B1.2 (Piston Aeroplane), B1.3 (Turbine Helicopter), B2 (Avionics), and Category A (Line Maintenance). Each stream shows only the modules relevant to your specific license." },
   { q: "How is Fonus different from ChatGPT or other AI tools?", a: "Generic AI tools like ChatGPT are not trained on DGCA CAR 66 material. They frequently give confident but incorrect answers with no source reference. Fonus answers only from verified official DGCA documents — every answer comes with the exact chapter, module, and page reference." },
   { q: "What is the rental system? Why not a subscription?", a: "Most students prepare one module at a time. A full subscription forces you to pay for everything even when you need only one module. Fonus lets you rent exactly the module you are studying — ₹49 for a week, ₹199 for a month, or ₹499 for 3 months." },
@@ -1932,7 +1933,7 @@ export default function HomePage() {
         </section>
 
         {/* SECTION B — TESTING PHASE HONEST BOX */}
-        <section style={{ width: '100%', background: '#ffffff', padding: '80px', display: 'flex', justifyContent: 'center' }}>
+        <section id="feedback" style={{ width: '100%', background: '#ffffff', padding: '80px', display: 'flex', justifyContent: 'center' }}>
           <div style={{ maxWidth: '760px', width: '100%', textAlign: 'center' }}>
             <div style={{
               background: 'rgba(232,185,79,0.1)',
@@ -2067,7 +2068,7 @@ export default function HomePage() {
         </section>
 
         {/* SECTION A — FAQ */}
-        <section style={{ width: '100%', background: '#f8f9fc', padding: '120px 80px' }} className="faq-wrapper">
+        <section id="faq" style={{ width: '100%', background: '#f8f9fc', padding: '120px 80px' }} className="faq-wrapper">
           <div style={{ maxWidth: '800px', margin: '0 auto' }}>
             <div style={{ textAlign: 'center', marginBottom: 64 }}>
               <motion.div
@@ -2237,12 +2238,12 @@ export default function HomePage() {
             </div>
 
             <div style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
-              <a href="#" className="footer-social-link" aria-label="Instagram">
+              <a href="https://www.instagram.com/" className="footer-social-link" aria-label="Instagram" rel="noopener noreferrer">
                 <div className="footer-social-box">
                   <Instagram size={20} />
                 </div>
               </a>
-              <a href="#" className="footer-social-link" aria-label="YouTube">
+              <a href="https://www.youtube.com/" className="footer-social-link" aria-label="YouTube" rel="noopener noreferrer">
                 <div className="footer-social-box">
                   <Youtube size={20} />
                 </div>
@@ -2256,10 +2257,10 @@ export default function HomePage() {
               PLATFORM
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-              <a className="footer-link" href="#">Browse Modules</a>
-              <a className="footer-link" href="#">How It Works</a>
-              <a className="footer-link" href="#">Pricing</a>
-              <a className="footer-link" href="#">Progress Tracker</a>
+              <Link className="footer-link" href="/modules?stream=B1.1">Browse Modules</Link>
+              <Link className="footer-link" href="/#how-it-works">How It Works</Link>
+              <Link className="footer-link" href="/#stream-selection">Plans & streams</Link>
+              <Link className="footer-link" href="/modules?stream=B1.1">Module access</Link>
             </div>
           </div>
 
@@ -2269,10 +2270,10 @@ export default function HomePage() {
               COMPANY
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-              <a className="footer-link" href="#">About Fonus</a>
-              <a className="footer-link" href="#">FAQ</a>
-              <a className="footer-link" href="#">Give Feedback</a>
-              <a className="footer-link" href="#">Contact Us</a>
+              <Link className="footer-link" href="/#how-it-works">About Fonus</Link>
+              <Link className="footer-link" href="/#faq">FAQ</Link>
+              <Link className="footer-link" href="/#feedback">Give Feedback</Link>
+              <a className="footer-link" href="mailto:fonuslearning@gmail.com">Contact Us</a>
             </div>
           </div>
 
