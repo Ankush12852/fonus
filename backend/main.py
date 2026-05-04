@@ -2162,7 +2162,13 @@ async def chat(req: ChatRequest):
     # ── END STUDY PLAN HANDLER ────────────────────────
     # ── END INTENT HANDLERS ───────────────────────────
     if not indexes:
-        raise HTTPException(status_code=500, detail="No indexes loaded")
+        return JSONResponse(content={
+            "answer": "AI index not loaded. The knowledge base is not available on this server. Please contact admin.",
+            "source": [],
+            "llm_used": "none",
+            "topic_id": None,
+            "exam_priority": None
+        })
     index = indexes.get(module_key) or list(indexes.values())[0]
 
     # Load module-specific book names from books.json
