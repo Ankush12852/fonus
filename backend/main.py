@@ -541,7 +541,8 @@ def load_all_indexes():
             sc = StorageContext.from_defaults(persist_dir=str(m10_path))
             indexes["M10"] = load_index_from_storage(sc)
         except Exception as e:
-            print(f"M10 load failed: {e}")
+            print(f"Warning: Could not load index: {e}")
+            indexes["M10"] = None
     # All other modules
     indexes_dir = PROJECT_ROOT / "indexes"
     if indexes_dir.exists():
@@ -554,7 +555,8 @@ def load_all_indexes():
                     indexes[module_dir.name] = load_index_from_storage(sc)
                     print(f"Loaded index: {module_dir.name}")
                 except Exception as e:
-                    print(f"Failed to load {module_dir.name}: {e}")
+                    print(f"Warning: Could not load index: {e}")
+                    indexes[module_dir.name] = None
     return indexes
 
 
@@ -2169,7 +2171,9 @@ async def chat(req: ChatRequest):
             "topic_id": None,
             "exam_priority": None
         })
-    index = indexes.get(module_key) or list(indexes.values())[0]
+    index = indexes.get(module_key) or (list(indexes.values())[0] if indexes else None)
+    if index is None:
+        return {"error": "AI index not loaded. Please contact admin."}
 
     # Load module-specific book names from books.json
     import json as _json
