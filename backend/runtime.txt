@@ -1,10 +1,1 @@
-# ============================================================
-# runtime.txt — Python Version for Render.com
-# ============================================================
-# This file tells Render which version of Python to use.
-# Render looks for this file inside the rootDir (backend/).
-#
-# IMPORTANT: This MUST match the version in render.yaml.
-# Currently set to Python 3.11.0 — a stable, well-supported version.
-# ============================================================
-python-3.11.0
+3.11.0
