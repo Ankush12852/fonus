@@ -1,0 +1,43 @@
+# ============================================================
+# FONUS Backend — Dockerfile
+#
+# A Dockerfile is a recipe for building a container image.
+# It starts from a base image (Python), copies our code in,
+# installs our dependencies, and sets the startup command.
+# ============================================================
+
+# Start from the official Python 3.11 image (slim = smaller size)
+FROM python:3.11-slim
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# ── Install system dependencies ──────────────────────────────
+# Some Python packages need system libraries to compile.
+# curl is used for health checks.
+RUN apt-get update && apt-get install -y \
+    gcc \
+    g++ \
+    curl \
+    && rm -rf /var/lib/apt/lists/*     # Clean up to reduce image size
+
+# ── Install Python dependencies ──────────────────────────────
+# Copy requirements first — Docker caches this layer.
+# If requirements haven't changed, Docker skips reinstalling.
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Install the SlowAPI rate limiting library
+RUN pip install --no-cache-dir slowapi
+
+# ── Copy the rest of the application code ────────────────────
+COPY . .
+
+# ── Expose the port FastAPI listens on ───────────────────────
+EXPOSE 8000
+
+# ── Startup command ───────────────────────────────────────────
+# Run FastAPI using uvicorn with 2 worker processes.
+# --host 0.0.0.0 means "listen on all network interfaces"
+# (required for Docker — localhost would only be inside the container)
+CMD ["uvicorn", "backend.main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "2"]

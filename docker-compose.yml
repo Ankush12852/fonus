@@ -1,0 +1,157 @@
+# ============================================================
+# FONUS — Docker Compose Configuration
+# 
+# Docker Compose defines and runs multiple containers together.
+# Think of it as a recipe that starts your entire app with
+# one single command: `docker-compose up`
+#
+# Three containers (services) are defined:
+#   1. nginx     — the traffic router (ports 80 and 443)
+#   2. backend   — the FastAPI Python API (port 8000 internally)
+#   3. frontend  — the Next.js React app (port 3000 internally)
+#
+# They communicate on a shared Docker network called "fonus-net".
+# Nginx talks to backend via "http://backend:8000"
+# Nginx talks to frontend via "http://frontend:3000"
+# ============================================================
+
+version: "3.9"
+
+services:
+
+  # ──────────────────────────────────────────────────────────
+  # SERVICE 1: Nginx — the reverse proxy / traffic cop
+  # ──────────────────────────────────────────────────────────
+  nginx:
+    image: nginx:alpine       # Lightweight official Nginx image (~25MB)
+    container_name: fonus-nginx
+    restart: always           # Auto-restart if the container crashes
+
+    ports:
+      - "80:80"               # Map host port 80  → container port 80
+      - "443:443"             # Map host port 443 → container port 443
+
+    volumes:
+      # Mount our custom nginx config into the container.
+      # The config file we created replaces Nginx's default config.
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro    # :ro = read-only (safer)
+
+      # Mount the SSL certificate folder so Nginx can use our certs.
+      # These certs are obtained by running scripts/setup-ssl.sh
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+
+      # Nginx log files persisted to host so you can inspect them
+      - ./nginx/logs:/var/log/nginx
+
+    depends_on:
+      - backend
+      - frontend              # Wait for both to start before Nginx starts
+
+    networks:
+      - fonus-net             # Join the shared internal network
+
+    # Health check: every 30s, ask Nginx if it's alive.
+    # If it fails 3 times in a row, Docker marks it "unhealthy".
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+
+  # ──────────────────────────────────────────────────────────
+  # SERVICE 2: FastAPI Backend — the Python AI brain
+  # ──────────────────────────────────────────────────────────
+  backend:
+    build:
+      context: .              # Build from the project root
+      dockerfile: Dockerfile.backend   # We'll create this file
+    container_name: fonus-backend
+    restart: always
+
+    # Load environment variables from the backend .env file.
+    # NEVER commit this file to GitHub — it has secret keys!
+    env_file:
+      - ./backend/.env
+
+    # The backend is NOT exposed to the internet directly.
+    # Only Nginx can reach it via the internal Docker network.
+    expose:
+      - "8000"
+
+    # Mount data directories so the container can access indexes,
+    # question banks, and other data files.
+    volumes:
+      - ./backend:/app/backend
+      - ./data:/app/data
+      - ./indexes:/app/indexes
+      - ./dgca_index_store:/app/dgca_index_store
+      - ./config:/app/config
+
+    networks:
+      - fonus-net
+
+    # Health check: ping the /health endpoint we added to main.py
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s     # Give Python 30s to start (loads AI indexes)
+
+    # Command to start the FastAPI server using uvicorn
+    command: uvicorn backend.main:app --host 0.0.0.0 --port 8000 --workers 2
+
+
+  # ──────────────────────────────────────────────────────────
+  # SERVICE 3: Next.js Frontend — the React web app
+  # ──────────────────────────────────────────────────────────
+  frontend:
+    build:
+      context: ./fonus-frontend
+      dockerfile: Dockerfile  # We'll create a Dockerfile inside fonus-frontend/
+    container_name: fonus-frontend
+    restart: always
+
+    # Load frontend environment variables (Supabase URL, API URL, etc.)
+    env_file:
+      - ./fonus-frontend/.env.local
+
+    # Frontend is also NOT directly exposed — only Nginx reaches it.
+    expose:
+      - "3000"
+
+    networks:
+      - fonus-net
+
+    # Frontend depends on backend being up (optional but good practice)
+    depends_on:
+      - backend
+
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+
+# ──────────────────────────────────────────────────────────
+# NETWORK: fonus-net
+# A private network just for these containers.
+# Containers can talk to each other by name (e.g., "backend",
+# "frontend") but are isolated from the host network.
+# ──────────────────────────────────────────────────────────
+networks:
+  fonus-net:
+    driver: bridge            # Standard Docker networking mode
+
+
+# ──────────────────────────────────────────────────────────
+# VOLUMES: Named persistent storage
+# Even if containers restart, data stored here survives.
+# ──────────────────────────────────────────────────────────
+volumes:
+  nginx_logs:                 # Nginx access/error logs
+  backend_data:               # Backend data files (indexes, etc.)
