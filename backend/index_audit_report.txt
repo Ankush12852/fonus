@@ -1,0 +1,366 @@
+═══════════════════════════════
+FONUS INDEX AUDIT REPORT (v2)
+Generated: 2026-04-23 09:32:17
+═══════════════════════════════
+
+🔍 INDEX LOCATIONS FOUND:
+From main.py configuration:
+  - dgca_index_store
+  - indexes
+
+Discovered docstore.json locations recursively:
+  - dgca_index_store
+  - indexes\M1
+  - indexes\M11A
+  - indexes\M11B
+  - indexes\M11C
+  - indexes\M12
+  - indexes\M13
+  - indexes\M14
+  - indexes\M15
+  - indexes\M16
+  - indexes\M17A
+  - indexes\M17B
+  - indexes\M2
+  - indexes\M3
+  - indexes\M4
+  - indexes\M5
+  - indexes\M6
+  - indexes\M7A
+  - indexes\M7B
+  - indexes\M8
+  - indexes\M9
+
+
+✅ ACTUALLY INDEXED FILES IN INDEX STORES:
+[Total unique files found inside docstores: 316]
+
+  (None)
+
+
+❌ MISSING FROM INDEX (318):
+- 2017_feb.pdf → should be in M3
+- 2021-jan.docx → should be in M3
+- 2021-jan.pdf → should be in M3
+- 2021_mar.pdf → should be in M3
+- 2023_aug.pdf → should be in M3
+- 2023_feb.pdf → should be in M3
+- 2024_feb.pdf → should be in M3
+- 2025_feb.pdf → should be in M3
+- 2025_mar.pdf → should be in M3
+- 2026_mar.pdf → should be in M3
+- QB.V4.pdf.docx → should be in M3
+- QB.V5.docx → should be in M3
+- QB.V7.pdf → should be in M3
+- QB_V1.pdf → should be in M3
+- QB_V2.pdf → should be in M3
+- QB_V3.docx → should be in M3
+- 2018_APRIL.pdf → should be in M4
+- 2018_MAR.pdf → should be in M4
+- 2018_MAY.pdf → should be in M4
+- 2019_APRIL.docx → should be in M4
+- 2019_JAN.docx → should be in M4
+- 2019_JUN.pdf → should be in M4
+- 20218_DEC.pdf → should be in M4
+- 2021_JAN.pdf → should be in M4
+- 2021_MAR (2).pdf → should be in M4
+- 2021_MAR.pdf → should be in M4
+- 2022_APRIL.docx → should be in M4
+- 2022_MAR.docx → should be in M4
+- 2022_MAR.pdf → should be in M4
+- 2023_DEC.pdf → should be in M4
+- 2023_JAN.pdf → should be in M4
+- 2024_FEB.pdf → should be in M4
+- 2024_MAR.pdf → should be in M4
+- 2025_APRIL.pdf → should be in M4
+- QB_V1.pdf → should be in M4
+- QB_V2.pdf → should be in M4
+- QB_V3.pdf → should be in M4
+- 2017_JULY.docx → should be in M5
+- 2018-2_FEB_CAT A.pdf → should be in M5
+- 2018_FEB.pdf → should be in M5
+- 2018_FEB_CAT A.pdf → should be in M5
+- 2018_MAY.pdf → should be in M5
+- 2018_OCT.docx → should be in M5
+- 2019_APRIL.pdf → should be in M5
+- 2019_FEB.docx → should be in M5
+- 2019_JAN_CAT A.pdf → should be in M5
+- 2019_JULY.pdf → should be in M5
+- 2019_JUNE.docx → should be in M5
+- 2019_JUNE.pdf → should be in M5
+- 2020_DEC.pdf → should be in M5
+- 2020_FEB (2).pdf → should be in M5
+- 2020_FEB (3).pdf → should be in M5
+- 2020_FEB.docx → should be in M5
+- 2020_FEB.pdf → should be in M5
+- 2020_JAN.pdf → should be in M5
+- 2021_FEB (2).pdf → should be in M5
+- 2021_FEB.pdf → should be in M5
+- 2021_JAN (2).pdf → should be in M5
+- 2021_JAN (3).pdf → should be in M5
+- 2021_JAN.pdf → should be in M5
+- 2021_MAR.pdf → should be in M5
+- 2022_FEB.pdf → should be in M5
+- 2023.pdf → should be in M5
+- 2024_DEC.pdf → should be in M5
+- 2024_MAR.docx → should be in M5
+- 2025_JAN.pdf → should be in M5
+- 2025_JUNE.pdf → should be in M5
+- QB_V1.pdf → should be in M5
+- QB_V10.pdf → should be in M5
+- QB_V11.pdf → should be in M5
+- QB_V12.pdf → should be in M5
+- QB_V13.pdf → should be in M5
+- QB_V2.pdf → should be in M5
+- QB_V3.pdf → should be in M5
+- QB_V4.pdf → should be in M5
+- QB_V5.pdf → should be in M5
+- QB_V6.pdf → should be in M5
+- QB_V7.pdf → should be in M5
+- QB_V8.pdf → should be in M5
+- QB_V9.pdf → should be in M5
+- 2017_july.pdf → should be in M6
+- 2017_may.pdf → should be in M6
+- 2018_jan (2).pdf → should be in M6
+- 2018_oct.pdf → should be in M6
+- 2019_june (2).pdf → should be in M6
+- 2019_june.pdf → should be in M6
+- 2021_feb.pdf → should be in M6
+- 2021_jan.pdf → should be in M6
+- 2021_march (2).pdf → should be in M6
+- 2021_march.pdf → should be in M6
+- 2022_jan.pdf → should be in M6
+- 2022_march.pdf → should be in M6
+- 2023_feb.pdf → should be in M6
+- 2023_jan.pdf → should be in M6
+- 2023_jan_b2.pdf → should be in M6
+- 2023_sep.pdf → should be in M6
+- 2024_MAY.pdf → should be in M6
+- 2024_april.pdf → should be in M6
+- 2024_feb.pdf → should be in M6
+- 2024_jan.pdf → should be in M6
+- 2024_march (2).pdf → should be in M6
+- 2024_march.pdf → should be in M6
+- 2025_sep.pdf → should be in M6
+- QB_V1.pdf → should be in M6
+- QB_V10.pdf → should be in M6
+- QB_V2.pdf → should be in M6
+- QB_V3.pdf → should be in M6
+- QB_V4.pdf → should be in M6
+- QB_V5.pdf → should be in M6
+- QB_V6.pdf → should be in M6
+- QB_V7.PDF → should be in M6
+- QB_V8.pdf → should be in M6
+- QB_V9.pdf → should be in M6
+- 2018_FEB.pdf → should be in M7
+- 2018_MAY.pdf → should be in M7
+- 2021_JAN.pdf → should be in M7
+- 2021_MARCH (2).pdf → should be in M7
+- 2021_MARCH (3).pdf → should be in M7
+- 2021_MARCH.pdf → should be in M7
+- 2022_FEB.pdf → should be in M7
+- 2023_JUNE.pdf → should be in M7
+- 2024_FEB.pdf → should be in M7
+- 2024_JAN.pdf → should be in M7
+- 2025_MAR.docx → should be in M7
+- 2026_JAN.pdf → should be in M7
+- MODULE 07 tools.pdf → should be in M7
+- MODULE 7 04-1-1.pdf → should be in M7
+- Module 07 Part 8.docx → should be in M7
+- Module 7 July 17.pdf → should be in M7
+- QB_15 (2).pdf → should be in M7
+- QB_16.pdf → should be in M7
+- QB_V1.pdf → should be in M7
+- QB_V10.pdf → should be in M7
+- QB_V11.pdf → should be in M7
+- QB_V12.pdf → should be in M7
+- QB_V13.pdf → should be in M7
+- QB_V14.pdf → should be in M7
+- QB_V17.pdf → should be in M7
+- QB_V2.pdf → should be in M7
+- QB_V3.pdf → should be in M7
+- QB_V4.pdf → should be in M7
+- QB_V5.pdf → should be in M7
+- QB_V6.pdf → should be in M7
+- QB_V7.pdf → should be in M7
+- QB_V8.pdf → should be in M7
+- QB_V9.pdf → should be in M7
+- module 7 july 2019.pdf → should be in M7
+- 2012.pdf → should be in M8
+- 2017_AUG.pdf → should be in M8
+- 2017_MAR (2).pdf → should be in M8
+- 2017_MAR.pdf → should be in M8
+- 2018_MAR.pdf → should be in M8
+- 2018_MAY.pdf → should be in M8
+- 2019.pdf → should be in M8
+- 2019_MAR.pdf → should be in M8
+- 2023_APRIL.pdf → should be in M8
+- 2024_FEB.pdf → should be in M8
+- 2025.pdf → should be in M8
+- AME_Basic aerodinamic_EASA 08.txt → should be in M8
+- M8 april 2019.pdf → should be in M8
+- M8 kochi 2019.docx → should be in M8
+- M8,2017.pdf → should be in M8
+- QB_V1.pdf → should be in M8
+- QB_V2.pdf → should be in M8
+- QB_V3.docx → should be in M8
+- QB_V4.pdf → should be in M8
+- QB_V5.pdf → should be in M8
+- QB_V6_F.pdf → should be in M8
+- QB_V7_F.pdf → should be in M8
+- 2019_APRIL (2).pdf → should be in M9
+- 2019_APRIL.pdf → should be in M9
+- 2019_JULY.pdf → should be in M9
+- 2019_JUN.pdf → should be in M9
+- 2020_JAN.docx → should be in M9
+- 2021_OCT.pdf → should be in M9
+- 2022_FEB (2).pdf → should be in M9
+- 2022_FEB.pdf → should be in M9
+- 2022_JAN (2).pdf → should be in M9
+- 2022_JAN.pdf → should be in M9
+- 2022_OCT.pdf → should be in M9
+- 2023_APRIL.pdf → should be in M9
+- 2023_FEB.pdf → should be in M9
+- AME_HF CAP 716_CAA.txt → should be in M9
+- AME_HF CAP 718_CAA.txt → should be in M9
+- AME_HUMAN FACTOR _ EASA 09 (B1 & B2 ).txt → should be in M9
+- QB_V1.pdf → should be in M9
+- QB_V2.pdf → should be in M9
+- QB_V3.pdf → should be in M9
+- QB_V4.pdf → should be in M9
+- QB_V5.pdf → should be in M9
+- 2017_MARCH.pdf → should be in M10
+- 2019_ march.pdf → should be in M10
+- 2019_APRIL.pdf → should be in M10
+- 2019_june.pdf → should be in M10
+- 2024_ 18 th dec.pdf → should be in M10
+- 2025_ 17th dec.pdf → should be in M10
+- 2025_ 25th june.pdf → should be in M10
+- QB_V1.pdf → should be in M10
+- QB_V3.pdf → should be in M10
+- QB_V4.pdf → should be in M10
+- QB_V5.pdf → should be in M10
+- hw_ 1 of 2020.pdf → should be in M10
+- hw_ 2 of 2022.pdf → should be in M10
+- hw_ 2025 16th dec_shift 4.pdf → should be in M10
+- hw_ 3 of 2023.pdf → should be in M10
+- hw_1 of 2024.pdf → should be in M10
+- hw_2 of 2024.pdf → should be in M10
+- hw_2018 dec.pdf → should be in M10
+- hw_2020 feb.pdf → should be in M10
+- hw_2024 18th dec.pdf → should be in M10
+- hw_2024 23rd sep.pdf → should be in M10
+- hw_2024 27th sep.pdf → should be in M10
+- hw_2025 10th dec.pdf → should be in M10
+- hw_3 of 2024.pdf → should be in M10
+- hw_4 of 2022.pdf → should be in M10
+- hw_4 of 2023.pdf → should be in M10
+- hw_4 of 2024.pdf → should be in M10
+- hw_OLODE_ 5 of 2022.pdf → should be in M10
+- hw_OLODE_2 OF 2023.pdf → should be in M10
+- hw_OLODE_feb_2025.pdf → should be in M10
+- 2013_FEB.pdf → should be in M11A
+- 2018_MAY.pdf → should be in M11A
+- 2019_JUN.pdf → should be in M11A
+- 2019_MAY.pdf → should be in M11A
+- 2019_OCT.pdf → should be in M11A
+- 2022_MARCH.pdf → should be in M11A
+- 2024_FEB.docx → should be in M11A
+- 2024_JAN.pdf → should be in M11A
+- 2025_JAN.pdf → should be in M11A
+- 2025_NOV.pdf → should be in M11A
+- 2026_MAR.pdf → should be in M11A
+- MOD 11 CAT A.pdf → should be in M11A
+- Module 11A feb.pdf → should be in M11A
+- QB_V1.pdf → should be in M11A
+- QB_V10.pdf → should be in M11A
+- QB_V11.pdf → should be in M11A
+- QB_V2.pdf → should be in M11A
+- QB_V3.pdf → should be in M11A
+- QB_V4.pdf → should be in M11A
+- QB_V5.pdf → should be in M11A
+- QB_V6.pdf → should be in M11A
+- QB_V7.pdf → should be in M11A
+- QB_V8.pdf → should be in M11A
+- QB_V9.pdf → should be in M11A
+- 2019_MAR.pdf → should be in M12
+- 2019_MARCH.docx → should be in M12
+- 2019_MARCH_RA.pdf → should be in M12
+- 2025_OCT.pdf → should be in M12
+- DGCA MODULE 12 PART 01.pdf → should be in M12
+- QB_V1.pdf → should be in M12
+- QB_V10.pdf → should be in M12
+- QB_V2.pdf → should be in M12
+- QB_V3.pdf → should be in M12
+- QB_V4.pdf → should be in M12
+- QB_V5.pdf → should be in M12
+- QB_V6.pdf → should be in M12
+- QB_V7.pdf → should be in M12
+- QB_V8.pdf → should be in M12
+- QB_V9.pdf → should be in M12
+- 2019_JUNE.pdf → should be in M13
+- 2020_JAN.pdf → should be in M13
+- 2022_SEP.docx → should be in M13
+- 2023_SEP.pdf → should be in M13
+- 2024_JAN.pdf → should be in M13
+- 2024_MAR.pdf → should be in M13
+- 2025_JUN.pdf → should be in M13
+- 2025_MAR.pdf → should be in M13
+- JUNE_2019.pdf → should be in M13
+- MAR_2024.pdf → should be in M13
+- QB_V1.pdf → should be in M13
+- QB_V2.pdf → should be in M13
+- QB_V3.pdf → should be in M13
+- QB_V4.pdf → should be in M13
+- 2019_JUNE.pdf → should be in M14
+- 2020_APRIL.docx → should be in M14
+- 2020_FEB.pdf → should be in M14
+- 2021_JAN.docx → should be in M14
+- 2023_JAN.pdf → should be in M14
+- 2024_MAR.pdf → should be in M14
+- 2024_MARCH.docx → should be in M14
+- 2025_DEC.pdf → should be in M14
+- 2025_MAR.pdf → should be in M14
+- April 2019.pdf → should be in M14
+- QB_V1.pdf → should be in M14
+- QB_V2.pdf → should be in M14
+- QB_V3.Pdf → should be in M14
+- QB_V4.pdf → should be in M14
+- QB_V5.pdf → should be in M14
+- 2017_JULY.pdf → should be in M15
+- 2018_MAY.pdf → should be in M15
+- 2019_FEB.pdf → should be in M15
+- 2019_JAN.docx → should be in M15
+- 2020_JAN.pdf → should be in M15
+- 2021_FEB.pdf → should be in M15
+- 2021_JAN (2).pdf → should be in M15
+- 2021_JAN (3).pdf → should be in M15
+- 2021_JAN.pdf → should be in M15
+- 2021_MARCH.pdf → should be in M15
+- 2021_NOV.pdf → should be in M15
+- 2022_MAR.pdf → should be in M15
+- 2023_DEC (2).pdf → should be in M15
+- 2023_DEC.pdf → should be in M15
+- 2023_FEB.pdf → should be in M15
+- 2023_MAR.pdf → should be in M15
+- 2023_OCT.pdf → should be in M15
+- 2025_MAR.pdf → should be in M15
+- 2025_SEP.pdf → should be in M15
+- MAR_2025.pdf → should be in M15
+- QB_V1.pdf → should be in M15
+- QB_V2.pdf → should be in M15
+- QB_V3.pdf → should be in M15
+- QB_V4.pdf → should be in M15
+- QB_V5.pdf → should be in M15
+- QC_V1.pdf → should be in M15
+- QB_V1 (1).pdf → should be in M17
+- QB_V1 (2).pdf → should be in M17
+- QB_V1 (3).pdf → should be in M17
+- QB_V1 (4).pdf → should be in M17
+
+═══════════════════════════════
+SUMMARY:
+Total source files found in data/Modules: 318
+Total currently matching in index: 0
+Index coverage: 0.0%
+═══════════════════════════════

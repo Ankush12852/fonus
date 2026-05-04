@@ -1,0 +1,219 @@
+DATA_DIR: D:\ai coach fonus\code_test_fonus\fonus\data\books
+Exists: True
+Total files: 303
+DGCA regulatory files found: 215
+  AAC No 03_2025_Tools and equipment maintenance control.pdf
+  AAC No 2_2025_User guide for CAME.pdf
+  APM_Part_0__Issue 2,Rev 9_March 2017.pdf
+  APM_Part_II_Chapter_2_Issue 2,Rev 10_April 2025.pdf
+  CAR_section 1.txt
+  CAR_section 10_SERIES C_PART I.pdf
+  CAR_section 11_SERIES C_PART I.pdf
+  CAR_section 11_SERIES D_PART I.pdf
+  CAR_section 11_SERIES E_PART I.pdf
+  CAR_section 2_SERIES B_PART I.txt
+  CAR_section 2_SERIES C_PART I.txt
+  CAR_section 2_SERIES E_ CAR 147.pdf
+  CAR_section 2_SERIES E_CAR 145_Issue 2.txt
+  CAR_section 2_SERIES E_CAR 145_issue 3.txt
+  CAR_section 2_SERIES E_CAR 147 (BASIC).pdf
+  CAR_section 2_SERIES E_CAR M_issue 2.txt
+  CAR_section 2_SERIES E_CAR M_issue 3.txt
+  CAR_section 2_SERIES E_CAR-CAMO.txt
+  CAR_section 2_SERIES E_CAR-CAO.txt
+  CAR_section 2_SERIES E_CAR-ML.txt
+  CAR_section 2_SERIES E_ML.pdf
+  CAR_section 2_SERIES E_PART III.txt
+  CAR_section 2_SERIES E_PART VI.pdf
+  CAR_section 2_SERIES E_PART XI.txt
+  CAR_section 2_SERIES E_PART XII.txt
+  CAR_section 2_SERIES F_PART I.pdf
+  CAR_section 2_SERIES F_PART III.pdf
+  CAR_section 2_SERIES F_PART VII.pdf
+  CAR_section 2_SERIES F_PART XIII.pdf
+  CAR_section 2_SERIES F_PART XIV.pdf
+  CAR_section 2_SERIES F_PART XV.pdf
+  CAR_section 2_SERIES F_PART XX.pdf
+  CAR_section 2_SERIES F_PART XXIII.pdf
+  CAR_section 2_SERIES F_PART XXIV.pdf
+  CAR_section 2_SERIES H_PART II.pdf
+  CAR_section 2_SERIES H_PART III.pdf
+  CAR_section 2_SERIES I_PART II.pdf
+  CAR_section 2_SERIES I_PART V.pdf
+  CAR_section 2_SERIES I_PART VI.pdf
+  CAR_section 2_SERIES I_PART VII.pdf
+  CAR_section 2_SERIES I_PART VIII.pdf
+  CAR_section 2_SERIES L_CAR 66.pdf
+  CAR_section 2_SERIES L_PART IX.pdf
+  CAR_section 2_SERIES L_PART XI.pdf
+  CAR_section 2_SERIES L_PART XV.pdf
+  CAR_section 2_SERIES L_PART XVI.pdf
+  CAR_section 2_SERIES M_PART 1.pdf
+  CAR_section 2_SERIES O_PART VI.pdf
+  CAR_section 2_SERIES R_PART II.pdf
+  CAR_section 2_SERIES R_PART IV.pdf
+  CAR_section 2_SERIES T_PART II.pdf
+  CAR_section 2_SERIES X_PART II.pdf
+  CAR_section 2_SERIES X_PART III.pdf
+  CAR_section 2_SERIES X_PART IV.pdf
+  CAR_section 2_SERIES X_PART VI.pdf
+  CAR_section 2_SERIES X_PART VII.pdf
+  CAR_section 2_SERIES X_PART VIII.pdf
+  CAR_section 3_SERIES C_PART I.pdf
+  CAR_section 3_SERIES C_PART II.pdf
+  CAR_section 3_SERIES C_PART III.pdf
+  CAR_section 3_SERIES C_PART IV.pdf
+  CAR_section 3_SERIES C_PART IX.pdf
+  CAR_section 3_SERIES C_PART VII.pdf
+  CAR_section 3_SERIES C_PART X.pdf
+  CAR_section 3_SERIES C_PART XII.pdf
+  CAR_section 3_SERIES C_PART XIII.pdf
+  CAR_section 3_SERIES D_PART I.txt
+  CAR_section 3_SERIES E_PART I.txt
+  CAR_section 3_SERIES F_PART I.pdf
+  CAR_section 3_SERIES M_PART I.pdf
+  CAR_section 3_SERIES M_PART II.pdf
+  CAR_section 3_SERIES M_PART IV.pdf
+  CAR_section 3_SERIES M_PART V.pdf
+  CAR_section 3_SERIES M_PART VI.pdf
+  CAR_section 3_SERIES N_PART I.pdf
+  CAR_section 3_SERIES S_PART I.pdf
+  CAR_section 4_SERIES A_ PART I.pdf
+  CAR_section 4_SERIES B_PART I.pdf
+  CAR_section 4_SERIES B_PART II.pdf
+  CAR_section 4_SERIES B_PART III.pdf
+  CAR_section 4_SERIES B_PART IV.pdf
+  CAR_section 4_SERIES B_PART V.pdf
+  CAR_section 4_SERIES B_PART VI.pdf
+  CAR_section 4_SERIES F_PART I.pdf
+  CAR_section 4_SERIES F_PART II.pdf
+  CAR_section 4_SERIES F_PART IV.pdf
+  CAR_section 4_SERIES F_PART V.pdf
+  CAR_section 4_SERIES X_PART I.pdf
+  CAR_section 4_SERIES X_PART II.pdf
+  CAR_section 5_SERIES C_PART I.pdf
+  CAR_section 5_SERIES F_PART I.pdf
+  CAR_section 5_SERIES F_PART II.pdf
+  CAR_section 5_SERIES F_PART III.pdf
+  CAR_section 5_SERIES F_PART IV.pdf
+  CAR_section 5_SERIES F_PART V.pdf
+  CAR_section 5_SERIES X_PART I.pdf
+  CAR_section 6_SERIES A _PART I.pdf
+  CAR_section 6_SERIES A _PART II.pdf
+  CAR_section 6_SERIES A _PART III.pdf
+  CAR_section 6_SERIES A _PART IV.pdf
+  CAR_section 6_SERIES A _PART V.pdf
+  CAR_section 6_SERIES B_CAR 21.pdf
+  CAR_section 6_SERIES C_PART I.pdf
+  CAR_section 6_SERIES C_PART II.pdf
+  CAR_section 6_SERIES C_PART III.pdf
+  CAR_section 7_SERIES B_PART I.pdf
+  CAR_section 7_SERIES B_PART II.pdf
+  CAR_section 7_SERIES B_PART III.pdf
+  CAR_section 7_SERIES B_PART IV.pdf
+  CAR_section 7_SERIES B_PART IX.pdf
+  CAR_section 7_SERIES B_PART VI.pdf
+  CAR_section 7_SERIES B_PART VII.pdf
+  CAR_section 7_SERIES B_PART VIII.txt
+  CAR_section 7_SERIES B_PART XIX.pdf
+  CAR_section 7_SERIES B_PART XVI.pdf
+  CAR_section 7_SERIES B_PART XVII.pdf
+  CAR_section 7_SERIES B_PART XVIII.pdf
+  CAR_section 7_SERIES B_PART XX.pdf
+  CAR_section 7_SERIES C_PART I.pdf
+  CAR_section 7_SERIES C_PART II.pdf
+  CAR_section 7_SERIES C_PART III.pdf
+  CAR_section 7_SERIES C_PART IV.pdf
+  CAR_section 7_SERIES D_PART I.pdf
+  CAR_section 7_SERIES D_PART IV.pdf
+  CAR_section 7_SERIES D_PART V.pdf
+  CAR_section 7_SERIES D_PART VI.pdf
+  CAR_section 7_SERIES D_PART VII.pdf
+  CAR_section 7_SERIES F_PART I.txt
+  CAR_section 7_SERIES G_PART I.pdf
+  CAR_section 7_SERIES G_PART II.pdf
+  CAR_section 7_SERIES G_PART III.pdf
+  CAR_section 7_SERIES G_PART IV.pdf
+  CAR_section 7_SERIES G_PART V.pdf
+  CAR_section 7_SERIES G_PART VI.pdf
+  CAR_section 7_SERIES I_PART I.pdf
+  CAR_section 7_SERIES I_PART II.pdf
+  CAR_section 7_SERIES I_PART III.pdf
+  CAR_section 7_SERIES I_PART IV.pdf
+  CAR_section 7_SERIES I_PART IX.pdf
+  CAR_section 7_SERIES I_PART V.pdf
+  CAR_section 7_SERIES I_PART VI.pdf
+  CAR_section 7_SERIES I_PART VII.pdf
+  CAR_section 7_SERIES I_PART VIII.pdf
+  CAR_section 7_SERIES I_PART X.pdf
+  CAR_section 7_SERIES I_PART XI.pdf
+  CAR_section 7_SERIES J_PART I.pdf
+  CAR_section 7_SERIES J_PART II.pdf
+  CAR_section 7_SERIES J_PART III.pdf
+  CAR_section 7_SERIES J_PART IV.pdf
+  CAR_section 7_SERIES M_PART I.pdf
+  CAR_section 7_SERIES M_PART II.pdf
+  CAR_section 7_SERIES M_PART IV.pdf
+  CAR_section 7_SERIES O_PART I.pdf
+  CAR_section 7_SERIES X_PART II.pdf
+  CAR_section 8_SERIES A_PART I.pdf
+  CAR_section 8_SERIES A_PART II.pdf
+  CAR_section 8_SERIES A_PART III.pdf
+  CAR_section 8_SERIES A_PART IV.pdf
+  CAR_section 8_SERIES B_PART I.pdf
+  CAR_section 8_SERIES C_PART I.pdf
+  CAR_section 8_SERIES D_PART I.pdf
+  CAR_section 8_SERIES D_PART II.pdf
+  CAR_section 8_SERIES F_PART I.pdf
+  CAR_section 8_SERIES F_PART II.pdf
+  CAR_section 8_SERIES F_PART III.pdf
+  CAR_section 8_SERIES F_PART IV.pdf
+  CAR_section 8_SERIES F_PART V.pdf
+  CAR_section 8_SERIES F_PART VI.pdf
+  CAR_section 8_SERIES F_PART VII.pdf
+  CAR_section 8_SERIES F_PART VIII.pdf
+  CAR_section 8_SERIES H_PART II.pdf
+  CAR_section 8_SERIES O_PART II.pdf
+  CAR_section 8_SERIES O_PART III.pdf
+  CAR_section 8_SERIES O_PART IV.pdf
+  CAR_section 8_SERIES O_PART V.pdf
+  CAR_section 8_SERIES O_PART VII.pdf
+  CAR_section 8_SERIES O_PART VIII.pdf
+  CAR_section 8_SERIES S_PART I.pdf
+  CAR_section 8_SERIES S_PART II.pdf
+  CAR_section 8_SERIES S_PART III.pdf
+  CAR_section 8_SERIES S_PART IV.pdf
+  CAR_section 8_SERIES S_PART V.pdf
+  CAR_section 8_SERIES S_PART VI.pdf
+  CAR_section 8_SERIES S_PART VII.pdf
+  CAR_section 8_SERIES S_PART VIII.pdf
+  CAR_section 9_SERIES C_PART I.pdf
+  CAR_section 9_SERIES D_PART I.pdf
+  CAR_section 9_SERIES D_PART II.pdf
+  CAR_section 9_SERIES D_PART III.pdf
+  CAR_section 9_SERIES D_PART IV.pdf
+  CAR_section 9_SERIES D_PART V.pdf
+  CAR_section 9_SERIES D_PART VI.pdf
+  CAR_section 9_SERIES E_PART I.pdf
+  CAR_section 9_SERIES G_PART I.pdf
+  CAR_section 9_SERIES I_PART I.pdf
+  CAR_section 9_SERIES L_PART II.pdf
+  CAR_section 9_SERIES L_PART III.pdf
+  CAR_section 9_SERIES L_PART IV.pdf
+  CAR_section 9_SERIES L_PART IX.pdf
+  CAR_section 9_SERIES L_PART V.pdf
+  CAR_section 9_SERIES L_PART VI.pdf
+  CAR_section 9_SERIES L_PART VII.pdf
+  CAR_section 9_SERIES L_PART VIII.pdf
+  CAR_section 9_SERIES L_PART X.pdf
+  CAR_section 9_SERIES M_PART I.pdf
+  CAR_section 9_SERIES P_PART I.pdf
+  CAR_section 9_SERIES R_PART I.pdf
+  CAR_section 9_SERIES S_PART I.pdf
+  CAR_section 9_SERIES X_PART I.pdf
+  DGCA_The Aircraft Rules_1937.pdf
+  DGCA_The Aircraft Rule_1994.pdf
+  DGCA_The Aircraft Rule_2003.pdf
+  DGCA_The Aircraft Rule_2011.pdf
+  DGCA_The Aircraft Rule_2025.pdf
+  RTR Rules 2025.pdf

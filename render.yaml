@@ -1,0 +1,35 @@
+# ============================================================
+# render.yaml — Fonus Backend Deployment Configuration
+# ============================================================
+# This file tells Render.com HOW to deploy your FastAPI backend.
+#
+# HOW IT WORKS:
+#   - Render reads this file automatically when you connect your GitHub repo.
+#   - It creates a "Web Service" called "fonus-backend".
+#   - It runs: pip install -r requirements.txt  (installs Python packages)
+#   - Then starts: uvicorn main:app --host 0.0.0.0 --port $PORT
+#     ($PORT is automatically provided by Render — do NOT hardcode 8000 here)
+#
+# AFTER DEPLOY:
+#   - You'll get a URL like: https://fonus-backend.onrender.com
+#   - Copy that URL and paste it in your frontend's NEXT_PUBLIC_API_URL env var
+#     (either in Vercel dashboard or in fonus-frontend/.env.local for local dev)
+#
+# IMPORTANT — Set these in Render Dashboard → Environment Variables:
+#   SUPABASE_URL          → your Supabase project URL
+#   SUPABASE_ANON_KEY     → your Supabase anon/public key
+#   GROQ_API_KEY          → your Groq API key
+#   JWT_SECRET            → a long random secret string
+#   ALLOWED_ORIGINS       → https://fonus-beta.vercel.app (your frontend URL)
+# ============================================================
+
+services:
+  - type: web                    # "web" = a server that listens on a port
+    name: fonus-backend          # Name shown in Render dashboard
+    runtime: python              # We're using Python
+    rootDir: backend             # All backend code lives in the backend/ folder
+    buildCommand: pip install -r requirements.txt   # Install dependencies
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT  # Start server
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0            # Python version to use on Render

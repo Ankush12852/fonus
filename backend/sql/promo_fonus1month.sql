@@ -1,0 +1,13 @@
+-- Tester promo — one month unlocked on redeem (benefit_days = 30).
+-- Paste into Supabase SQL editor. Columns must match your `promo_codes` table schema.
+--
+-- Typical shape (rename / adjust columns to match migrations):
+--
+-- INSERT INTO public.promo_codes (
+--   code, active, expires_at, max_uses, used_count, benefit_days, benefit_module, type
+-- )
+-- VALUES (
+--   'FONUS1MONTH', true, NULL, 9999, 0, 30, 'ALL', 'beta_open'
+-- )
+-- ON CONFLICT (code) DO NOTHING;
+--
