@@ -1,0 +1,4740 @@
+{
+  "totals": {
+    "modules": 15,
+    "total_rows": 38319,
+    "unusable_pyq_rules": 1551,
+    "bad_correct_answer_key": 8,
+    "conflicting_duplicate_stems": 310,
+    "duplicate_same_answer_diff_options": 848
+  },
+  "modules": [
+    {
+      "module": "M10",
+      "path": "D:\\ai coach fonus\\code_test_fonus\\fonus\\data\\Modules\\M10\\processed\\questions.json",
+      "total_rows": 2785,
+      "unusable_pyq_rules": 207,
+      "bad_correct_answer_key": 0,
+      "distinct_stems": 2391,
+      "conflicting_duplicate_stems": 35,
+      "duplicate_same_answer_diff_options": 94,
+      "very_short_questions_lt20chars": 125,
+      "conflicting_examples": [
+        {
+          "stem": "mtcs",
+          "distinct_marked_correct": [
+            "a",
+            "b",
+            "c",
+            "d"
+          ],
+          "variants": 15,
+          "sample_sources": [
+            "2017_MARCH.pdf",
+            "QB_V1.pdf",
+            "QB_V3.pdf",
+            "QB_V4.pdf",
+            "QB_V5.pdf",
+            "hw_3_of_2023.pdf",
+            "hw_4 of 2022.pdf"
+          ]
+        },
+        {
+          "stem": "test flight is done for",
+          "distinct_marked_correct": [
+            "a",
+            "c"
+          ],
+          "variants": 3,
+          "sample_sources": [
+            "2017_MARCH.pdf",
+            "QB_V3.pdf",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "mtcs-",
+          "distinct_marked_correct": [
+            "a",
+            "d"
+          ],
+          "variants": 6,
+          "sample_sources": [
+            "2019_march.pdf"
+          ]
+        },
+        {
+          "stem": "for which aircraft is fuel tank safety training effective?",
+          "distinct_marked_correct": [
+            "c",
+            "d"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "hw_4 of 2022.pdf"
+          ]
+        },
+        {
+          "stem": "what is mtcs?",
+          "distinct_marked_correct": [
+            "a",
+            "d"
+          ],
+          "variants": 3,
+          "sample_sources": [
+            "QB_V1.pdf",
+            "hw_4 of 2022.pdf"
+          ]
+        },
+        {
+          "stem": "credits shall be granted in accordance with",
+          "distinct_marked_correct": [
+            "a",
+            "b"
+          ],
+          "variants": 3,
+          "sample_sources": [
+            "QB_V3.pdf",
+            "QB_V4.pdf",
+            "QB_V5.pdf"
+          ]
+        },
+        {
+          "stem": "during maintenance any incomplete maintenance is brought to the notice to",
+          "distinct_marked_correct": [
+            "a",
+            "d"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB_V3.pdf",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "approval of any revision/ amendment to the mel shall be approved by",
+          "distinct_marked_correct": [
+            "b",
+            "c"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB_V3.pdf",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "aircraft operator which operates its fleet, whole or part of it, as per a published schedule",
+          "distinct_marked_correct": [
+            "a",
+            "b"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB_V3.pdf",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "sop shall carry out review",
+          "distinct_marked_correct": [
+            "a",
+            "c"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB_V3.pdf",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "an integrated set of regulations and activities aimed at improving safety",
+          "distinct_marked_correct": [
+            "a",
+            "c"
+          ],
+          "variants": 3,
+          "sample_sources": [
+            "QB_V1.pdf",
+            "QB_V3.pdf",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "mandatory modification",
+          "distinct_marked_correct": [
+            "c",
+            "d"
+          ],
+          "variants": 3,
+          "sample_sources": [
+            "QB_V3.pdf",
+            "QB_V4.pdf",
+            "QB_V5.pdf"
+          ]
+        },
+        {
+          "stem": "the central government may cancel or suspend c of r in accordance with sub rule (1) of",
+          "distinct_marked_correct": [
+            "a",
+            "b"
+          ],
+          "variants": 3,
+          "sample_sources": [
+            "QB_V1.pdf",
+            "QB_V3.pdf",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "eligibility criteria for application of ame license",
+          "distinct_marked_correct": [
+            "b",
+            "c"
+          ],
+          "variants": 3,
+          "sample_sources": [
+            "QB_V1.pdf",
+            "QB_V3.pdf",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "permission for import a/c shall be granted by",
+          "distinct_marked_correct": [
+            "a",
+            "b"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB_V3.pdf",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "records of aircraft loading & fuel must be kept for",
+          "distinct_marked_correct": [
+            "b",
+            "c"
+          ],
+          "variants": 3,
+          "sample_sources": [
+            "QB_V3.pdf",
+            "QB_V4.pdf",
+            "QB_V5.pdf"
+          ]
+        },
+        {
+          "stem": "minimum age for sole control of aircraft according to iar 28",
+          "distinct_marked_correct": [
+            "b",
+            "c"
+          ],
+          "variants": 3,
+          "sample_sources": [
+            "QB_V1.pdf",
+            "QB_V3.pdf",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "which category of item regarding to mel is repaired within 3 day",
+          "distinct_marked_correct": [
+            "a",
+            "b"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB_V3.pdf",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "which type of fdr is capable of retaining information for last 10 hours",
+          "distinct_marked_correct": [
+            "b",
+            "d"
+          ],
+          "variants": 3,
+          "sample_sources": [
+            "QB_V1.pdf",
+            "QB_V3.pdf",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "the component associated with major defects shall be preserved for a period of",
+          "distinct_marked_correct": [
+            "a",
+            "c"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB_V3.pdf",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "all mandatory maintenance information and any additional tasks derived from the assessment of the recommendations issued by",
+          "distinct_marked_correct": [
+            "a",
+            "c"
+          ],
+          "variants": 3,
+          "sample_sources": [
+            "QB_V1.pdf",
+            "QB_V3.pdf",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "the aircraft continuing airworthiness records shall contain the current",
+          "distinct_marked_correct": [
+            "a",
+            "d"
+          ],
+          "variants": 3,
+          "sample_sources": [
+            "QB_V1.pdf",
+            "QB_V3.pdf",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "mtis",
+          "distinct_marked_correct": [
+            "a",
+            "c"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB_V5.pdf"
+          ]
+        },
+        {
+          "stem": "support staff",
+          "distinct_marked_correct": [
+            "a",
+            "b"
+          ],
+          "variants": 3,
+          "sample_sources": [
+            "2024_18_th_dec.pdf",
+            "hw_3_of_2023.pdf"
+          ]
+        },
+        {
+          "stem": "who prepares the mel?",
+          "distinct_marked_correct": [
+            "a",
+            "c"
+          ],
+          "variants": 3,
+          "sample_sources": [
+            "QB_V1.pdf",
+            "QB_V3.pdf",
+            "hw_4 of 2023.pdf"
+          ]
+        },
+        {
+          "stem": "how may mel items be categorized?",
+          "distinct_marked_correct": [
+            "b",
+            "c"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB_V1.pdf",
+            "QB_V3.pdf"
+          ]
+        },
+        {
+          "stem": "who is responsible for recording the result of the test flight?",
+          "distinct_marked_correct": [
+            "c",
+            "d"
+          ],
+          "variants": 3,
+          "sample_sources": [
+            "QB_V1.pdf",
+            "QB_V3.pdf"
+          ]
+        },
+        {
+          "stem": "mtcs ( fuel tank safety)",
+          "distinct_marked_correct": [
+            "a",
+            "c"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB_V1.pdf",
+            "QB_V3.pdf"
+          ]
+        },
+        {
+          "stem": "who approves instructors in a training organization?",
+          "distinct_marked_correct": [
+            "a",
+            "c"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB_V1.pdf",
+            "QB_V3.pdf"
+          ]
+        },
+        {
+          "stem": "what is the overall ratio of whole-time instructors to students?",
+          "distinct_marked_correct": [
+            "a",
+            "c"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB_V1.pdf",
+            "QB_V3.pdf"
+          ]
+        }
+      ],
+      "same_answer_diff_options_examples": [
+        {
+          "stem": "person of ma subpart g organization involved in management and review of camo",
+          "marked_answer": "c",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2017_MARCH.pdf",
+            "QB_V5.pdf"
+          ]
+        },
+        {
+          "stem": "what is the definition of hazard?",
+          "marked_answer": "c",
+          "option_set_variants": 3,
+          "row_count": 3,
+          "sample_sources": [
+            "2019_march.pdf"
+          ]
+        },
+        {
+          "stem": "what does car-m mcm describe?",
+          "marked_answer": "a",
+          "option_set_variants": 3,
+          "row_count": 3,
+          "sample_sources": [
+            "2019_march.pdf"
+          ]
+        },
+        {
+          "stem": "fts phase 1 objective include",
+          "marked_answer": "d",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "QB_V1.pdf",
+            "hw_4 of 2022.pdf"
+          ]
+        },
+        {
+          "stem": "the observed actual climb performance shall in no case be lower than\u2026\u2026\u2026.. of the expected climb performance figure for the purpose of acceptable of test flight report",
+          "marked_answer": "c",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "QB_V4.pdf",
+            "hw_4 of 2022.pdf"
+          ]
+        },
+        {
+          "stem": "technical log does not contain",
+          "marked_answer": "c",
+          "option_set_variants": 3,
+          "row_count": 3,
+          "sample_sources": [
+            "QB_V3.pdf",
+            "QB_V4.pdf",
+            "QB_V5.pdf"
+          ]
+        },
+        {
+          "stem": "a/c technical log preserved for",
+          "marked_answer": "c",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "QB_V3.pdf",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "the person or org maintaining an a/c shall have access to and use only",
+          "marked_answer": "c",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "QB_V3.pdf",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "any applicable requirement, procedure, standard or information issued by",
+          "marked_answer": "c",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "QB_V3.pdf",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "applicable instruction for continuing a/w issued by",
+          "marked_answer": "c",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "QB_V3.pdf",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "category c experience requirement for large aircraft",
+          "marked_answer": "c",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "QB_V3.pdf",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "continued validity of ame license is",
+          "marked_answer": "a",
+          "option_set_variants": 3,
+          "row_count": 4,
+          "sample_sources": [
+            "QB_V1.pdf",
+            "QB_V3.pdf",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "category a license holder to issue",
+          "marked_answer": "c",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "QB_V3.pdf",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "basic experience required for category b2 and sub-categories b1.1 and b1.3",
+          "marked_answer": "a",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "QB_V3.pdf",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "for category c with respect to non large aircraft",
+          "marked_answer": "a",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "QB_V3.pdf",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "application for appearing in car 66 type examination",
+          "marked_answer": "a",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "QB_V3.pdf",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "maintenance man hour plan must be reviewed",
+          "marked_answer": "c",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "QB_V3.pdf",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "computer system should have at least one back up system should be updated within",
+          "marked_answer": "c",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "QB_V3.pdf",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "ca form 2 is for",
+          "marked_answer": "c",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "QB_V3.pdf",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "who will ensure that components is not in airworthy condition",
+          "marked_answer": "b",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "QB_V3.pdf",
+            "QB_V4.pdf"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "M11A",
+      "path": "D:\\ai coach fonus\\code_test_fonus\\fonus\\data\\Modules\\M11A\\processed\\questions.json",
+      "total_rows": 1854,
+      "unusable_pyq_rules": 379,
+      "bad_correct_answer_key": 1,
+      "distinct_stems": 1673,
+      "conflicting_duplicate_stems": 32,
+      "duplicate_same_answer_diff_options": 77,
+      "very_short_questions_lt20chars": 166,
+      "conflicting_examples": [
+        {
+          "stem": "what is mtcs?",
+          "distinct_marked_correct": [
+            "a",
+            "c",
+            "d"
+          ],
+          "variants": 4,
+          "sample_sources": [
+            "2013_FEB.pdf",
+            "2019_JUNE.pdf",
+            "2019_OCT.pdf",
+            "QB_V7.pdf"
+          ]
+        },
+        {
+          "stem": "what is the purpose of a flap?",
+          "distinct_marked_correct": [
+            "a",
+            "d"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2013_FEB.pdf"
+          ]
+        },
+        {
+          "stem": "which light cannot be tested with an ohmmeter",
+          "distinct_marked_correct": [
+            "b",
+            "d"
+          ],
+          "variants": 5,
+          "sample_sources": [
+            "2013_FEB.pdf",
+            "2019_JUN.pdf",
+            "?",
+            "Module 11A feb.pdf"
+          ]
+        },
+        {
+          "stem": "mtcs",
+          "distinct_marked_correct": [
+            "a",
+            "b",
+            "c"
+          ],
+          "variants": 15,
+          "sample_sources": [
+            "2024_JAN.pdf",
+            "2025_JAN.pdf",
+            "?",
+            "CIVIL AVIONICS SYSTEM",
+            "EASA techbook pg-8.4",
+            "ESMIN",
+            "QB_V10.pdf",
+            "QB_V4.pdf",
+            "unknown"
+          ]
+        },
+        {
+          "stem": "what is zincromate used on?",
+          "distinct_marked_correct": [
+            "b",
+            "c"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2013_FEB.pdf"
+          ]
+        },
+        {
+          "stem": "what is the function of a current limiter?",
+          "distinct_marked_correct": [
+            "a",
+            "d"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2013_FEB.pdf",
+            "2019_OCT.pdf"
+          ]
+        },
+        {
+          "stem": "what is sidetone regarding mtcs?",
+          "distinct_marked_correct": [
+            "a",
+            "d"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2013_FEB.pdf",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "what are essential lights?",
+          "distinct_marked_correct": [
+            "a",
+            "d"
+          ],
+          "variants": 4,
+          "sample_sources": [
+            "2013_FEB.pdf",
+            "2019_OCT.pdf",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "what type of modulation is used in vhf range and above?",
+          "distinct_marked_correct": [
+            "a",
+            "c"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2013_FEB.pdf",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "what is the maximum deviation error in a dr compass?",
+          "distinct_marked_correct": [
+            "a",
+            "b"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2013_FEB.pdf",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "electric field and electromagnetic field produced by radio antenna",
+          "distinct_marked_correct": [
+            "b",
+            "c"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2019_APR_11_B1.1_08.pdf",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "what does the ratio 20:1 indicate in relation to a transformer?",
+          "distinct_marked_correct": [
+            "b",
+            "d"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2013_FEB.pdf",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "satellite communication systems use a low earth orbit to:",
+          "distinct_marked_correct": [
+            "a",
+            "d"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2013_FEB.pdf",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "air traffic service units\u2019 interface with airplane avionics system by",
+          "distinct_marked_correct": [
+            "a",
+            "d"
+          ],
+          "variants": 3,
+          "sample_sources": [
+            "2013_FEB.pdf",
+            "Module 11A feb.pdf",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "in addition to magnetic heading, deviation shows in ehsi from",
+          "distinct_marked_correct": [
+            "a",
+            "b"
+          ],
+          "variants": 3,
+          "sample_sources": [
+            "2013_FEB.pdf",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "satcom use",
+          "distinct_marked_correct": [
+            "a",
+            "d"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2013_FEB.pdf",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "chimes when the flight crew needs to gain the attention of the cabin crew",
+          "distinct_marked_correct": [
+            "b",
+            "c"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2013_FEB.pdf",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "lindbergh fire detection system",
+          "distinct_marked_correct": [
+            "a",
+            "c"
+          ],
+          "variants": 3,
+          "sample_sources": [
+            "2013_FEB.pdf",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "mtcs regarding compass",
+          "distinct_marked_correct": [
+            "c",
+            "d"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2013_FEB.pdf",
+            "Module 11A feb.pdf"
+          ]
+        },
+        {
+          "stem": "outflow valve position until take off",
+          "distinct_marked_correct": [
+            "a",
+            "b"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2024_FEB.docx",
+            "2024_JAN.pdf"
+          ]
+        },
+        {
+          "stem": "o2 cylinder pressure",
+          "distinct_marked_correct": [
+            "a",
+            "c"
+          ],
+          "variants": 3,
+          "sample_sources": [
+            "2024_FEB.docx",
+            "2024_JAN.pdf",
+            "2025_JAN.pdf"
+          ]
+        },
+        {
+          "stem": "with increase in temp in kidde sys wire resistance",
+          "distinct_marked_correct": [
+            "a",
+            "b"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2024_FEB.docx",
+            "2024_JAN.pdf"
+          ]
+        },
+        {
+          "stem": "which milling is for skin deep group/ cuts",
+          "distinct_marked_correct": [
+            "a",
+            "b"
+          ],
+          "variants": 3,
+          "sample_sources": [
+            "2024_FEB.docx",
+            "2024_JAN.pdf",
+            "2025_JAN.pdf"
+          ]
+        },
+        {
+          "stem": "what type of fire extinguisher is used in the cabin or cockpit?",
+          "distinct_marked_correct": [
+            "a",
+            "c"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2024_FEB.docx",
+            "2024_JAN.pdf"
+          ]
+        },
+        {
+          "stem": "from where is bleed air taken during engine starting?",
+          "distinct_marked_correct": [
+            "a",
+            "c"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2024_FEB.docx",
+            "2024_JAN.pdf"
+          ]
+        },
+        {
+          "stem": "mtcs regarding furnishing and installation \u2013",
+          "distinct_marked_correct": [
+            "a",
+            "b"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2024_FEB.docx",
+            "2025_JAN.pdf"
+          ]
+        },
+        {
+          "stem": "what is often used in non retractable (fixed) landing gear to cover the wheel and tire to reduce their drag",
+          "distinct_marked_correct": [
+            "a",
+            "c"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2024_FEB.docx",
+            "2025_JAN.pdf"
+          ]
+        },
+        {
+          "stem": "secondary heading information is obtained from",
+          "distinct_marked_correct": [
+            "a",
+            "b"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "MOD 11 CAT A.pdf",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "the r.m.s value of half-wave rectifier is 10a, its value for full wave rectifier would be",
+          "distinct_marked_correct": [
+            "c",
+            "d"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "in a 6 pole d.c machine, 90 mechanical degrees correspond to",
+          "distinct_marked_correct": [
+            "b",
+            "c"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB_V4.pdf"
+          ]
+        }
+      ],
+      "same_answer_diff_options_examples": [
+        {
+          "stem": "what are the advantages of ima?",
+          "marked_answer": "d",
+          "option_set_variants": 3,
+          "row_count": 4,
+          "sample_sources": [
+            "2019_JUNE.pdf",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "what is the purpose of aids?",
+          "marked_answer": "a",
+          "option_set_variants": 3,
+          "row_count": 4,
+          "sample_sources": [
+            "2013_FEB.pdf",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "what is the purpose of pneumatic wind shielding?",
+          "marked_answer": "a",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2013_FEB.pdf",
+            "2019_OCT.pdf"
+          ]
+        },
+        {
+          "stem": "which light should not be touch with bare hand?",
+          "marked_answer": "a",
+          "option_set_variants": 2,
+          "row_count": 3,
+          "sample_sources": [
+            "2019_JUN.pdf",
+            "2019_OCT.pdf",
+            "Aircraft Electrical and Electronic Systems-MIKE TOOLEY"
+          ]
+        },
+        {
+          "stem": "above 30mhz propagation is by",
+          "marked_answer": "a",
+          "option_set_variants": 2,
+          "row_count": 3,
+          "sample_sources": [
+            "2019_JUN.pdf",
+            "2019_OCT.pdf",
+            "ESMIN"
+          ]
+        },
+        {
+          "stem": "ima 3rd generation uses",
+          "marked_answer": "b",
+          "option_set_variants": 2,
+          "row_count": 3,
+          "sample_sources": [
+            "2019_JUN.pdf",
+            "2019_OCT.pdf",
+            "CIVIL AVIONICS SYSTEM"
+          ]
+        },
+        {
+          "stem": "satellite communication uses leo satellites to",
+          "marked_answer": null,
+          "option_set_variants": 2,
+          "row_count": 3,
+          "sample_sources": [
+            "2019_JUN.pdf",
+            "?",
+            "Aircraft Electrical and Electronic Systems-mike tooley,pg-245"
+          ]
+        },
+        {
+          "stem": "what type of modulation can be used in vhf range and above",
+          "marked_answer": null,
+          "option_set_variants": 2,
+          "row_count": 3,
+          "sample_sources": [
+            "2019_JUN.pdf",
+            "?",
+            "ESMIN pg-278"
+          ]
+        },
+        {
+          "stem": "hf frequency is",
+          "marked_answer": null,
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2019_JUN.pdf",
+            "Aircraft Communications and Navigation Systems \u2013 mike tooley chapter-5 para 5.1"
+          ]
+        },
+        {
+          "stem": "current limiter",
+          "marked_answer": "d",
+          "option_set_variants": 2,
+          "row_count": 3,
+          "sample_sources": [
+            "2019_JUN.pdf",
+            "Aircraft Electrical and Electronic Systems-mike tooley,pg-143",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "the iridium network allows voice and data messages to be routed",
+          "marked_answer": null,
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2019_JUN.pdf",
+            "Aircraft Electrical and Electronic Systemsmike tooley, pg-245,255"
+          ]
+        },
+        {
+          "stem": "acars is a digital data link system uses vhf range",
+          "marked_answer": "a",
+          "option_set_variants": 3,
+          "row_count": 3,
+          "sample_sources": [
+            "2019_JUN.pdf",
+            "Aircraft Digital Electronic and Computer Systems pg-175",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "what is the source of high pressure pneumatic air?",
+          "marked_answer": "c",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2013_FEB.pdf",
+            "EASA 16.3"
+          ]
+        },
+        {
+          "stem": "what type of pump is a constant displacement type?",
+          "marked_answer": "c",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2013_FEB.pdf",
+            "AMR-393"
+          ]
+        },
+        {
+          "stem": "how do airstairs open?",
+          "marked_answer": "a",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2013_FEB.pdf",
+            "AMR pg-42"
+          ]
+        },
+        {
+          "stem": "how are door frames formed?",
+          "marked_answer": "c",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2013_FEB.pdf",
+            "AMR pg-40"
+          ]
+        },
+        {
+          "stem": "zap flap",
+          "marked_answer": "c",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2018_MAY.pdf",
+            "?"
+          ]
+        },
+        {
+          "stem": "what is the function of a torque link?",
+          "marked_answer": "b",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2013_FEB.pdf",
+            "2019_OCT.pdf"
+          ]
+        },
+        {
+          "stem": "plug type door",
+          "marked_answer": "a",
+          "option_set_variants": 3,
+          "row_count": 3,
+          "sample_sources": [
+            "2019_OCT.pdf",
+            "?",
+            "AMR pg-43"
+          ]
+        },
+        {
+          "stem": "mtcs cargo compartment",
+          "marked_answer": "a",
+          "option_set_variants": 2,
+          "row_count": 3,
+          "sample_sources": [
+            "2019_OCT.pdf",
+            "?",
+            "AMR pg-45"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "M12",
+      "path": "D:\\ai coach fonus\\code_test_fonus\\fonus\\data\\Modules\\M12\\processed\\questions.json",
+      "total_rows": 1200,
+      "unusable_pyq_rules": 49,
+      "bad_correct_answer_key": 0,
+      "distinct_stems": 1199,
+      "conflicting_duplicate_stems": 1,
+      "duplicate_same_answer_diff_options": 0,
+      "very_short_questions_lt20chars": 16,
+      "conflicting_examples": [
+        {
+          "stem": "what affects the lift characteristics of a helicopter",
+          "distinct_marked_correct": [
+            "c",
+            "d"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2019_MAR.pdf"
+          ]
+        }
+      ],
+      "same_answer_diff_options_examples": []
+    },
+    {
+      "module": "M13",
+      "path": "D:\\ai coach fonus\\code_test_fonus\\fonus\\data\\Modules\\M13\\processed\\questions.json",
+      "total_rows": 2714,
+      "unusable_pyq_rules": 93,
+      "bad_correct_answer_key": 0,
+      "distinct_stems": 2647,
+      "conflicting_duplicate_stems": 4,
+      "duplicate_same_answer_diff_options": 13,
+      "very_short_questions_lt20chars": 71,
+      "conflicting_examples": [
+        {
+          "stem": "mtcs refueling",
+          "distinct_marked_correct": [
+            "a",
+            "c"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2023_SEP.pdf",
+            "2025_JUN.pdf"
+          ]
+        },
+        {
+          "stem": "mtcs",
+          "distinct_marked_correct": [
+            "a",
+            "b",
+            "c"
+          ],
+          "variants": 11,
+          "sample_sources": [
+            "2023_SEP.pdf",
+            "2025_JUN.pdf",
+            "JUNE_2019.pdf"
+          ]
+        },
+        {
+          "stem": "which of the following is a key function of the dgca?",
+          "distinct_marked_correct": [
+            "a",
+            "b"
+          ],
+          "variants": 5,
+          "sample_sources": [
+            "JUNE_2019.pdf"
+          ]
+        },
+        {
+          "stem": "in coefficient c adjustment magnet is placed",
+          "distinct_marked_correct": [
+            "a",
+            "c"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB_V1.pdf",
+            "QB_V2.pdf"
+          ]
+        }
+      ],
+      "same_answer_diff_options_examples": [
+        {
+          "stem": "the landing gear being down and locked is an illuminated",
+          "marked_answer": "a",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2023_SEP.pdf",
+            "2025_JUN.pdf"
+          ]
+        },
+        {
+          "stem": "a pneumatic system contains hot air",
+          "marked_answer": "b",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2023_SEP.pdf",
+            "2025_JUN.pdf"
+          ]
+        },
+        {
+          "stem": "the manifold crossfeed fuel system used in large transport aircraft are",
+          "marked_answer": "d",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2023_SEP.pdf",
+            "2025_JUN.pdf"
+          ]
+        },
+        {
+          "stem": "indication and warnings",
+          "marked_answer": "c",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2023_SEP.pdf",
+            "2025_JUN.pdf"
+          ]
+        },
+        {
+          "stem": "when the amount of trim is increased, the amount of drag is",
+          "marked_answer": "a",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2023_SEP.pdf",
+            "2025_JUN.pdf"
+          ]
+        },
+        {
+          "stem": "what type of air conditioning system uses refrigerant to cool cabin air?",
+          "marked_answer": "a",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2024_MAR.pdf",
+            "MAR_2024.pdf"
+          ]
+        },
+        {
+          "stem": "how is rain repellant discharged?",
+          "marked_answer": "a",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2024_MAR.pdf",
+            "MAR_2024.pdf"
+          ]
+        },
+        {
+          "stem": "what is the characteristic of the wind screen wiper system?",
+          "marked_answer": "a",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2024_MAR.pdf",
+            "MAR_2024.pdf"
+          ]
+        },
+        {
+          "stem": "what is the primary principle of actuating cylinder?",
+          "marked_answer": "b",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2024_MAR.pdf",
+            "MAR_2024.pdf"
+          ]
+        },
+        {
+          "stem": "where is bleed air taken from?",
+          "marked_answer": "a",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2024_MAR.pdf",
+            "2025_JUN.pdf"
+          ]
+        },
+        {
+          "stem": "which oxygen system has longer self life :",
+          "marked_answer": "c",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2024_MAR.pdf",
+            "MAR_2024.pdf"
+          ]
+        },
+        {
+          "stem": "microbiological growth in reservoir/fuel tank:-",
+          "marked_answer": "a",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2024_MAR.pdf",
+            "MAR_2024.pdf"
+          ]
+        },
+        {
+          "stem": "blockage in pitot static system:-",
+          "marked_answer": "c",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2024_MAR.pdf",
+            "MAR_2024.pdf"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "M14",
+      "path": "D:\\ai coach fonus\\code_test_fonus\\fonus\\data\\Modules\\M14\\processed\\questions.json",
+      "total_rows": 2070,
+      "unusable_pyq_rules": 63,
+      "bad_correct_answer_key": 0,
+      "distinct_stems": 2062,
+      "conflicting_duplicate_stems": 3,
+      "duplicate_same_answer_diff_options": 3,
+      "very_short_questions_lt20chars": 22,
+      "conflicting_examples": [
+        {
+          "stem": "efficiency of the engine is improved by controlling the following:",
+          "distinct_marked_correct": [
+            "c",
+            "d"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2020_APRIL.docx"
+          ]
+        },
+        {
+          "stem": "in turbo shaft",
+          "distinct_marked_correct": [
+            "c",
+            "d"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2020_APRIL.docx",
+            "2020_FEB.pdf"
+          ]
+        },
+        {
+          "stem": "mark the correct statement",
+          "distinct_marked_correct": [
+            "c",
+            "d"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2021_JAN.docx"
+          ]
+        }
+      ],
+      "same_answer_diff_options_examples": [
+        {
+          "stem": "what are the characteristics of mtcs (multi-tip ceramic spark plug) in a turbine engine?",
+          "marked_answer": "a",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2020_APRIL.docx",
+            "2020_FEB.pdf"
+          ]
+        },
+        {
+          "stem": "thrust in a high bypass fan engine is indicated by",
+          "marked_answer": "a",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2020_APRIL.docx",
+            "QB_V3.Pdf"
+          ]
+        },
+        {
+          "stem": "to measure oil temperature, which of the following would most likely be used?",
+          "marked_answer": "a",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "QB_V1.pdf",
+            "QB_V3.Pdf"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "M15",
+      "path": "D:\\ai coach fonus\\code_test_fonus\\fonus\\data\\Modules\\M15\\processed\\questions.json",
+      "total_rows": 1505,
+      "unusable_pyq_rules": 182,
+      "bad_correct_answer_key": 7,
+      "distinct_stems": 1346,
+      "conflicting_duplicate_stems": 32,
+      "duplicate_same_answer_diff_options": 46,
+      "very_short_questions_lt20chars": 126,
+      "conflicting_examples": [
+        {
+          "stem": "which engine has more turbine stages",
+          "distinct_marked_correct": [
+            "a",
+            "c"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2017_JULY.pdf",
+            "2018_MAY.pdf"
+          ]
+        },
+        {
+          "stem": "indication of compressor stall",
+          "distinct_marked_correct": [
+            "a",
+            "b"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2017_JULY.pdf",
+            "2018_MAY.pdf"
+          ]
+        },
+        {
+          "stem": "the most commonly used commercial fuel",
+          "distinct_marked_correct": [
+            "a",
+            "b"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2017_JULY.pdf",
+            "2018_MAY.pdf"
+          ]
+        },
+        {
+          "stem": "in convergent duct",
+          "distinct_marked_correct": [
+            "b",
+            "c"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2018_MAY.pdf",
+            "QB_V3.pdf"
+          ]
+        },
+        {
+          "stem": "epr measures",
+          "distinct_marked_correct": [
+            "a",
+            "c"
+          ],
+          "variants": 3,
+          "sample_sources": [
+            "2018_MAY.pdf",
+            "2019_FEB.pdf",
+            "QB_V3.pdf"
+          ]
+        },
+        {
+          "stem": "what is the primary use of the apu?",
+          "distinct_marked_correct": [
+            "b",
+            "d"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2021_NOV.pdf",
+            "easa techbook pg 18.2"
+          ]
+        },
+        {
+          "stem": "mtcs about turboprop engine, gas generator section?",
+          "distinct_marked_correct": [
+            "a",
+            "b"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2020_JAN.pdf",
+            "2025_MAR.pdf"
+          ]
+        },
+        {
+          "stem": "deep groove ball bearing takes?",
+          "distinct_marked_correct": [
+            "c",
+            "d"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2020_JAN.pdf",
+            "2025_SEP.pdf"
+          ]
+        },
+        {
+          "stem": "ring seal ?",
+          "distinct_marked_correct": [
+            "a",
+            "d"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2021_JAN (2).pdf",
+            "ROLLS ROYCE 91"
+          ]
+        },
+        {
+          "stem": "starter motor automatically disengages when starter drive speed exceeds output shaft speed",
+          "distinct_marked_correct": [
+            "b",
+            "d"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2021_JAN (2).pdf",
+            "2025_SEP.pdf"
+          ]
+        },
+        {
+          "stem": "mtcs discharge indicator",
+          "distinct_marked_correct": [
+            "a",
+            "c"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2021_JAN.pdf",
+            "2025_MAR.pdf"
+          ]
+        },
+        {
+          "stem": "marking material",
+          "distinct_marked_correct": [
+            "b",
+            "c"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2021_JAN.pdf",
+            "2025_MAR.pdf"
+          ]
+        },
+        {
+          "stem": "engine pressure ratio (epr) \u2013 regarding true statement",
+          "distinct_marked_correct": [
+            "a",
+            "b"
+          ],
+          "variants": 3,
+          "sample_sources": [
+            "2022_MAR.pdf",
+            "2023_DEC.pdf",
+            "2023_FEB.pdf"
+          ]
+        },
+        {
+          "stem": "\u2018short duct \u2018high bypass engine",
+          "distinct_marked_correct": [
+            "a",
+            "c"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2023_DEC.pdf",
+            "2023_FEB.pdf"
+          ]
+        },
+        {
+          "stem": "mtcs about turboprop engine \u2013",
+          "distinct_marked_correct": [
+            "a",
+            "d"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2023_FEB.pdf"
+          ]
+        },
+        {
+          "stem": "what is the highest hottest component of the gas turbine engine?",
+          "distinct_marked_correct": [
+            "a",
+            "d"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2025_MAR.pdf",
+            "MAR_2025.pdf"
+          ]
+        },
+        {
+          "stem": "the air turbine starter is used to start the engine by",
+          "distinct_marked_correct": [
+            "b",
+            "d"
+          ],
+          "variants": 22,
+          "sample_sources": [
+            "2025_MAR.pdf"
+          ]
+        },
+        {
+          "stem": "cooling of nozzle done by bleed air from",
+          "distinct_marked_correct": [
+            "a",
+            "b"
+          ],
+          "variants": 4,
+          "sample_sources": [
+            "2019_FEB.pdf",
+            "2025_MAR.pdf",
+            "MAR_2025.pdf",
+            "QB_V3.pdf"
+          ]
+        },
+        {
+          "stem": "thrust and radial load taken by",
+          "distinct_marked_correct": [
+            "a",
+            "d"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2025_MAR.pdf",
+            "MAR_2025.pdf"
+          ]
+        },
+        {
+          "stem": "how is the output of a turboshaft engine measured?",
+          "distinct_marked_correct": [
+            "a",
+            "c"
+          ],
+          "variants": 3,
+          "sample_sources": [
+            "MAR_2025.pdf"
+          ]
+        },
+        {
+          "stem": "in turboprop engine shp taken from",
+          "distinct_marked_correct": [
+            "a",
+            "b"
+          ],
+          "variants": 3,
+          "sample_sources": [
+            "2019_FEB.pdf",
+            "QB_V3.pdf"
+          ]
+        },
+        {
+          "stem": "convergent duct",
+          "distinct_marked_correct": [
+            "c",
+            "d"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2019_FEB.pdf",
+            "QB_V3.pdf"
+          ]
+        },
+        {
+          "stem": "halon 1301",
+          "distinct_marked_correct": [
+            "b",
+            "c"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2019_FEB.pdf",
+            "QB_V3.pdf"
+          ]
+        },
+        {
+          "stem": "oil temperature indication is taken from",
+          "distinct_marked_correct": [
+            "b",
+            "c"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2019_FEB.pdf",
+            "QB_V3.pdf"
+          ]
+        },
+        {
+          "stem": "turboshaft engine drive shaft",
+          "distinct_marked_correct": [
+            "a",
+            "b"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2019_FEB.pdf",
+            "QB_V3.pdf"
+          ]
+        },
+        {
+          "stem": "principle which affect inlet condition are",
+          "distinct_marked_correct": [
+            "a",
+            "b"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2019_FEB.pdf",
+            "QB_V3.pdf"
+          ]
+        },
+        {
+          "stem": "in fuel cooler oil cooler",
+          "distinct_marked_correct": [
+            "a",
+            "b"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2019_FEB.pdf",
+            "QB_V3.pdf"
+          ]
+        },
+        {
+          "stem": "thermocouple",
+          "distinct_marked_correct": [
+            "a",
+            "c"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2019_FEB.pdf",
+            "QB_V3.pdf"
+          ]
+        },
+        {
+          "stem": "inlet guide vane",
+          "distinct_marked_correct": [
+            "b",
+            "d"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2019_FEB.pdf",
+            "QB_V3.pdf"
+          ]
+        },
+        {
+          "stem": "what prevent combustion from flaming out by reducing velocity",
+          "distinct_marked_correct": [
+            "a",
+            "b"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2019_FEB.pdf",
+            "QB_V3.pdf"
+          ]
+        }
+      ],
+      "same_answer_diff_options_examples": [
+        {
+          "stem": "why methanol is added in water for thrust augmentation system",
+          "marked_answer": "b",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2017_JULY.pdf",
+            "2018_MAY.pdf"
+          ]
+        },
+        {
+          "stem": "what causes vapor lock?",
+          "marked_answer": "a",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "unknown"
+          ]
+        },
+        {
+          "stem": "what does power augmentation depend upon?",
+          "marked_answer": "d",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2020_JAN.pdf",
+            "MAR_2025.pdf"
+          ]
+        },
+        {
+          "stem": "what is the primary function of the main turbine cooling system (mtcs) in a gas turbine engine?",
+          "marked_answer": "a",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2020_JAN.pdf",
+            "2021_JAN (2).pdf"
+          ]
+        },
+        {
+          "stem": "apu used for?",
+          "marked_answer": "a",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2021_JAN.pdf",
+            "?"
+          ]
+        },
+        {
+          "stem": "kidde fire detection system",
+          "marked_answer": "b",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2021_FEB.pdf",
+            "2025_SEP.pdf"
+          ]
+        },
+        {
+          "stem": "what is the purpose of an apu?",
+          "marked_answer": "c",
+          "option_set_variants": 2,
+          "row_count": 3,
+          "sample_sources": [
+            "2021_FEB.pdf",
+            "2025_MAR.pdf",
+            "MAR_2025.pdf"
+          ]
+        },
+        {
+          "stem": "halon 1301 also known as",
+          "marked_answer": "a",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2021_FEB.pdf",
+            "2023_FEB.pdf"
+          ]
+        },
+        {
+          "stem": "fcu senses many input parameters as power lever, compressor inlet pressure, other is",
+          "marked_answer": "b",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2021_FEB.pdf",
+            "2025_SEP.pdf"
+          ]
+        },
+        {
+          "stem": "foaming of oil is prevented by",
+          "marked_answer": "a",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2021_FEB.pdf",
+            "2025_MAR.pdf"
+          ]
+        },
+        {
+          "stem": "turboprop 100% propulsive efficiency can be obtained by flying an aircraft at equal to",
+          "marked_answer": "c",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2021_FEB.pdf",
+            "2023_DEC.pdf"
+          ]
+        },
+        {
+          "stem": "what does iepr stand for in the context of a gas turbine engine?",
+          "marked_answer": "a",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2021_JAN (2).pdf",
+            "2021_JAN.pdf"
+          ]
+        },
+        {
+          "stem": "power augmentation depends upon ?",
+          "marked_answer": "d",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2021_JAN (2).pdf",
+            "MAR_2025.pdf"
+          ]
+        },
+        {
+          "stem": "turboshaft mtcs",
+          "marked_answer": "a",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2021_JAN.pdf",
+            "2025_SEP.pdf"
+          ]
+        },
+        {
+          "stem": "compressor wash, what is cleaned",
+          "marked_answer": "b",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2021_JAN.pdf",
+            "2025_MAR.pdf"
+          ]
+        },
+        {
+          "stem": "power augmentation depends upon?",
+          "marked_answer": "d",
+          "option_set_variants": 2,
+          "row_count": 4,
+          "sample_sources": [
+            "12A 174",
+            "2021_JAN.pdf",
+            "2025_MAR.pdf",
+            "2025_SEP.pdf"
+          ]
+        },
+        {
+          "stem": "main rotor bearing number \u2013",
+          "marked_answer": "d",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2022_MAR.pdf",
+            "2023_DEC.pdf"
+          ]
+        },
+        {
+          "stem": "cool down period of apu",
+          "marked_answer": "c",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2023_DEC.pdf",
+            "2023_FEB.pdf"
+          ]
+        },
+        {
+          "stem": "turbo-propeller control assemblies have a feathering system that feather the propeller when",
+          "marked_answer": "c",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2023_DEC.pdf",
+            "2023_FEB.pdf"
+          ]
+        },
+        {
+          "stem": "anti \u2013 ice bleed air into the inlet duct control by",
+          "marked_answer": "a",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2023_DEC.pdf",
+            "2023_FEB.pdf"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "M16",
+      "path": "D:\\ai coach fonus\\code_test_fonus\\fonus\\data\\Modules\\M16\\processed\\questions.json",
+      "total_rows": 1666,
+      "unusable_pyq_rules": 0,
+      "bad_correct_answer_key": 0,
+      "distinct_stems": 1666,
+      "conflicting_duplicate_stems": 0,
+      "duplicate_same_answer_diff_options": 0,
+      "very_short_questions_lt20chars": 0,
+      "conflicting_examples": [],
+      "same_answer_diff_options_examples": []
+    },
+    {
+      "module": "M17",
+      "path": "D:\\ai coach fonus\\code_test_fonus\\fonus\\data\\Modules\\M17\\processed\\questions.json",
+      "total_rows": 1158,
+      "unusable_pyq_rules": 13,
+      "bad_correct_answer_key": 0,
+      "distinct_stems": 1158,
+      "conflicting_duplicate_stems": 0,
+      "duplicate_same_answer_diff_options": 0,
+      "very_short_questions_lt20chars": 4,
+      "conflicting_examples": [],
+      "same_answer_diff_options_examples": []
+    },
+    {
+      "module": "M3",
+      "path": "D:\\ai coach fonus\\code_test_fonus\\fonus\\data\\Modules\\M3\\processed\\questions.json",
+      "total_rows": 3915,
+      "unusable_pyq_rules": 112,
+      "bad_correct_answer_key": 0,
+      "distinct_stems": 3874,
+      "conflicting_duplicate_stems": 13,
+      "duplicate_same_answer_diff_options": 17,
+      "very_short_questions_lt20chars": 61,
+      "conflicting_examples": [
+        {
+          "stem": "if 2 charged oppositely charged bodies are close together:",
+          "distinct_marked_correct": [
+            "a",
+            "b"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB.V7.pdf"
+          ]
+        },
+        {
+          "stem": "the charge on a proton is",
+          "distinct_marked_correct": [
+            "a",
+            "b"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB.V7.pdf",
+            "QB_V2.pdf"
+          ]
+        },
+        {
+          "stem": "a 3 ohm resistor dissipates 27 watts. how much current flows through it?",
+          "distinct_marked_correct": [
+            "a",
+            "c"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB.V7.pdf",
+            "QB_V2.pdf"
+          ]
+        },
+        {
+          "stem": "what is a molecule?",
+          "distinct_marked_correct": [
+            "a",
+            "b"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB.V7.pdf",
+            "QB_V2.pdf"
+          ]
+        },
+        {
+          "stem": "the right hand grasp rule is used to determine the:",
+          "distinct_marked_correct": [
+            "a",
+            "b"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB.V7.pdf"
+          ]
+        },
+        {
+          "stem": "hysteresis losses are much:",
+          "distinct_marked_correct": [
+            "a",
+            "b"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB.V7.pdf"
+          ]
+        },
+        {
+          "stem": "the period of a sine wave of frequency 5khz is:",
+          "distinct_marked_correct": [
+            "a",
+            "b"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB.V7.pdf"
+          ]
+        },
+        {
+          "stem": "which is a high-pass filter?",
+          "distinct_marked_correct": [
+            "b",
+            "c"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB.V7.pdf",
+            "QB_V2.pdf"
+          ]
+        },
+        {
+          "stem": "in an induction motor:",
+          "distinct_marked_correct": [
+            "b",
+            "c"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB.V5.docx",
+            "QB.V7.pdf"
+          ]
+        },
+        {
+          "stem": "a three phase ac motor is running at speed on constant load and if one phase goes open circuit, the motor will run at:",
+          "distinct_marked_correct": [
+            "b",
+            "c"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB.V7.pdf"
+          ]
+        },
+        {
+          "stem": "the symbol for flux density is",
+          "distinct_marked_correct": [
+            "a",
+            "c"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB_V2.pdf"
+          ]
+        },
+        {
+          "stem": "the method of ascertaining the voltage of a standard aircraft lead-acid battery is by checking",
+          "distinct_marked_correct": [
+            "b",
+            "c"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB_V2.pdf"
+          ]
+        },
+        {
+          "stem": "mtcs for the dc shunt motors:",
+          "distinct_marked_correct": [
+            "c",
+            "d"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB_V3.docx"
+          ]
+        }
+      ],
+      "same_answer_diff_options_examples": [
+        {
+          "stem": "an ion is:",
+          "marked_answer": "b",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "QB.V7.pdf"
+          ]
+        },
+        {
+          "stem": "a material best used to store charge is a:",
+          "marked_answer": "b",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "QB.V7.pdf"
+          ]
+        },
+        {
+          "stem": "siemens is the unit name for:",
+          "marked_answer": "c",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "QB.V7.pdf"
+          ]
+        },
+        {
+          "stem": "the reciprocal of resistance is:",
+          "marked_answer": "a",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "QB.V7.pdf"
+          ]
+        },
+        {
+          "stem": "what charge does the nucleus of an atom possess?",
+          "marked_answer": "a",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "QB.V7.pdf",
+            "QB_V2.pdf"
+          ]
+        },
+        {
+          "stem": "in a magnetic circuit:",
+          "marked_answer": "b",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "QB.V7.pdf"
+          ]
+        },
+        {
+          "stem": "alternating current in an inductance produces maximum induced voltage when at its:",
+          "marked_answer": "c",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "QB.V7.pdf"
+          ]
+        },
+        {
+          "stem": "a filter tuned to a centre frequency can be used as a:",
+          "marked_answer": "c",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "QB.V7.pdf"
+          ]
+        },
+        {
+          "stem": "an ac motor which rotates at the same speed as supply frequency is called:",
+          "marked_answer": "c",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "QB.V7.pdf"
+          ]
+        },
+        {
+          "stem": "a three phase induction motor obtains its magnetic field by a:",
+          "marked_answer": "b",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "QB.V7.pdf"
+          ]
+        },
+        {
+          "stem": "in a starter-generator:",
+          "marked_answer": "a",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "QB.V7.pdf"
+          ]
+        },
+        {
+          "stem": "how can the direction of rotation of a dc electric motor be changed?",
+          "marked_answer": "a",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "QB_V2.pdf",
+            "QB_V3.docx"
+          ]
+        },
+        {
+          "stem": "in a wave wound generator with 4 poles, what would be the minimum number of brushes?",
+          "marked_answer": "b",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "QB_V2.pdf",
+            "QB_V3.docx"
+          ]
+        },
+        {
+          "stem": "what is the main disadvantage of a starter generator?",
+          "marked_answer": "b",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "QB_V2.pdf",
+            "QB_V3.docx"
+          ]
+        },
+        {
+          "stem": "transformer is a : -",
+          "marked_answer": "c",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "QB.V4.pdf.docx"
+          ]
+        },
+        {
+          "stem": "a transformer is a device which:",
+          "marked_answer": "c",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "QB.V4.pdf.docx"
+          ]
+        },
+        {
+          "stem": "mtcs for the starter generator:",
+          "marked_answer": "d",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "QB_V3.docx"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "M4",
+      "path": "D:\\ai coach fonus\\code_test_fonus\\fonus\\data\\Modules\\M4\\processed\\questions.json",
+      "total_rows": 3148,
+      "unusable_pyq_rules": 147,
+      "bad_correct_answer_key": 0,
+      "distinct_stems": 3134,
+      "conflicting_duplicate_stems": 1,
+      "duplicate_same_answer_diff_options": 9,
+      "very_short_questions_lt20chars": 53,
+      "conflicting_examples": [
+        {
+          "stem": "purpose of plating in pcb",
+          "distinct_marked_correct": [
+            "a",
+            "d"
+          ],
+          "variants": 3,
+          "sample_sources": [
+            "2019_JAN.docx",
+            "2021_JAN.pdf",
+            "QB_V2.pdf"
+          ]
+        }
+      ],
+      "same_answer_diff_options_examples": [
+        {
+          "stem": "in pcb wiring circuit is printed",
+          "marked_answer": null,
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2021_JAN.pdf"
+          ]
+        },
+        {
+          "stem": "in an e and i inductive device, the primary winding is wound on",
+          "marked_answer": "b",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2021_JAN.pdf",
+            "2021_MAR (2).pdf"
+          ]
+        },
+        {
+          "stem": "the phase difference in ce configuration between input and output is",
+          "marked_answer": "b",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2021_JAN.pdf",
+            "2021_MAR (2).pdf"
+          ]
+        },
+        {
+          "stem": "which transistor region is larger in size",
+          "marked_answer": "a",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2021_JAN.pdf",
+            "2021_MAR (2).pdf"
+          ]
+        },
+        {
+          "stem": "advantage of rc coupling",
+          "marked_answer": "a",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2021_JAN.pdf",
+            "2021_MAR (2).pdf"
+          ]
+        },
+        {
+          "stem": "breakdown voltage of silicon",
+          "marked_answer": "b",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2021_JAN.pdf",
+            "2021_MAR (2).pdf"
+          ]
+        },
+        {
+          "stem": "ic = 1/\u03b1 - \u03b1 ib +",
+          "marked_answer": "a",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "QB_V1.pdf"
+          ]
+        },
+        {
+          "stem": "high voltage gain-",
+          "marked_answer": "a",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "20218_DEC.pdf",
+            "QB_V3.pdf"
+          ]
+        },
+        {
+          "stem": "in pcb wiring circuit is printed in",
+          "marked_answer": "b",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2019_JAN.docx",
+            "20218_DEC.pdf"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "M5",
+      "path": "D:\\ai coach fonus\\code_test_fonus\\fonus\\data\\Modules\\M5\\processed\\questions.json",
+      "total_rows": 3835,
+      "unusable_pyq_rules": 99,
+      "bad_correct_answer_key": 0,
+      "distinct_stems": 3153,
+      "conflicting_duplicate_stems": 43,
+      "duplicate_same_answer_diff_options": 212,
+      "very_short_questions_lt20chars": 248,
+      "conflicting_examples": [
+        {
+          "stem": "control and display unit fms allow.... flight crew ?",
+          "distinct_marked_correct": [
+            "c",
+            "d"
+          ],
+          "variants": 3,
+          "sample_sources": [
+            "2019_FEB.docx",
+            "2019_JAN_CAT A.pdf",
+            "2019_JUNE.docx"
+          ]
+        },
+        {
+          "stem": "fms integrate... display unit with trust and power. automatic flight control???",
+          "distinct_marked_correct": [
+            "b",
+            "d"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2019_FEB.docx",
+            "2019_JAN_CAT A.pdf"
+          ]
+        },
+        {
+          "stem": "lcd power supply",
+          "distinct_marked_correct": [
+            "b",
+            "c"
+          ],
+          "variants": 4,
+          "sample_sources": [
+            "2019_FEB.docx",
+            "2019_JAN_CAT A.pdf",
+            "2019_JUNE.docx",
+            "QB_V2.pdf"
+          ]
+        },
+        {
+          "stem": "real time and go no go alarm",
+          "distinct_marked_correct": [
+            "c",
+            "d"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2019_FEB.docx",
+            "2019_JAN_CAT A.pdf"
+          ]
+        },
+        {
+          "stem": "fibre-optic cables use:",
+          "distinct_marked_correct": [
+            "a",
+            "b"
+          ],
+          "variants": 5,
+          "sample_sources": [
+            "2019_JULY.pdf",
+            "2019_JUNE.docx",
+            "2019_JUNE.pdf",
+            "2020_JAN.pdf",
+            "QB_V3.pdf"
+          ]
+        },
+        {
+          "stem": "an lcd uses what type of power supply:",
+          "distinct_marked_correct": [
+            "a",
+            "c"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2019_JULY.pdf",
+            "2019_JUNE.pdf"
+          ]
+        },
+        {
+          "stem": "arinc 429",
+          "distinct_marked_correct": [
+            "a",
+            "b"
+          ],
+          "variants": 10,
+          "sample_sources": [
+            "2019_JULY.pdf",
+            "2019_JUNE.docx",
+            "2019_JUNE.pdf",
+            "2020_FEB (2).pdf",
+            "2020_FEB (3).pdf",
+            "2020_FEB.docx",
+            "2020_FEB.pdf",
+            "2020_JAN.pdf",
+            "QB_V3.pdf",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "which of the following is not a function of the dgca?",
+          "distinct_marked_correct": [
+            "b",
+            "c"
+          ],
+          "variants": 6,
+          "sample_sources": [
+            "2019_JUNE.pdf",
+            "2021_FEB.pdf"
+          ]
+        },
+        {
+          "stem": "which of the following is a key responsibility of the dgca?",
+          "distinct_marked_correct": [
+            "a",
+            "b"
+          ],
+          "variants": 7,
+          "sample_sources": [
+            "2019_JUNE.pdf",
+            "2021_FEB.pdf",
+            "2021_JAN (2).pdf"
+          ]
+        },
+        {
+          "stem": "disadvantages of fibre optics",
+          "distinct_marked_correct": [
+            "c",
+            "d"
+          ],
+          "variants": 5,
+          "sample_sources": [
+            "2020_DEC.pdf",
+            "2020_FEB (2).pdf",
+            "2020_FEB (3).pdf",
+            "2020_FEB.pdf",
+            "QB_V2.pdf"
+          ]
+        },
+        {
+          "stem": "the resolution of dac depends on",
+          "distinct_marked_correct": [
+            "b",
+            "c",
+            "d"
+          ],
+          "variants": 11,
+          "sample_sources": [
+            "2020_DEC.pdf",
+            "2020_FEB (2).pdf",
+            "2020_FEB (3).pdf",
+            "2020_FEB.docx",
+            "2020_FEB.pdf",
+            "2021_FEB (2).pdf",
+            "2021_FEB.pdf",
+            "2021_JAN (3).pdf",
+            "2021_JAN.pdf",
+            "QB_V2.pdf"
+          ]
+        },
+        {
+          "stem": "mtcs (radio altimeter)",
+          "distinct_marked_correct": [
+            "a",
+            "c"
+          ],
+          "variants": 9,
+          "sample_sources": [
+            "2020_DEC.pdf",
+            "2020_FEB (2).pdf",
+            "2020_FEB (3).pdf",
+            "2020_FEB.docx",
+            "2020_FEB.pdf",
+            "QB_V2.pdf"
+          ]
+        },
+        {
+          "stem": "a number of integrated circuit devices bridge the gap between the analogue and digital world. such devices include",
+          "distinct_marked_correct": [
+            "a",
+            "b"
+          ],
+          "variants": 5,
+          "sample_sources": [
+            "2020_DEC.pdf",
+            "2020_FEB (2).pdf",
+            "2020_FEB (3).pdf",
+            "2020_FEB.docx",
+            "2020_FEB.pdf"
+          ]
+        },
+        {
+          "stem": "ecam display modes",
+          "distinct_marked_correct": [
+            "a",
+            "b"
+          ],
+          "variants": 6,
+          "sample_sources": [
+            "2020_DEC.pdf",
+            "2020_FEB (2).pdf",
+            "2020_FEB (3).pdf",
+            "2020_FEB.docx",
+            "2020_FEB.pdf",
+            "QB_V2.pdf"
+          ]
+        },
+        {
+          "stem": "aperiodic emi occurrence is",
+          "distinct_marked_correct": [
+            "b",
+            "c"
+          ],
+          "variants": 4,
+          "sample_sources": [
+            "2020_DEC.pdf",
+            "2020_FEB (3).pdf",
+            "2020_FEB.docx",
+            "2020_FEB.pdf"
+          ]
+        },
+        {
+          "stem": "purpose of secondary bonding",
+          "distinct_marked_correct": [
+            "c",
+            "d"
+          ],
+          "variants": 4,
+          "sample_sources": [
+            "2020_DEC.pdf",
+            "2020_FEB (3).pdf",
+            "2020_FEB.docx",
+            "2020_FEB.pdf"
+          ]
+        },
+        {
+          "stem": "arinc 629 physical bus medium",
+          "distinct_marked_correct": [
+            "a",
+            "c"
+          ],
+          "variants": 4,
+          "sample_sources": [
+            "2020_DEC.pdf",
+            "2020_FEB (3).pdf",
+            "2020_FEB.docx",
+            "2020_FEB.pdf"
+          ]
+        },
+        {
+          "stem": "cpu detect problem it will save in",
+          "distinct_marked_correct": [
+            "a",
+            "d"
+          ],
+          "variants": 3,
+          "sample_sources": [
+            "2020_DEC.pdf",
+            "2020_FEB (3).pdf",
+            "2020_FEB.pdf"
+          ]
+        },
+        {
+          "stem": "integrates multiple functions that require large quantities of data collection and processing",
+          "distinct_marked_correct": [
+            "a",
+            "b"
+          ],
+          "variants": 4,
+          "sample_sources": [
+            "2020_FEB (2).pdf",
+            "2020_FEB (3).pdf",
+            "2020_FEB.docx",
+            "2020_FEB.pdf"
+          ]
+        },
+        {
+          "stem": "microprocessor is the",
+          "distinct_marked_correct": [
+            "a",
+            "c"
+          ],
+          "variants": 4,
+          "sample_sources": [
+            "2020_FEB (2).pdf",
+            "2020_FEB (3).pdf",
+            "2020_FEB.docx",
+            "2020_FEB.pdf"
+          ]
+        },
+        {
+          "stem": "data pages and flight plan construction",
+          "distinct_marked_correct": [
+            "b",
+            "c"
+          ],
+          "variants": 5,
+          "sample_sources": [
+            "2020_FEB (2).pdf",
+            "2020_FEB (3).pdf",
+            "2020_FEB.docx",
+            "2020_FEB.pdf",
+            "QB_V2.pdf"
+          ]
+        },
+        {
+          "stem": "69. in electric control system regulator controls",
+          "distinct_marked_correct": [
+            "b",
+            "c"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2020_FEB (2).pdf",
+            "2020_FEB.docx"
+          ]
+        },
+        {
+          "stem": "71. final anode crt",
+          "distinct_marked_correct": [
+            "b",
+            "d"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2020_FEB (2).pdf",
+            "2020_FEB.docx"
+          ]
+        },
+        {
+          "stem": "final anode crt",
+          "distinct_marked_correct": [
+            "b",
+            "d"
+          ],
+          "variants": 3,
+          "sample_sources": [
+            "2020_FEB (3).pdf",
+            "2020_FEB.pdf",
+            "QB_V2.pdf"
+          ]
+        },
+        {
+          "stem": "advantage of crt over lcd is",
+          "distinct_marked_correct": [
+            "a",
+            "d"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2020_JAN.pdf",
+            "QB_V3.pdf"
+          ]
+        },
+        {
+          "stem": "49. in case of nand gate, if there is to be a logic 1 o/p or o/p voltage then-",
+          "distinct_marked_correct": [
+            "a",
+            "c"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2021_FEB (2).pdf",
+            "2021_JAN (2).pdf"
+          ]
+        },
+        {
+          "stem": "which of the following is a key objective of the dgca?",
+          "distinct_marked_correct": [
+            "a",
+            "b"
+          ],
+          "variants": 3,
+          "sample_sources": [
+            "2021_FEB.pdf",
+            "2021_JAN (2).pdf"
+          ]
+        },
+        {
+          "stem": "the dgca is responsible for:",
+          "distinct_marked_correct": [
+            "a",
+            "b",
+            "d"
+          ],
+          "variants": 3,
+          "sample_sources": [
+            "2021_FEB.pdf"
+          ]
+        },
+        {
+          "stem": "which of the following is not a responsibility of the dgca?",
+          "distinct_marked_correct": [
+            "c",
+            "d"
+          ],
+          "variants": 4,
+          "sample_sources": [
+            "2021_FEB.pdf",
+            "2021_JAN (2).pdf"
+          ]
+        },
+        {
+          "stem": "decoder is the opposite of encoder, it does converts",
+          "distinct_marked_correct": [
+            "a",
+            "b"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2021_JAN (3).pdf",
+            "2021_JAN.pdf"
+          ]
+        }
+      ],
+      "same_answer_diff_options_examples": [
+        {
+          "stem": "emi due to",
+          "marked_answer": "d",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2018_FEB.pdf",
+            "QB_V2.pdf"
+          ]
+        },
+        {
+          "stem": "adjacent green and red phosphorus are illuminated on the screen of a crt. the resulting color will be:",
+          "marked_answer": "b",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2018_MAY.pdf",
+            "2018_OCT.docx"
+          ]
+        },
+        {
+          "stem": "a heading reference of 320 degree in a word label format would be appear as:",
+          "marked_answer": "b",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2018_MAY.pdf",
+            "2018_OCT.docx"
+          ]
+        },
+        {
+          "stem": "a level c software classification is one in which a failure could result in:",
+          "marked_answer": "c",
+          "option_set_variants": 4,
+          "row_count": 5,
+          "sample_sources": [
+            "2018_MAY.pdf",
+            "2018_OCT.docx",
+            "QB_V10.pdf",
+            "QB_V6.pdf",
+            "QB_V9.pdf"
+          ]
+        },
+        {
+          "stem": "a basic arinc 429 data word has a length of:",
+          "marked_answer": "c",
+          "option_set_variants": 3,
+          "row_count": 3,
+          "sample_sources": [
+            "2018_MAY.pdf",
+            "2018_OCT.docx",
+            "QB_V6.pdf"
+          ]
+        },
+        {
+          "stem": "performance of digital oscilloscope depends on:",
+          "marked_answer": "c",
+          "option_set_variants": 4,
+          "row_count": 5,
+          "sample_sources": [
+            "2018_MAY.pdf",
+            "2018_OCT.docx",
+            "2019_JULY.pdf",
+            "2019_JUNE.pdf",
+            "QB_V6.pdf"
+          ]
+        },
+        {
+          "stem": "when it\u2019s impractical to use a static work bench for working on esds he would use:",
+          "marked_answer": "a",
+          "option_set_variants": 4,
+          "row_count": 4,
+          "sample_sources": [
+            "2018_MAY.pdf",
+            "2018_OCT.docx",
+            "QB_V11.pdf",
+            "QB_V6.pdf"
+          ]
+        },
+        {
+          "stem": "the patterns required to display alphanumeric characters in a crt controller are stored in:",
+          "marked_answer": "c",
+          "option_set_variants": 4,
+          "row_count": 4,
+          "sample_sources": [
+            "2018_MAY.pdf",
+            "2018_OCT.docx",
+            "QB_V10.pdf",
+            "QB_V6.pdf"
+          ]
+        },
+        {
+          "stem": "output of nor gate is high when both of its inputs are:",
+          "marked_answer": "a",
+          "option_set_variants": 3,
+          "row_count": 3,
+          "sample_sources": [
+            "2018_MAY.pdf",
+            "2018_OCT.docx",
+            "QB_V6.pdf"
+          ]
+        },
+        {
+          "stem": "convert 10101 to decimal:",
+          "marked_answer": "c",
+          "option_set_variants": 4,
+          "row_count": 4,
+          "sample_sources": [
+            "2018_MAY.pdf",
+            "2018_OCT.docx",
+            "QB_V11.pdf",
+            "QB_V6.pdf"
+          ]
+        },
+        {
+          "stem": "when the input 01011 is passed from a not gate, what will be the output:",
+          "marked_answer": "a",
+          "option_set_variants": 3,
+          "row_count": 3,
+          "sample_sources": [
+            "2018_MAY.pdf",
+            "2018_OCT.docx",
+            "QB_V6.pdf"
+          ]
+        },
+        {
+          "stem": "when in-flight landing gear are in on position and are locked, the illumination in the cockpit will be:",
+          "marked_answer": "c",
+          "option_set_variants": 3,
+          "row_count": 3,
+          "sample_sources": [
+            "2018_MAY.pdf",
+            "2018_OCT.docx",
+            "QB_V6.pdf"
+          ]
+        },
+        {
+          "stem": "in a binary counter the clock input of high bistable stage is fed from:",
+          "marked_answer": "b",
+          "option_set_variants": 3,
+          "row_count": 3,
+          "sample_sources": [
+            "2018_MAY.pdf",
+            "2018_OCT.docx",
+            "QB_V6.pdf"
+          ]
+        },
+        {
+          "stem": "the three beams in a color crt are associated with the colors:",
+          "marked_answer": "b",
+          "option_set_variants": 3,
+          "row_count": 3,
+          "sample_sources": [
+            "2018_MAY.pdf",
+            "2018_OCT.docx",
+            "QB_V6.pdf"
+          ]
+        },
+        {
+          "stem": "the main advantage of using a serial bus in an aircraft is:",
+          "marked_answer": "c",
+          "option_set_variants": 8,
+          "row_count": 9,
+          "sample_sources": [
+            "2018_MAY.pdf",
+            "2018_OCT.docx",
+            "2019_JULY.pdf",
+            "2019_JUNE.pdf",
+            "2020_JAN.pdf",
+            "QB_V10.pdf",
+            "QB_V3.pdf",
+            "QB_V6.pdf",
+            "QB_V9.pdf"
+          ]
+        },
+        {
+          "stem": "oss (option selectable software) can be modified by:",
+          "marked_answer": "a",
+          "option_set_variants": 3,
+          "row_count": 3,
+          "sample_sources": [
+            "2018_MAY.pdf",
+            "2018_OCT.docx",
+            "QB_V6.pdf"
+          ]
+        },
+        {
+          "stem": "grounding and bonding resistances of less than:",
+          "marked_answer": "a",
+          "option_set_variants": 3,
+          "row_count": 3,
+          "sample_sources": [
+            "2018_MAY.pdf",
+            "2018_OCT.docx",
+            "QB_V6.pdf"
+          ]
+        },
+        {
+          "stem": "noise margin for std. 7400 series ttl is:",
+          "marked_answer": "a",
+          "option_set_variants": 3,
+          "row_count": 3,
+          "sample_sources": [
+            "2018_MAY.pdf",
+            "2018_OCT.docx",
+            "QB_V6.pdf"
+          ]
+        },
+        {
+          "stem": "the base of the decimal system is:",
+          "marked_answer": "a",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2018_MAY.pdf",
+            "2018_OCT.docx"
+          ]
+        },
+        {
+          "stem": "a group of four bits are sometimes referred as:",
+          "marked_answer": "b",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2018_MAY.pdf",
+            "2018_OCT.docx"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "M6",
+      "path": "D:\\ai coach fonus\\code_test_fonus\\fonus\\data\\Modules\\M6\\processed\\questions.json",
+      "total_rows": 3760,
+      "unusable_pyq_rules": 103,
+      "bad_correct_answer_key": 0,
+      "distinct_stems": 3599,
+      "conflicting_duplicate_stems": 13,
+      "duplicate_same_answer_diff_options": 43,
+      "very_short_questions_lt20chars": 172,
+      "conflicting_examples": [
+        {
+          "stem": "mtcs",
+          "distinct_marked_correct": [
+            "a",
+            "b",
+            "c",
+            "d"
+          ],
+          "variants": 22,
+          "sample_sources": [
+            "2023_sep.pdf",
+            "QB_V10.pdf",
+            "QB_V3.pdf",
+            "QB_V4.pdf",
+            "QB_V5.pdf",
+            "QB_V6.pdf",
+            "QB_V8.pdf"
+          ]
+        },
+        {
+          "stem": "field rivet",
+          "distinct_marked_correct": [
+            "b",
+            "c"
+          ],
+          "variants": 3,
+          "sample_sources": [
+            "2022_jan.pdf",
+            "2023_sep.pdf",
+            "QB_V3.pdf"
+          ]
+        },
+        {
+          "stem": "which determine the selection of wire in the electrical system",
+          "distinct_marked_correct": [
+            "c",
+            "d"
+          ],
+          "variants": 3,
+          "sample_sources": [
+            "QB_V4.pdf",
+            "QB_V5.pdf",
+            "QB_V8.pdf"
+          ]
+        },
+        {
+          "stem": "hydraulic pressure test for hose",
+          "distinct_marked_correct": [
+            "a",
+            "c"
+          ],
+          "variants": 3,
+          "sample_sources": [
+            "QB_V4.pdf",
+            "QB_V8.pdf",
+            "QB_V9.pdf"
+          ]
+        },
+        {
+          "stem": "how many require gear in compound train",
+          "distinct_marked_correct": [
+            "a",
+            "c"
+          ],
+          "variants": 3,
+          "sample_sources": [
+            "QB_V4.pdf",
+            "QB_V6.pdf",
+            "QB_V9.pdf"
+          ]
+        },
+        {
+          "stem": "class 2 fit -",
+          "distinct_marked_correct": [
+            "a",
+            "c"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB_V6.pdf",
+            "QB_V9.pdf"
+          ]
+        },
+        {
+          "stem": "compressor disk spacer ring compressor blade & vane are fabricated form",
+          "distinct_marked_correct": [
+            "b",
+            "c"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB_V6.pdf",
+            "QB_V9.pdf"
+          ]
+        },
+        {
+          "stem": "bolt terminal,key ,pin made of",
+          "distinct_marked_correct": [
+            "a",
+            "b"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB_V6.pdf",
+            "QB_V9.pdf"
+          ]
+        },
+        {
+          "stem": "disadvantage of cable link",
+          "distinct_marked_correct": [
+            "a",
+            "b"
+          ],
+          "variants": 3,
+          "sample_sources": [
+            "QB_V6.pdf",
+            "QB_V8.pdf",
+            "QB_V9.pdf"
+          ]
+        },
+        {
+          "stem": "spring any defect by",
+          "distinct_marked_correct": [
+            "a",
+            "b"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB_V6.pdf",
+            "QB_V9.pdf"
+          ]
+        },
+        {
+          "stem": "aircraft fastener replaced by",
+          "distinct_marked_correct": [
+            "a",
+            "b"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB_V6.pdf",
+            "QB_V9.pdf"
+          ]
+        },
+        {
+          "stem": "taxing is",
+          "distinct_marked_correct": [
+            "a",
+            "c"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB_V6.pdf",
+            "QB_V9.pdf"
+          ]
+        },
+        {
+          "stem": "identify the bolt:",
+          "distinct_marked_correct": [
+            "a",
+            "b",
+            "c"
+          ],
+          "variants": 5,
+          "sample_sources": [
+            "QB_V7.PDF"
+          ]
+        }
+      ],
+      "same_answer_diff_options_examples": [
+        {
+          "stem": "plain bearings are usually subjected to what type of loads?",
+          "marked_answer": "c",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2023_sep.pdf",
+            "QB_V3.pdf"
+          ]
+        },
+        {
+          "stem": "what is the dedendum?",
+          "marked_answer": "c",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2023_sep.pdf",
+            "QB_V3.pdf"
+          ]
+        },
+        {
+          "stem": "taper pin",
+          "marked_answer": "a",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2023_sep.pdf",
+            "QB_V3.pdf"
+          ]
+        },
+        {
+          "stem": "file test",
+          "marked_answer": "a",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2023_sep.pdf",
+            "QB_V3.pdf"
+          ]
+        },
+        {
+          "stem": "which hardness testing method uses the 'hammer drop' method?",
+          "marked_answer": "b",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2023_jan.pdf",
+            "2023_jan_b2.pdf"
+          ]
+        },
+        {
+          "stem": "how many lugs are allowed to use in studies",
+          "marked_answer": "a",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2023_jan.pdf",
+            "2023_jan_b2.pdf"
+          ]
+        },
+        {
+          "stem": "an-fittings used for",
+          "marked_answer": "a",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2023_jan.pdf",
+            "2023_jan_b2.pdf"
+          ]
+        },
+        {
+          "stem": "washers are used",
+          "marked_answer": "a",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2023_jan.pdf",
+            "2023_jan_b2.pdf"
+          ]
+        },
+        {
+          "stem": "the heat treatment of alloy",
+          "marked_answer": "c",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2023_jan.pdf",
+            "2023_jan_b2.pdf"
+          ]
+        },
+        {
+          "stem": "7x19 cable means",
+          "marked_answer": "b",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2023_jan.pdf",
+            "2023_jan_b2.pdf"
+          ]
+        },
+        {
+          "stem": "an-fitting colour",
+          "marked_answer": "a",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2023_jan.pdf",
+            "2023_jan_b2.pdf"
+          ]
+        },
+        {
+          "stem": "carbon steel is when",
+          "marked_answer": "a",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2022_jan.pdf",
+            "2025_sep.pdf"
+          ]
+        },
+        {
+          "stem": "low carbon steel contain",
+          "marked_answer": "a",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "QB_V10.pdf",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "which type of bearing used with crankshaft",
+          "marked_answer": "a",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "QB_V4.pdf",
+            "QB_V8.pdf"
+          ]
+        },
+        {
+          "stem": "most appropriate metal can be used in the vicinity of compass?",
+          "marked_answer": "c",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "QB_V4.pdf",
+            "QB_V8.pdf"
+          ]
+        },
+        {
+          "stem": "which type of corrosion has also called false brinneling",
+          "marked_answer": "c",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "QB_V4.pdf",
+            "QB_V8.pdf"
+          ]
+        },
+        {
+          "stem": "the hacksaw blade design for cut",
+          "marked_answer": "a",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "QB_V4.pdf",
+            "QB_V8.pdf"
+          ]
+        },
+        {
+          "stem": "which type of fitting used in plumbing",
+          "marked_answer": "a",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "QB_V4.pdf",
+            "QB_V8.pdf"
+          ]
+        },
+        {
+          "stem": "mtics- marking of fluid line",
+          "marked_answer": "a",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "QB_V4.pdf",
+            "QB_V8.pdf"
+          ]
+        },
+        {
+          "stem": "the fitting are used to joint hydraulics line in areas where connection that is visually maintenance free",
+          "marked_answer": "a",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "QB_V4.pdf",
+            "QB_V8.pdf"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "M7",
+      "path": "D:\\ai coach fonus\\code_test_fonus\\fonus\\data\\Modules\\M7\\processed\\questions.json",
+      "total_rows": 2266,
+      "unusable_pyq_rules": 0,
+      "bad_correct_answer_key": 0,
+      "distinct_stems": 2266,
+      "conflicting_duplicate_stems": 0,
+      "duplicate_same_answer_diff_options": 0,
+      "very_short_questions_lt20chars": 0,
+      "conflicting_examples": [],
+      "same_answer_diff_options_examples": []
+    },
+    {
+      "module": "M8",
+      "path": "D:\\ai coach fonus\\code_test_fonus\\fonus\\data\\Modules\\M8\\processed\\questions.json",
+      "total_rows": 3372,
+      "unusable_pyq_rules": 59,
+      "bad_correct_answer_key": 0,
+      "distinct_stems": 2875,
+      "conflicting_duplicate_stems": 47,
+      "duplicate_same_answer_diff_options": 270,
+      "very_short_questions_lt20chars": 120,
+      "conflicting_examples": [
+        {
+          "stem": "longitudinal stability is affected by",
+          "distinct_marked_correct": [
+            "a",
+            "b",
+            "c"
+          ],
+          "variants": 5,
+          "sample_sources": [
+            "2017_MAR.pdf",
+            "JULY 2017",
+            "M8,2017.pdf",
+            "QB_V1.pdf",
+            "QB_V2.pdf"
+          ]
+        },
+        {
+          "stem": "viscosity coefficient",
+          "distinct_marked_correct": [
+            "a",
+            "d"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "JULY 2017",
+            "QB_V2.pdf"
+          ]
+        },
+        {
+          "stem": "density of air at sea level",
+          "distinct_marked_correct": [
+            "a",
+            "b"
+          ],
+          "variants": 4,
+          "sample_sources": [
+            "2017_MAR.pdf",
+            "M8,2017.pdf",
+            "QB_V1.pdf",
+            "QB_V2.pdf"
+          ]
+        },
+        {
+          "stem": "if the thrust line is placed above the drag,the nose of the aircraft is tend to",
+          "distinct_marked_correct": [
+            "b",
+            "c"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2017_MAR.pdf",
+            "M8,2017.pdf"
+          ]
+        },
+        {
+          "stem": "density of air",
+          "distinct_marked_correct": [
+            "a",
+            "b"
+          ],
+          "variants": 4,
+          "sample_sources": [
+            "2017_MAR.pdf",
+            "M8,2017.pdf",
+            "QB_V1.pdf",
+            "QB_V2.pdf"
+          ]
+        },
+        {
+          "stem": "in flat plate an increase of the angle of attack over the same angles causes the center of pressure to move",
+          "distinct_marked_correct": [
+            "a",
+            "b"
+          ],
+          "variants": 3,
+          "sample_sources": [
+            "2025.pdf",
+            "QB_V1.pdf",
+            "QB_V2.pdf"
+          ]
+        },
+        {
+          "stem": "mtcs-higher reynolds number",
+          "distinct_marked_correct": [
+            "a",
+            "b",
+            "c"
+          ],
+          "variants": 3,
+          "sample_sources": [
+            "2025.pdf",
+            "QB_V2.pdf"
+          ]
+        },
+        {
+          "stem": "density is defined as",
+          "distinct_marked_correct": [
+            "a",
+            "b",
+            "c"
+          ],
+          "variants": 4,
+          "sample_sources": [
+            "M8 kochi 2019.docx",
+            "QB_V1.pdf",
+            "QB_V2.pdf"
+          ]
+        },
+        {
+          "stem": "isa consider",
+          "distinct_marked_correct": [
+            "a",
+            "d"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "M8 kochi 2019.docx",
+            "QB_V2.pdf"
+          ]
+        },
+        {
+          "stem": "what is the primary function of the vertical stabilizer on an aircraft?",
+          "distinct_marked_correct": [
+            "b",
+            "c"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB_V1.pdf",
+            "QB_V2.pdf"
+          ]
+        },
+        {
+          "stem": "10. higher weight in gliding flight is not affected not by (ref-ack 185)",
+          "distinct_marked_correct": [
+            "b",
+            "c"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB_V1.pdf",
+            "QB_V2.pdf"
+          ]
+        },
+        {
+          "stem": "15. speed of sound at mean sea level",
+          "distinct_marked_correct": [
+            "a",
+            "b"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB_V1.pdf",
+            "QB_V2.pdf"
+          ]
+        },
+        {
+          "stem": "84. maximum climb speed of aircraft",
+          "distinct_marked_correct": [
+            "a",
+            "b"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB_V1.pdf",
+            "QB_V2.pdf"
+          ]
+        },
+        {
+          "stem": "rudder provides",
+          "distinct_marked_correct": [
+            "a",
+            "c"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB_V1.pdf",
+            "QB_V2.pdf"
+          ]
+        },
+        {
+          "stem": "the component has hardly any effect on the position of the center of pressure",
+          "distinct_marked_correct": [
+            "b",
+            "c"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB_V1.pdf",
+            "QB_V2.pdf"
+          ]
+        },
+        {
+          "stem": "airplane which have a hail tail plane on top of a high fin (ref-ack 267)",
+          "distinct_marked_correct": [
+            "b",
+            "c"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB_V1.pdf",
+            "QB_V2.pdf"
+          ]
+        },
+        {
+          "stem": "48. adverse yaw will be counteracted by",
+          "distinct_marked_correct": [
+            "b",
+            "c"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB_V1.pdf",
+            "QB_V2.pdf"
+          ]
+        },
+        {
+          "stem": "what does not affect rocket",
+          "distinct_marked_correct": [
+            "a",
+            "d"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB_V1.pdf",
+            "QB_V2.pdf"
+          ]
+        },
+        {
+          "stem": "rolling about lateral axis is",
+          "distinct_marked_correct": [
+            "a",
+            "b"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB_V1.pdf",
+            "QB_V2.pdf"
+          ]
+        },
+        {
+          "stem": "isa temp. is",
+          "distinct_marked_correct": [
+            "b",
+            "d"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB_V1.pdf",
+            "QB_V2.pdf"
+          ]
+        },
+        {
+          "stem": "when air craft is banking at high speed it will roll",
+          "distinct_marked_correct": [
+            "a",
+            "b"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB_V1.pdf",
+            "QB_V2.pdf"
+          ]
+        },
+        {
+          "stem": "when aircraft is banking on what factors it depend except radius",
+          "distinct_marked_correct": [
+            "a",
+            "c"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB_V1.pdf",
+            "QB_V2.pdf"
+          ]
+        },
+        {
+          "stem": "which dgca regulation governs the licensing and certification of aircraft maintenance engineers?",
+          "distinct_marked_correct": [
+            "c",
+            "d"
+          ],
+          "variants": 4,
+          "sample_sources": [
+            "QB_V2.pdf"
+          ]
+        },
+        {
+          "stem": "pressure decreases",
+          "distinct_marked_correct": [
+            "a",
+            "b"
+          ],
+          "variants": 3,
+          "sample_sources": [
+            "QB_V3.docx",
+            "QB_V4.pdf",
+            "QB_V6_F.pdf"
+          ]
+        },
+        {
+          "stem": "what happens to load factor as you decrease turn radius?",
+          "distinct_marked_correct": [
+            "a",
+            "b"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB_V3.docx",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "the vertical fin of a single engined aircraft is",
+          "distinct_marked_correct": [
+            "a",
+            "c"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB_V3.docx",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "aircraft flying in the transonic range most often utilize",
+          "distinct_marked_correct": [
+            "a",
+            "b"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB_V3.docx",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "induced drag is",
+          "distinct_marked_correct": [
+            "a",
+            "b",
+            "c"
+          ],
+          "variants": 5,
+          "sample_sources": [
+            "QB_V3.docx",
+            "QB_V4.pdf",
+            "QB_V6_F.pdf"
+          ]
+        },
+        {
+          "stem": "the boundary layer of a body in a moving airstream is",
+          "distinct_marked_correct": [
+            "a",
+            "c"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB_V3.docx",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "sweepback of the wings will",
+          "distinct_marked_correct": [
+            "a",
+            "c"
+          ],
+          "variants": 3,
+          "sample_sources": [
+            "QB_V3.docx",
+            "QB_V4.pdf"
+          ]
+        }
+      ],
+      "same_answer_diff_options_examples": [
+        {
+          "stem": "in flat turn",
+          "marked_answer": "b",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2017_MAR.pdf",
+            "M8,2017.pdf"
+          ]
+        },
+        {
+          "stem": "in the half way the stability between stability and instability is called",
+          "marked_answer": "c",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2017_MAR.pdf",
+            "M8,2017.pdf"
+          ]
+        },
+        {
+          "stem": "directional control provided by",
+          "marked_answer": "c",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2017_MAR.pdf",
+            "M8,2017.pdf"
+          ]
+        },
+        {
+          "stem": "if an aircraft having infinite aspaect ratio then it will not subjected to",
+          "marked_answer": "c",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2017_MAR.pdf",
+            "M8,2017.pdf"
+          ]
+        },
+        {
+          "stem": "if an aircraft bank turn,the angle of attack is independent from",
+          "marked_answer": "c",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2017_MAR.pdf",
+            "M8,2017.pdf"
+          ]
+        },
+        {
+          "stem": "the laps rate in the stratosphere region",
+          "marked_answer": "b",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2017_MAR.pdf",
+            "M8,2017.pdf"
+          ]
+        },
+        {
+          "stem": "if the aircraft is sideslip which stability is affected",
+          "marked_answer": "a",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2017_MAR.pdf",
+            "M8,2017.pdf"
+          ]
+        },
+        {
+          "stem": "the aileron control is used to provide control around to",
+          "marked_answer": "a",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2017_MAR.pdf",
+            "M8,2017.pdf"
+          ]
+        },
+        {
+          "stem": "in streameline ,the air",
+          "marked_answer": "b",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2017_MAR.pdf",
+            "M8,2017.pdf"
+          ]
+        },
+        {
+          "stem": "at high speed the induced drag",
+          "marked_answer": "a",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2017_MAR.pdf",
+            "M8,2017.pdf"
+          ]
+        },
+        {
+          "stem": "aileron provide which control",
+          "marked_answer": "b",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2017_MAR.pdf",
+            "M8,2017.pdf"
+          ]
+        },
+        {
+          "stem": "at height in steady flight",
+          "marked_answer": "c",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2017_MAR.pdf",
+            "M8,2017.pdf"
+          ]
+        },
+        {
+          "stem": "which does not depend on the density of air for its operation",
+          "marked_answer": "a",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2017_MAR.pdf",
+            "M8,2017.pdf"
+          ]
+        },
+        {
+          "stem": "position of centre of drag depends on",
+          "marked_answer": "c",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2019.pdf",
+            "2019_MAR.pdf"
+          ]
+        },
+        {
+          "stem": "c.p acts/is at a relative distance on the wing surface from",
+          "marked_answer": "b",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2019.pdf",
+            "2019_MAR.pdf"
+          ]
+        },
+        {
+          "stem": "pressure is _______ near the earth's surface than when it is at an altitude.",
+          "marked_answer": "a",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2019.pdf",
+            "2019_MAR.pdf"
+          ]
+        },
+        {
+          "stem": "an unstable c.p on a curved surface wrt to lift is \u2013",
+          "marked_answer": "b",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2019.pdf",
+            "2019_MAR.pdf"
+          ]
+        },
+        {
+          "stem": "which if the following doesn't depend on density \u2013",
+          "marked_answer": "a",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2019.pdf",
+            "2019_MAR.pdf"
+          ]
+        },
+        {
+          "stem": "the longitudinal dihedral is made for",
+          "marked_answer": "c",
+          "option_set_variants": 3,
+          "row_count": 3,
+          "sample_sources": [
+            "2024_FEB.pdf",
+            "QB_V1.pdf",
+            "QB_V2.pdf"
+          ]
+        },
+        {
+          "stem": "if the aircraft has sweepback wing and stall on tip the aircraft gives which movement",
+          "marked_answer": "a",
+          "option_set_variants": 3,
+          "row_count": 3,
+          "sample_sources": [
+            "2024_FEB.pdf",
+            "QB_V1.pdf",
+            "QB_V2.pdf"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "M9",
+      "path": "D:\\ai coach fonus\\code_test_fonus\\fonus\\data\\Modules\\M9\\processed\\questions.json",
+      "total_rows": 3071,
+      "unusable_pyq_rules": 45,
+      "bad_correct_answer_key": 0,
+      "distinct_stems": 2908,
+      "conflicting_duplicate_stems": 86,
+      "duplicate_same_answer_diff_options": 64,
+      "very_short_questions_lt20chars": 54,
+      "conflicting_examples": [
+        {
+          "stem": "according to shel model related to environment",
+          "distinct_marked_correct": [
+            "a",
+            "b"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2019_APRIL (2).pdf",
+            "2019_APRIL.pdf"
+          ]
+        },
+        {
+          "stem": "which one has increases the impact on fatigue",
+          "distinct_marked_correct": [
+            "b",
+            "c"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2022_JAN.pdf",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "during maintenance and inspection task lighting performed inside hangar.",
+          "distinct_marked_correct": [
+            "a",
+            "b"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2022_JAN.pdf",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "moderate carbon monoxide (co) results in.",
+          "distinct_marked_correct": [
+            "a",
+            "b"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2022_JAN.pdf",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "most accidents and incidents are depends on a day.",
+          "distinct_marked_correct": [
+            "b",
+            "d"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2022_JAN.pdf",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "what cannot use in a person.",
+          "distinct_marked_correct": [
+            "b",
+            "c"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2022_JAN.pdf",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "exposure to noise an excess of . . . . without are protection, even for a short duration is not recommend.",
+          "distinct_marked_correct": [
+            "b",
+            "c"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2022_JAN.pdf",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "visual acuity affected factor",
+          "distinct_marked_correct": [
+            "c",
+            "d"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2022_JAN.pdf",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "what range of sound is usually impaired first with the onset of presbycusis?",
+          "distinct_marked_correct": [
+            "a",
+            "c"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2022_OCT.pdf",
+            "QB_V1.pdf"
+          ]
+        },
+        {
+          "stem": "when a person moves from a poorly lit area to a well lit area, what is the minimum time they should allow for the eyes to adapt?",
+          "distinct_marked_correct": [
+            "b",
+            "c"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2022_OCT.pdf",
+            "QB_V1.pdf"
+          ]
+        },
+        {
+          "stem": "the desire of an individual to 'conform' to a group by allowing one's opinions, attitudes and actions to be affected by prevailing conditions is known as",
+          "distinct_marked_correct": [
+            "a",
+            "c"
+          ],
+          "variants": 3,
+          "sample_sources": [
+            "2022_OCT.pdf",
+            "QB_V1.pdf"
+          ]
+        },
+        {
+          "stem": "a person can be said to be motivated if",
+          "distinct_marked_correct": [
+            "a",
+            "c"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2022_OCT.pdf",
+            "QB_V1.pdf"
+          ]
+        },
+        {
+          "stem": "on a task that is complex, an engineer uses his own procedures due to pressure. this is legally termed",
+          "distinct_marked_correct": [
+            "a",
+            "c"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "2022_OCT.pdf",
+            "QB_V1.pdf"
+          ]
+        },
+        {
+          "stem": "accidents and engineering faults are",
+          "distinct_marked_correct": [
+            "b",
+            "c"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB_V1.pdf"
+          ]
+        },
+        {
+          "stem": "70 - 80% of the total focusing ability of the eye is carried out by the",
+          "distinct_marked_correct": [
+            "b",
+            "c"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB_V1.pdf"
+          ]
+        },
+        {
+          "stem": "at what distance should a person without hearing difficulties be able to hear an average conversational voice in a quiet room",
+          "distinct_marked_correct": [
+            "a",
+            "b"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB_V1.pdf"
+          ]
+        },
+        {
+          "stem": "if you have been prescribed new medicine by your doctor you should",
+          "distinct_marked_correct": [
+            "b",
+            "c"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB_V1.pdf"
+          ]
+        },
+        {
+          "stem": "your doctor has prescribed you tranquillizers as you are suffering from depression. you should",
+          "distinct_marked_correct": [
+            "b",
+            "c"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB_V1.pdf"
+          ]
+        },
+        {
+          "stem": "the use of 'pep' pills by an aircraft engineer",
+          "distinct_marked_correct": [
+            "c",
+            "d"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB_V1.pdf"
+          ]
+        },
+        {
+          "stem": "a perforated ear drum could occur if",
+          "distinct_marked_correct": [
+            "a",
+            "b"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB_V1.pdf"
+          ]
+        },
+        {
+          "stem": "how long is the short term memory good for remembering 7 items?",
+          "distinct_marked_correct": [
+            "a",
+            "b"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB_V1.pdf"
+          ]
+        },
+        {
+          "stem": "what is slow wave sleep?",
+          "distinct_marked_correct": [
+            "a",
+            "b"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB_V1.pdf"
+          ]
+        },
+        {
+          "stem": "what constitutes a good work handover?",
+          "distinct_marked_correct": [
+            "a",
+            "c"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB_V1.pdf"
+          ]
+        },
+        {
+          "stem": "human error can be caused by",
+          "distinct_marked_correct": [
+            "a",
+            "b"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB_V1.pdf"
+          ]
+        },
+        {
+          "stem": "in a discussion, the person who is most likely to be agreed with is",
+          "distinct_marked_correct": [
+            "a",
+            "c"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB_V1.pdf"
+          ]
+        },
+        {
+          "stem": "the circadian cycle body temperature",
+          "distinct_marked_correct": [
+            "a",
+            "c"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB_V1.pdf"
+          ]
+        },
+        {
+          "stem": "the scientific study of measurements of the human body is known as",
+          "distinct_marked_correct": [
+            "a",
+            "c"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB_V1.pdf"
+          ]
+        },
+        {
+          "stem": "how long can the aural reflex protect the ear from loud noise?",
+          "distinct_marked_correct": [
+            "b",
+            "c"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB_V1.pdf"
+          ]
+        },
+        {
+          "stem": "acute stress is",
+          "distinct_marked_correct": [
+            "a",
+            "b"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB_V1.pdf"
+          ]
+        },
+        {
+          "stem": "what part of the shel model would the writing and interpretation of maintenance manuals fit into?",
+          "distinct_marked_correct": [
+            "a",
+            "b"
+          ],
+          "variants": 2,
+          "sample_sources": [
+            "QB_V1.pdf"
+          ]
+        }
+      ],
+      "same_answer_diff_options_examples": [
+        {
+          "stem": "active and latent failure",
+          "marked_answer": "a",
+          "option_set_variants": 3,
+          "row_count": 3,
+          "sample_sources": [
+            "2019_APRIL (2).pdf",
+            "2019_APRIL.pdf",
+            "2019_JULY.pdf"
+          ]
+        },
+        {
+          "stem": "task lightening",
+          "marked_answer": "a",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2019_APRIL (2).pdf",
+            "2019_APRIL.pdf"
+          ]
+        },
+        {
+          "stem": "component of shel model",
+          "marked_answer": "a",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2019_APRIL (2).pdf",
+            "2019_APRIL.pdf"
+          ]
+        },
+        {
+          "stem": "in airline mesh stand for",
+          "marked_answer": "a",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2019_APRIL (2).pdf",
+            "2019_APRIL.pdf"
+          ]
+        },
+        {
+          "stem": "normal body temperature",
+          "marked_answer": "a",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2019_APRIL (2).pdf",
+            "2019_APRIL.pdf"
+          ]
+        },
+        {
+          "stem": "alcohol, diet, health and fitness will improve",
+          "marked_answer": "c",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2019_JULY.pdf",
+            "QB_V1.pdf"
+          ]
+        },
+        {
+          "stem": "violation is",
+          "marked_answer": "b",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2019_JULY.pdf",
+            "QB_V1.pdf"
+          ]
+        },
+        {
+          "stem": "delayed punishment",
+          "marked_answer": "b",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2021_OCT.pdf",
+            "2023_APRIL.pdf"
+          ]
+        },
+        {
+          "stem": "effective communication",
+          "marked_answer": "d",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2022_JAN (2).pdf",
+            "2023_APRIL.pdf"
+          ]
+        },
+        {
+          "stem": "the maintenance error is made due to various reason which one is.",
+          "marked_answer": "b",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2022_JAN.pdf",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "in human factors an ergonomics audit programme of an amo is an important element of error reduction the data collection can be from.",
+          "marked_answer": "c",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2022_JAN.pdf",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "the shel model of human factors takes into account.",
+          "marked_answer": "a",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2022_JAN.pdf",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "the desire of an individual to confirm to a group by allowing once opinion at times and actions to be affected by prevailing conditions is known as.",
+          "marked_answer": "c",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2022_JAN.pdf",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "peer pressure falls within the area of.",
+          "marked_answer": "b",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2022_JAN.pdf",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "human factor directly cause or contribute to many aviation, at least ....... of maintenance related incidents involve human factor.",
+          "marked_answer": "b",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2022_JAN.pdf",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "in a good team everyone has.",
+          "marked_answer": "a",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2022_JAN.pdf",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "commonly cited point of information, loss in aviation maintenance is at.",
+          "marked_answer": "c",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2022_JAN.pdf",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "in installation processing model, receipt of information.",
+          "marked_answer": "c",
+          "option_set_variants": 2,
+          "row_count": 2,
+          "sample_sources": [
+            "2022_JAN.pdf",
+            "QB_V4.pdf"
+          ]
+        },
+        {
+          "stem": "murphy's law can be regarded as the notion",
+          "marked_answer": "a",
+          "option_set_variants": 3,
+          "row_count": 3,
+          "sample_sources": [
+            "2022_OCT.pdf",
+            "QB_V1.pdf"
+          ]
+        },
+        {
+          "stem": "what is white finger?",
+          "marked_answer": "a",
+          "option_set_variants": 3,
+          "row_count": 3,
+          "sample_sources": [
+            "2022_OCT.pdf",
+            "QB_V1.pdf"
+          ]
+        }
+      ]
+    }
+  ]
+}

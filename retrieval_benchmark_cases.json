@@ -1,0 +1,51 @@
+[
+  {
+    "id": "m6_corrosion_good",
+    "module": "M6",
+    "question": "What is corrosion in aircraft materials?",
+    "must_contain_any": ["corrosion"],
+    "expect_sources_min": 1
+  },
+  {
+    "id": "m6_gear_topic",
+    "module": "M6",
+    "question": "Explain compound gear train definition",
+    "must_contain_any": ["gear", "transmission"],
+    "expect_sources_min": 1
+  },
+  {
+    "id": "m6_offtopic_engine_should_clarify",
+    "module": "M6",
+    "question": "Explain compressor surge",
+    "must_contain_any": ["clarify", "switch to M15", "more accurate answer"],
+    "expect_sources_min": 0
+  },
+  {
+    "id": "m5_arinc_compare",
+    "module": "M5",
+    "question": "Difference between ARINC 429 and ARINC 664",
+    "must_contain_any": ["arinc 429", "arinc 664"],
+    "expect_sources_min": 0
+  },
+  {
+    "id": "m8_core",
+    "module": "M8",
+    "question": "What is lift in aerodynamics?",
+    "must_contain_any": ["lift"],
+    "expect_sources_min": 1
+  },
+  {
+    "id": "m8_offtopic_hf_should_redirect",
+    "module": "M8",
+    "question": "What is SHELL model?",
+    "must_contain_any": ["switch to M9", "clarify", "more accurate answer"],
+    "expect_sources_min": 0
+  },
+  {
+    "id": "m10_ground_truth",
+    "module": "M10",
+    "question": "What is CAR 66 pass mark?",
+    "must_contain_any": ["pass mark", "75%"],
+    "expect_sources_min": 1
+  }
+]

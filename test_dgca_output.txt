@@ -1,0 +1,3 @@
+DATA_DIR: D:\ai coach fonus\code_test_fonus\fonus\data\books
+DATA_DIR exists: True
+Files in DATA_DIR: 303

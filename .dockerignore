@@ -1,0 +1,47 @@
+# ============================================================
+# FONUS — .dockerignore
+# ============================================================
+#
+# This file tells Docker which files NOT to include in the 
+# container image. This keeps the image small and fast.
+# ============================================================
+
+# Virtual Environments (Huge, never goes in Docker)
+.venv/
+venv/
+env/
+
+# Large Data Folders (We mount these as volumes or use Cloud)
+data/
+indexes/
+dgca_index_store/
+
+# Node.js dependencies (Huge)
+node_modules/
+fonus-frontend/node_modules/
+
+# Python Cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Git History (Not needed in production)
+.git/
+.gitignore
+
+# Secrets (We use env_file in docker-compose instead)
+.env
+.env.local
+backend/.env
+fonus-frontend/.env.local
+
+# Logs
+*.log
+uvicorn.log
+
+# Other
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

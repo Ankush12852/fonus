@@ -1,0 +1,93 @@
+--- 1. BOOKS.JSON ---
+M1: ['AME_MATHEMATICS_EASA 01.pdf']
+M2: ['AME_PHYSICS_EASA 02.pdf']
+M3: ["AME_Basic Electronics_GROB'S.pdf", 'AME_Basic electrical engineering_VK METHA.pdf', 'AME_Electrical fundamentals_EASA 03.pdf']
+M4: ['AME_Principles of electronics_S.CHAND.pdf', 'AME_Electrical Technology Volume 04_BL Theraja.pdf', 'AME_Electrical fundamentals_EASA 04 B1.pdf', 'AME_Electrical fundamentals_EASA 04 B2.pdf']
+M5: ['AME_Digital Techniques Electronic Instruments_ EASA 05 B1.pdf', 'AME_Digital Techniques Elextronic Instrument System_ EASA 05 B2.pdf', 'AME_AIRCRAFT INSTRUMENTS & INTEGRATED SYSTEM _E.H.J PALLETT.pdf', 'AME_DIGITAL PRINCIPLES AND APPLICATION_LEACH & MALVINO.pdf', 'AME_ Aircraft Digital Electronic and Computer Systems_MIKE TOOLEY.pdf']
+M6: ['AME_MATERIALS AND HARDWARE _EASA 06 B1 B2.pdf', 'AME_CAIP PART 1 _CAA.pdf', 'AME_AIRCRAFT ADVANCE COMPOSITE_CINDY FOREMAN.pdf', 'AME_AIRCRAFT MATERIALS AND PROCESSES _GEORGE F. TITTERTON.pdf']
+M7A: ['AME_Maintenance practices_EASA 07.pdf', 'AME_CAIP PART 1 _CAA.pdf', 'AME_CAIP PART 2 _CAA.pdf', 'AME_mechanics general _FAA.pdf', 'AME_Aircraft maintenance and repair_ Mc Graw Hill Education.pdf']
+M7B: ['AME_Maintenance practices_EASA 07.pdf', 'AME_CAIP PART 1 _CAA.pdf', 'AME_CAIP PART 2 _CAA.pdf']
+M8: ['AME_Basic aerodinamic_EASA 08.pdf', 'AME_Mechanics of flight_A.C Karmode.pdf']
+M9: ['AME_ HF CAP 715_CAA.pdf', 'AME_HF CAP 716_CAA.pdf', 'AME_HF CAP 718_CAA.pdf', 'AME_HUMAN FACTOR _ EASA 09 (B1 & B2 ).pdf']
+M10: ['ALL_CAR_SECTIONS']
+M11A: ['AME_Turbine aeroplane aerodynamics,structures and system_EASA 11A.pdf']
+M11B: ['AME_Turbine aeroplane aerodynamics,structures and system_EASA 11A.pdf']
+M11C: ['AME_Turbine aeroplane aerodynamics,structures and system_EASA 11A.pdf']
+M12: ['AME_Helicopter aerodynamic,structure and syatem_EASA 12.pdf', 'AME_CAIP PART 2 _CAA.pdf']
+M13: ['AME_Aircraft structure and system_EASA 13.pdf', 'AME_AUTOMATIC FLIGHT CONTROL_Blackwell Science.pdf', 'AME_CAIP PART 2 _CAA.pdf', 'AME_Civil avionics system_lan Moir and Allan Seabridge.pdf', 'AME_Civil avionics system 2nd EDI_WILEY.pdf']
+M14: ['AME_Propilsion_EASA 14.pdf', 'AME_Aviation maintenance Technician Handbook powerplant_FAA.pdf']
+M15: ['AME_Gas turbine engine_EASA 15.pdf', 'AME_Gas turbine engineering handbook_GULF PROFESSIONAL PUBLISHING.pdf', 'AME_Powerplant handbook_FAA.pdf']
+M16: ['AME_Piston engine_EASA 16.pdf', 'AME_Piston engine_ITS.pdf', 'AME_Aircraft propulsion 2nd EDI_SAEED FAROKHI.pdf']
+M17A: ['AME_Propeller B1_EASA 17 A.pdf', 'AME_Powerplant Tectbook_jeppesen.pdf', 'AME_Propeller aerodynamics_FRANK E.HITCHENS.pdf']
+M17B: ['AME_Propeller B1_EASA 17 A.pdf', 'AME_Propeller aerodynamics_FRANK E.HITCHENS.pdf']
+
+--- 2. INDEXES SIZES ---
+M1: 2.26 MB
+M11A: 13.25 MB
+M11B: 13.25 MB
+M11C: 13.25 MB
+M12: 23.91 MB
+M13: 50.26 MB
+M14: 14.09 MB
+M15: 74.01 MB
+M16: 32.64 MB
+M17A: 16.55 MB
+M17B: 3.09 MB
+M2: 1.86 MB
+M3: 37.39 MB
+M4: 26.79 MB
+M5: 25.30 MB
+M6: 28.26 MB
+M7A: 60.91 MB
+M7B: 41.43 MB
+M8: 1.15 MB
+M9: 1.93 MB
+
+--- 3. DATA/MODULES ---
+M10: 0 question files, Chunks: Not Found
+M11A: 0 question files, Chunks: Not Found
+M12: 0 question files, Chunks: Not Found
+M13: 0 question files, Chunks: Not Found
+M14: 0 question files, Chunks: Not Found
+M15: 0 question files, Chunks: Not Found
+M16: 0 question files, Chunks: Not Found
+M17: 0 question files, Chunks: Not Found
+M3: 0 question files, Chunks: Not Found
+M4: 0 question files, Chunks: Not Found
+M5: 0 question files, Chunks: Not Found
+M6: 0 question files, Chunks: Not Found
+M7: 0 question files, Chunks: Not Found
+M8: 0 question files, Chunks: Not Found
+M9: 0 question files, Chunks: Not Found
+
+--- 4. NEW TXT FILES NOT IN data/books/ ---
+data\Modules\M8\processed\raw_text\AME_Basic aerodinamic_EASA 08.txt
+data\Modules\M9\processed\raw_text\AME_HF CAP 716_CAA.txt
+data\Modules\M9\processed\raw_text\AME_HF CAP 718_CAA.txt
+data\Modules\M9\processed\raw_text\AME_HUMAN FACTOR _ EASA 09 (B1 & B2 ).txt
+data\books\AME_Aircraft propulsion 2nd EDI_SAEED FAROKHI.txt
+data\books\AME_Basic Electronics_GROB'S.txt
+data\books\AME_Civil avionics system_lan Moir and Allan Seabridge.txt
+data\books\AME_Electrical Technology Volume 04_BL Theraja.txt
+data\books\AME_Helicopter aerodynamic,structure and syatem_EASA 12.txt
+data\books\AME_Principles of electronics_S.CHAND.txt
+data\books\AME_Propeller B1_EASA 17 A.txt
+data\books\AME_SHOP THEORY_JANES ANDERSON EARL E. TATRO.txt
+data\books\AME_mechanics general _FAA.txt
+data\books\CAR_section 1.txt
+data\books\CAR_section 2_SERIES B_PART I.txt
+data\books\CAR_section 2_SERIES C_PART I.txt
+data\books\CAR_section 2_SERIES E_CAR 145_Issue 2.txt
+data\books\CAR_section 2_SERIES E_CAR 145_issue 3.txt
+data\books\CAR_section 2_SERIES E_CAR M_issue 2.txt
+data\books\CAR_section 2_SERIES E_CAR M_issue 3.txt
+data\books\CAR_section 2_SERIES E_CAR-CAMO.txt
+data\books\CAR_section 2_SERIES E_CAR-CAO.txt
+data\books\CAR_section 2_SERIES E_CAR-ML.txt
+data\books\CAR_section 2_SERIES E_PART III.txt
+data\books\CAR_section 2_SERIES E_PART XI.txt
+data\books\CAR_section 2_SERIES E_PART XII.txt
+data\books\CAR_section 3_SERIES D_PART I.txt
+data\books\CAR_section 3_SERIES E_PART I.txt
+data\books\CAR_section 7_SERIES B_PART VIII.txt
+data\books\CAR_section 7_SERIES F_PART I.txt
