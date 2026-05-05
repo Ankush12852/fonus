@@ -37,9 +37,11 @@ import pickle
 from llama_index.core import StorageContext, load_index_from_storage, Settings, PromptTemplate
 try:
     from llama_index.embeddings.huggingface import HuggingFaceEmbedding
+    EMBEDDINGS_AVAILABLE = True
 except ImportError:
     HuggingFaceEmbedding = None
-    print("Warning: HuggingFaceEmbedding not available - using default")
+    EMBEDDINGS_AVAILABLE = False
+    print("INFO: Running without HuggingFace - existing indexes still work")
 from llama_index.llms.groq import Groq
 from llama_index.core.node_parser import SentenceSplitter
 from llama_index.retrievers.bm25 import (
@@ -377,15 +379,12 @@ def load_env():
 
 
 def init_settings():
-    try:
-        embed_model = HuggingFaceEmbedding(
-            model_name="BAAI/bge-small-en-v1.5"
-        )
-    except:
-        embed_model = None
-
-    if embed_model:
-        Settings.embed_model = embed_model
+    if EMBEDDINGS_AVAILABLE:
+        try:
+            embed_model = HuggingFaceEmbedding(model_name="BAAI/bge-small-en-v1.5")
+            Settings.embed_model = embed_model
+        except Exception as e:
+            print(f"INFO: Could not load embedding model: {e}")
     Settings.llm = Groq(
         model="llama-3.3-70b-versatile",
         api_key=os.getenv("GROQ_API_KEY"),
